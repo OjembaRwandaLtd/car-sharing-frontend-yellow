@@ -1,3 +1,4 @@
+import TransparentButton from '../components/TransparentButton'
 import WhiteButton from '../components/WhiteButton'
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
           <span>What are you up to today?</span>
         </p>
         <WhiteButton />
+        <p className="my-6 text-center font-lora text-xl font-medium text-white">or</p>
+        <TransparentButton />
       </div>
     </>
   )
