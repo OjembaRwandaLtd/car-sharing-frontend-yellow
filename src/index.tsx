@@ -9,10 +9,28 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
+import AppLayout from './pages/AppLayout'
+import LoginLayout from './pages/LoginLayout'
+import NotFoundPage from './pages/NotFoundPage'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = ReactDOM.createRoot(document.getElementById('root')!)
-const router = createBrowserRouter(createRoutesFromElements(<Route path="/" element={<App />} />))
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" errorElement={<NotFoundPage />}>
+      {/*Routes about login pages*/}
+      <Route path="" element={<LoginLayout />}>
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+
+      {/*Routes about app */}
+      <Route path="/home" element={<AppLayout />}>
+        <Route index element={<App />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Route>,
+  ),
+)
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

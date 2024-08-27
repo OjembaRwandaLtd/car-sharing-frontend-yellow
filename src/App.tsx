@@ -10,7 +10,7 @@ configure({
 })
 function App(): ReactElement {
   return (
-    <main className="mx-auto flex min-h-screen w-1/3 flex-col gap-8 py-10">
+    <main className="mx-auto flex min-h-screen w-full flex-col gap-8 px-5 py-10 md:w-1/3">
       <h1 className="font-inter text-4xl font-bold text-primary-blue">Hello to MoniShare</h1>
       <p className="font-lora">
         If you can read this, you have successfully started the base frontend repository!
