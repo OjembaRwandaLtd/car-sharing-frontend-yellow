@@ -1,5 +1,4 @@
-import TransparentButton from '../components/TransparentButton'
-import WhiteButton from '../components/WhiteButton'
+import Button from '../components/Button'
 
 export default function Home() {
   return (
@@ -12,9 +11,9 @@ export default function Home() {
           Hello Manuela!!
           <span>What are you up to today?</span>
         </p>
-        <WhiteButton car="Book Car" />
+        <Button car="Book Car" isActive={true} />
         <p className="my-6 text-center font-lora text-xl font-medium text-white">or</p>
-        <TransparentButton viewCar="See My Cars" />
+        <Button car="See My Cars" isActive={false} />
       </div>
     </>
   )
