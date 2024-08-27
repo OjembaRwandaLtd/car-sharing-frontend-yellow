@@ -12,9 +12,9 @@ export default function Home() {
           Hello Manuela!!
           <span>What are you up to today?</span>
         </p>
-        <WhiteButton />
+        <WhiteButton car="Book Car" />
         <p className="my-6 text-center font-lora text-xl font-medium text-white">or</p>
-        <TransparentButton />
+        <TransparentButton viewCar="See My Cars" />
       </div>
     </>
   )
