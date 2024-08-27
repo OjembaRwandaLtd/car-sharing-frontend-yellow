@@ -1,3 +1,5 @@
+import WhiteButton from '../components/WhiteButton'
+
 export default function Home() {
   return (
     <>
@@ -9,6 +11,7 @@ export default function Home() {
           Hello Manuela!!
           <span>What are you up to today?</span>
         </p>
+        <WhiteButton />
       </div>
     </>
   )
