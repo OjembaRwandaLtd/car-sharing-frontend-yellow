@@ -3,7 +3,6 @@ export const ButtonStyles = {
   primary: 'bg-white text-primary-indigo',
   secondary: 'border-2 border-white text-white',
 }
-
 interface ButtonProps {
   variant: keyof typeof ButtonStyles
   children: React.ReactNode
