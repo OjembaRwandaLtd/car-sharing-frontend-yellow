@@ -1,16 +1,21 @@
-interface Props {
-  buttonText: string
-  customStyles: string
+export enum ButtonStyles {
+  Primary = 'bg-white text-primary-indigo',
+  Secondary = 'border-2 border-white text-white',
 }
 
-export default function Button({ buttonText, customStyles }: Props) {
+interface ButtonProps {
+  ButtonStyles: ButtonStyles
+  children: React.ReactNode
+}
+
+export default function Button({ children, ButtonStyles }: ButtonProps) {
   return (
     <>
       <button
-        className={`bg- mx-4 h-11 w-11/12 rounded-3xl text-center font-inter text-sm font-bold 
-        ${customStyles} `}
+        className={`mx-3 rounded-3xl py-3 text-center font-inter text-sm font-bold 
+        ${ButtonStyles} `}
       >
-        {buttonText}
+        {children}
       </button>
     </>
   )
