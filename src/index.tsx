@@ -9,8 +9,8 @@ import {
   Route,
   RouterProvider,
 } from 'react-router-dom'
-import AppLayout from './pages/AppLayout'
-import LoginLayout from './pages/LoginLayout'
+import AppLayout from './layouts/AppLayout'
+import LoginLayout from './layouts/LoginLayout'
 import NotFoundPage from './pages/NotFoundPage'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
