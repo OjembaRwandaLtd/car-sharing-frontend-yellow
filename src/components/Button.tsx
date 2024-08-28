@@ -12,7 +12,7 @@ export default function Button({ children, variantName }: ButtonProps) {
   return (
     <>
       <button
-        className={`mx-4 h-11 w-11/12 rounded-3xl text-center font-inter text-sm font-bold 
+        className={`mx-3 rounded-3xl py-3 text-center font-inter text-sm font-bold 
         ${variantName} `}
       >
         {children}
