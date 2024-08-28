@@ -4,16 +4,16 @@ export enum ButtonStyles {
 }
 
 interface ButtonProps {
-  variantName: ButtonStyles
+  ButtonStyles: ButtonStyles
   children: React.ReactNode
 }
 
-export default function Button({ children, variantName }: ButtonProps) {
+export default function Button({ children, ButtonStyles }: ButtonProps) {
   return (
     <>
       <button
         className={`mx-3 rounded-3xl py-3 text-center font-inter text-sm font-bold 
-        ${variantName} `}
+        ${ButtonStyles} `}
       >
         {children}
       </button>
