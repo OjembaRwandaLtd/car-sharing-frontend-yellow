@@ -36,7 +36,7 @@ export default function MenuList() {
       <MenuItems
         transition
         anchor="bottom end"
-        className="w-56 rounded-lg bg-secondary-indigo px-6 pb-6 [--anchor-gap:2.875rem]"
+        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-6 pb-6"
       >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
