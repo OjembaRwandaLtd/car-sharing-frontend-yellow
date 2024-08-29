@@ -1,7 +1,7 @@
 import Button from '../components/Button'
 
 export default function Home() {
-  const users = [{ username: 'Manuela' }, { username: 'Alexa' }]
+  const users = [{ username: 'Manuela' }, { username: 'Alexa' }] // Dummy data
   const buttonItems = [
     {
       name: 'See My Cars',
@@ -21,7 +21,7 @@ export default function Home() {
     <>
       <div className="h-screen w-full bg-primary-indigo px-4 py-10">
         <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50">
-          MONI <span className="font-medium italic">share</span>
+          CAR <span className="font-medium italic">sharing</span>
         </h1>
         <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100">
           Hello {users[0].username}!!
