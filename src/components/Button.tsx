@@ -12,7 +12,7 @@ interface ButtonProps {
 
 export default function Button({ children, variant, handleClick, disabled }: ButtonProps) {
   const buttonClass = classNames(
-    'mx-3 rounded-3xl py-3 text-center font-inter text-sm font-bold',
+    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
     ButtonStyles[variant],
   )
   return (
