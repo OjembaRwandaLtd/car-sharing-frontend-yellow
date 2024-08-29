@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 
-import router from './routes/Router'
+import router from './routes/router'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const root = ReactDOM.createRoot(document.getElementById('root')!)
