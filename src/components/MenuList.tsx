@@ -33,7 +33,11 @@ export default function MenuList() {
       <MenuButton className="bg-primary-blue text-white">
         {({ active }) => <span> {active ? 'Close' : 'Menu'}</span>}
       </MenuButton>
-      <MenuItems className="w-56 rounded-lg bg-secondary-indigo px-6 pb-6">
+      <MenuItems
+        transition
+        anchor="bottom end"
+        className="w-56 rounded-lg bg-secondary-indigo px-6 pb-6 [--anchor-gap:2.875rem]"
+      >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
           <h3 className="font-semibold text-white">My cars</h3>
