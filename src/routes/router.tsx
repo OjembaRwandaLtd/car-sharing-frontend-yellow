@@ -1,5 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom'
-import LoginLayout from '../layouts/LoginLayout'
+import GuestLayout from '../layouts/GuestLayout'
 import AppLayout from '../layouts/AppLayout'
 import App from '../App'
 import AddCar from '../pages/AddCar'
@@ -10,10 +10,9 @@ import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 
-const links = {
-  default: '',
-  login: '/login',
+export const links = {
   home: '/',
+  login: '/login',
   addCar: '/add-car',
   myBookings: '/my-bookings',
   newBooking: '/new-booking',
@@ -29,7 +28,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: links.login,
-        element: <LoginLayout />,
+        element: <GuestLayout />,
         children: [
           {
             path: links.notFound,
@@ -38,7 +37,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: links.default,
+        path: links.home,
         element: <AppLayout />,
         children: [
           {
