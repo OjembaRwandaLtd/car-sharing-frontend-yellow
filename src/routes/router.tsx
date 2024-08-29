@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom'
-import NotFoundPage from '../pages/NotFoundPage'
 import LoginLayout from '../layouts/LoginLayout'
 import AppLayout from '../layouts/AppLayout'
 import App from '../App'
@@ -8,6 +7,8 @@ import MyBookings from '../pages/MyBookings'
 import NewBooking from '../pages/NewBooking'
 import MyCars from '../pages/MyCars'
 import ManageBookings from '../pages/ManageBookings'
+import ErrorPage from '../pages/ErrorPage'
+import NotFoundPage from '../pages/NotFoundPage'
 
 const links = {
   default: '',
@@ -24,7 +25,7 @@ const links = {
 const router = createBrowserRouter([
   {
     path: links.home,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: links.login,
