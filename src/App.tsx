@@ -10,7 +10,7 @@ configure({
   },
 })
 function App(): ReactElement {
-  return <Home></Home>
+  return <Home />
 }
 
 export default App
