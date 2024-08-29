@@ -13,7 +13,7 @@ const MenuItem = forwardRef<HTMLAnchorElement, MenuItemProps>(function (
 ) {
   return (
     <NavLink ref={ref} to={path} className="flex items-center gap-3 font-inter text-white">
-      <span className="h-6 w-6 object-contain">{icon}</span>
+      <span className="h-6 w-6">{icon}</span>
       <span>{title}</span>
     </NavLink>
   )
