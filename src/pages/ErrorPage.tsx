@@ -3,7 +3,7 @@ import ErrorPageIcon from '../assets/ErrorPageIcon'
 
 export default function ErrorPage() {
   return (
-    <div className="h-screen w-full bg-primary-indigo py-10 px-4">
+    <div className="h-screen w-full bg-primary-indigo px-4 py-10">
       <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50">
         OOOOOPS!
       </h1>
