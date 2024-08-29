@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-import MenuList from './components/MenuList'
 
 // Configure axios hooks
 // Do not delete this if you want to use the provided API hooks in `src/hooks`
@@ -17,7 +16,6 @@ function App(): ReactElement {
         If you can read this, you have successfully started the base frontend repository!
       </p>
       <p>Happy coding!</p>
-      <MenuList />
     </main>
   )
 }
