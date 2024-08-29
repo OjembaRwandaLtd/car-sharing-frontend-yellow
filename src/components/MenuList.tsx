@@ -6,10 +6,8 @@ import BookingsIcon from '../assets/BookingsIcon'
 import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
-import { useState } from 'react'
 
 export default function MenuList() {
-  const [menuText, setMenuText] = useState<string>('Menu')
   const generalDetails = [
     { icon: <CarIcon />, title: 'Book A Car', path: 'new-booking' },
     { icon: <BookingsIcon />, title: 'Bookings', path: 'my-bookings' },
@@ -30,16 +28,16 @@ export default function MenuList() {
     </HUMenuItem>
   ))
 
-  function handleMenuClick() {
-    setMenuText(previousText => (previousText === 'Menu' ? 'Close' : 'Menu'))
-  }
-
   return (
     <Menu>
-      <MenuButton className=" bg-primary-blue text-white" onClick={handleMenuClick}>
-        {menuText}
+      <MenuButton className="bg-primary-blue text-white">
+        {({ active }) => <span> {active ? 'Close' : 'Menu'}</span>}
       </MenuButton>
-      <MenuItems className="w-56 rounded-lg bg-secondary-indigo px-6 pb-6">
+      <MenuItems
+        transition
+        anchor="bottom end"
+        className="w-56 rounded-lg bg-secondary-indigo px-6 pb-6 [--anchor-gap:2.875rem]"
+      >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
           <h3 className="font-semibold text-white">My cars</h3>
