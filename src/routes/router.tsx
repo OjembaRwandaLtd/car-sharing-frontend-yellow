@@ -9,6 +9,7 @@ import MyCars from '../pages/MyCars'
 import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import CarDetails from '../pages/CarDetails'
 
 export const links = {
   home: '/',
@@ -18,6 +19,7 @@ export const links = {
   newBooking: '/new-booking',
   myCars: '/my-cars',
   manageBookings: '/manage-bookings',
+  carDetails: '/car-details',
   notFound: '*',
 }
 
@@ -55,6 +57,10 @@ const router = createBrowserRouter([
           {
             path: links.newBooking,
             element: <NewBooking />,
+          },
+          {
+            path: links.carDetails,
+            element: <CarDetails />,
           },
           {
             path: links.myCars,
