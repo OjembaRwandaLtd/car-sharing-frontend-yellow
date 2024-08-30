@@ -4,8 +4,6 @@ interface CarCardProps {
   car: CarDto
 }
 
-export default function CarCard({ car }: CarCardProps) {
-  // console.log(car.id)
-  console.log(car.id)
-  return <div>working</div>
+export default function CarCard({ car }: Readonly<CarCardProps>) {
+  return <div>{car.id}</div>
 }
