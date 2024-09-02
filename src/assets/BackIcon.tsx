@@ -1,18 +1,18 @@
 import { ReactElement } from 'react'
 
-interface LessThanIconProps {
+interface BackIconProps {
   className?: string
 }
 
-export default function LessThanIcon({ className }: LessThanIconProps): ReactElement {
+export default function BackIcon({ className }: BackIconProps): ReactElement {
   return (
     <svg
-      width="48" // Increase the size for a bigger icon
+      width="32"
       height="48"
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      stroke="white" // Set stroke color to white
+      stroke="#F8FCAD" // Set stroke color to white
       className={className}
     >
       <path
