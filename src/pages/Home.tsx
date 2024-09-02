@@ -1,19 +1,19 @@
 import Button from '../components/Button'
-import { LINKS } from '../routes/router'
+import { Links } from '../routes/router'
 
 export default function Home() {
   const users = [{ username: 'Manuela' }, { username: 'Alexa' }] // Dummy data
   const buttonItems = [
     {
       name: 'See My Cars',
-      pathRoute: LINKS.MY_CARS,
+      pathRoute: Links.MY_CARS,
       stylesVariant: 'primary' as const,
       isDisabled: false,
       functionVariant: 'link',
     },
     {
       name: 'See My Bookings',
-      pathRoute: LINKS.MY_BOOKINGS,
+      pathRoute: Links.MY_BOOKINGS,
       stylesVariant: 'secondary' as const,
       isDisabled: false,
       functionVariant: 'link',
@@ -30,7 +30,7 @@ export default function Home() {
         <span>What are you up to today?</span>
       </p>
       <div className="flex">
-        <Button path={LINKS.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
+        <Button path={Links.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
           Book A car
         </Button>
       </div>
