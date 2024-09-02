@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
-// import Home from './pages/Home'
 import { RouterProvider } from 'react-router-dom'
 
 import router from './routes/router'
@@ -13,10 +12,5 @@ configure({
   },
 })
 export default function App(): ReactElement {
-  return (
-    <>
-      {/* <Home /> */}
-      <RouterProvider router={router} />
-    </>
-  )
+  return <RouterProvider router={router} />
 }
