@@ -10,7 +10,7 @@ import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home'
 
-export enum LINKS {
+export enum Links {
   HOME = '/',
   LOGIN = '/login',
   ADD_CAR = '/add-car',
@@ -23,21 +23,21 @@ export enum LINKS {
 
 const router = createBrowserRouter([
   {
-    path: LINKS.HOME,
+    path: Links.HOME,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: LINKS.LOGIN,
+        path: Links.LOGIN,
         element: <GuestLayout />,
         children: [
           {
-            path: LINKS.NOT_FOUND,
+            path: Links.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],
       },
       {
-        path: LINKS.HOME,
+        path: Links.HOME,
         element: <AppLayout />,
         children: [
           {
@@ -45,27 +45,27 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: LINKS.ADD_CAR,
+            path: Links.ADD_CAR,
             element: <AddCar />,
           },
           {
-            path: LINKS.MY_BOOKINGS,
+            path: Links.MY_BOOKINGS,
             element: <MyBookings />,
           },
           {
-            path: LINKS.NEW_BOOKING,
+            path: Links.NEW_BOOKING,
             element: <NewBooking />,
           },
           {
-            path: LINKS.MY_CARS,
+            path: Links.MY_CARS,
             element: <MyCars />,
           },
           {
-            path: LINKS.MANAGE_BOOKINGS,
+            path: Links.MANAGE_BOOKINGS,
             element: <ManageBookings />,
           },
           {
-            path: LINKS.NOT_FOUND,
+            path: Links.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],

@@ -6,17 +6,17 @@ import BookingsIcon from '../assets/BookingsIcon'
 import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
-import { LINKS } from '../routes/router'
+import { Links } from '../routes/router'
 
 export default function MenuList() {
   const generalDetails = [
-    { icon: <CarIcon />, title: 'Book A Car', path: LINKS.NEW_BOOKING },
-    { icon: <BookingsIcon />, title: 'Bookings', path: LINKS.MY_BOOKINGS },
+    { icon: <CarIcon />, title: 'Book A Car', path: Links.NEW_BOOKING },
+    { icon: <BookingsIcon />, title: 'Bookings', path: Links.MY_BOOKINGS },
   ]
   const myCarsDetails = [
-    { icon: <CarsIcon />, title: 'See my Cars', path: LINKS.MY_CARS },
-    { icon: <ListIcon />, title: "My Car's Bookings", path: LINKS.MANAGE_BOOKINGS },
-    { icon: <CarPlusIcon />, title: 'Add New Car', path: LINKS.ADD_CAR },
+    { icon: <CarsIcon />, title: 'See my Cars', path: Links.MY_CARS },
+    { icon: <ListIcon />, title: "My Car's Bookings", path: Links.MANAGE_BOOKINGS },
+    { icon: <CarPlusIcon />, title: 'Add New Car', path: Links.ADD_CAR },
   ]
   const generalItems = generalDetails.map(generalDetail => (
     <HUMenuItem key={generalDetail.title}>
