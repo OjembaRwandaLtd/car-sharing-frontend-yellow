@@ -12,7 +12,7 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
   const hasIcons = MenuList || ProfileIcon
 
   const navClassname = classNames(
-    'sticky top-0 z-20 flex justify-between rounded-b-lg bg-primary-blue p-5 font-inter text-gray-100 shadow-lg',
+    'sticky top-0 z-20 flex justify-between rounded-b-lg bg-primary-blue p-5 font-inter text-primary-white shadow-lg',
     {
       [className]: !hasIcons,
     },
