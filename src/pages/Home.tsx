@@ -19,7 +19,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-screen w-full bg-primary-indigo px-4 py-10">
+      <div className="h-screen w-full px-4 py-10">
         <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50">
           CAR <span className="font-medium italic">sharing</span>
         </h1>
