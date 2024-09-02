@@ -10,34 +10,34 @@ import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home'
 
-export const links = {
-  home: '/',
-  login: '/login',
-  addCar: '/add-car',
-  myBookings: '/my-bookings',
-  newBooking: '/new-booking',
-  myCars: '/my-cars',
-  manageBookings: '/manage-bookings',
-  notFound: '*',
+export enum LINKS {
+  HOME = '/',
+  LOGIN = '/login',
+  ADD_CAR = '/add-car',
+  MY_BOOKINGS = '/my-bookings',
+  NEW_BOOKING = '/new-booking',
+  MY_CARS = '/my-cars',
+  MANAGE_BOOKINGS = '/manage-bookings',
+  NOT_FOUND = '*',
 }
 
 const router = createBrowserRouter([
   {
-    path: links.home,
+    path: LINKS.HOME,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: links.login,
+        path: LINKS.LOGIN,
         element: <GuestLayout />,
         children: [
           {
-            path: links.notFound,
+            path: LINKS.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],
       },
       {
-        path: links.home,
+        path: LINKS.HOME,
         element: <AppLayout />,
         children: [
           {
@@ -45,27 +45,27 @@ const router = createBrowserRouter([
             element: <Home />,
           },
           {
-            path: links.addCar,
+            path: LINKS.ADD_CAR,
             element: <AddCar />,
           },
           {
-            path: links.myBookings,
+            path: LINKS.MY_BOOKINGS,
             element: <MyBookings />,
           },
           {
-            path: links.newBooking,
+            path: LINKS.NEW_BOOKING,
             element: <NewBooking />,
           },
           {
-            path: links.myCars,
+            path: LINKS.MY_CARS,
             element: <MyCars />,
           },
           {
-            path: links.manageBookings,
+            path: LINKS.MANAGE_BOOKINGS,
             element: <ManageBookings />,
           },
           {
-            path: links.notFound,
+            path: LINKS.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],
