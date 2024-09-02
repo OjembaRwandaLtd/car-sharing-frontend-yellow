@@ -19,17 +19,17 @@ export default function Home() {
 
   return (
     <div className="h-screen w-full px-4 py-10">
-      <h1 className="flex flex-col text-center font-lora text-5xl font-bold bg-primary-white">
+      <h1 className="flex flex-col bg-primary-white text-center font-lora text-5xl font-bold">
         CAR <span className="font-medium italic">sharing</span>
       </h1>
-      <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium bg-primary-white">
+      <p className="mx-auto my-12 flex flex-col bg-primary-white text-center font-lora text-xl font-medium">
         Hello {users[0].username}!!
         <span>What are you up to today?</span>
       </p>
       <Button variant="primary" disabled={false} handleClick={() => {}}>
         Book A car
       </Button>
-      <p className="my-7 text-center font-lora text-xl font-medium bg-primary-white">or</p>
+      <p className="my-7 bg-primary-white text-center font-lora text-xl font-medium">or</p>
       <div className="flex flex-col gap-4">
         {buttonItems.map((buttonItem, index) => (
           <Button
