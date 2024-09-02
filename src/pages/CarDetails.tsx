@@ -26,24 +26,24 @@ export default function CarDetails() {
     { title: carData?.licensePlate, icon: <LicensePlateIcon /> },
     { title: carData?.horsepower && `${carData?.horsepower}hp`, icon: <HorseIcon /> },
     { title: carData?.fuelType, icon: <FuelIcon /> },
-    { title: carData?.info, icon: <DangerIcon /> },
+    { title: carData?.info, icon: <DangerIcon />, className: 'font-bold' },
   ]
 
   const allCarDetails = carDetails
     .filter(item => item.title)
-    .map(item => <CarDetailsItem key={item.title} title={item.title} icon={item.icon} />)
+    .map(item => <CarDetailsItem key={item.title} {...item} />)
 
   return (
-    <div className="px-5 py-8 text-gray-100">
+    <div className="px-5 py-8 text-primary-white">
       <div className="flex items-center">
         <Link to=".." relative="path">
           <ChevronBackIcon />
         </Link>
-        <h1 className="w-96 text-center font-lora text-3xl font-semibold text-white">DETAILS</h1>
+        <h1 className="w-96 text-center font-lora text-3xl font-medium ">DETAILS</h1>
       </div>
-      <img src={carImage} alt="car" />
-      <h2>{carData?.name}</h2>
-      <div className="flex flex-col">{allCarDetails}</div>
+      <img className="mb-10 mt-8 h-52 w-full object-cover" src={carImage} alt="car" />
+      <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
+      <div className="flex flex-col gap-2 py-8 pl-11">{allCarDetails}</div>
     </div>
   )
 }
