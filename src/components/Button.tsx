@@ -1,26 +1,50 @@
 import classNames from 'classnames'
-import { ButtonHTMLAttributes } from 'react'
+import React, { ButtonHTMLAttributes } from 'react'
+import { NavLink } from 'react-router-dom'
+
 export const ButtonStyles = {
   primary: 'bg-white text-primary-indigo',
   secondary: 'border-2 border-white text-white',
-}
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: keyof typeof ButtonStyles
-  children: React.ReactNode
-  handleClick: () => void
-  disabled: boolean
+  disabled: 'bg-slate-400 text-primary-indigo',
 }
 
-export default function Button({ children, variant, handleClick, disabled, ...rest }: ButtonProps) {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  stylesVariant: keyof typeof ButtonStyles
+  functionVariant: 'button' | 'link'
+  children: React.ReactNode
+  path: string
+  isDisabled: boolean
+}
+
+export default function Button({
+  children,
+  stylesVariant: variant,
+  functionVariant,
+  path,
+  isDisabled,
+}: ButtonProps) {
+  function handleClick(e: React.MouseEvent<HTMLAnchorElement | HTMLButtonElement, MouseEvent>) {
+    if (isDisabled) {
+      e.preventDefault()
+    }
+  }
+
   const buttonClass = classNames(
     'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
     ButtonStyles[variant],
   )
-  return (
-    <>
-      <button className={buttonClass} {...rest} onClick={handleClick} aria-disabled={disabled}>
+
+  if (functionVariant === 'button') {
+    return (
+      <button className={buttonClass} onClick={handleClick}>
         {children}
       </button>
-    </>
+    )
+  }
+
+  return (
+    <NavLink to={path} className={buttonClass} onClick={handleClick}>
+      {children}
+    </NavLink>
   )
 }

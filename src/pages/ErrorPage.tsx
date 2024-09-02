@@ -14,7 +14,7 @@ export default function ErrorPage() {
         Something went wrong.
         <span>We will solve your issue soon.</span>
       </p>
-      <Button variant="secondary" disabled={false} handleClick={() => {}}>
+      <Button stylesVariant="secondary" disabled={false} handleClick={() => {}}>
         Go back
       </Button>
     </div>

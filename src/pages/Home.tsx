@@ -1,19 +1,22 @@
 import Button from '../components/Button'
+import { LINKS } from '../routes/router'
 
 export default function Home() {
   const users = [{ username: 'Manuela' }, { username: 'Alexa' }] // Dummy data
   const buttonItems = [
     {
       name: 'See My Cars',
-      variant: 'primary' as const,
-      disabled: false,
-      handleClick: () => {},
+      pathRoute: LINKS.MY_CARS,
+      stylesVariant: 'disabled' as const,
+      isDisabled: true,
+      functionVariant: 'button',
     },
     {
       name: 'See My Bookings',
-      variant: 'secondary' as const,
-      disabled: false,
-      handleClick: () => {},
+      pathRoute: LINKS.MY_BOOKINGS,
+      stylesVariant: 'secondary' as const,
+      isDisabled: false,
+      functionVariant: 'button',
     },
   ]
 
@@ -27,17 +30,23 @@ export default function Home() {
           Hello {users[0].username}!!
           <span>What are you up to today?</span>
         </p>
-        <Button variant="primary" disabled={false} handleClick={() => {}}>
+        <Button
+          path={LINKS.NEW_BOOKING}
+          stylesVariant="primary"
+          isDisabled={false}
+          functionVariant="button"
+        >
           Book A car
         </Button>
         <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
         <div className="flex flex-col gap-4">
           {buttonItems.map((buttonItem, index) => (
             <Button
+              path={buttonItem.pathRoute}
               key={index}
-              variant={buttonItem.variant}
-              disabled={buttonItem.disabled}
-              handleClick={buttonItem.handleClick}
+              stylesVariant={buttonItem.stylesVariant}
+              isDisabled={buttonItem.isDisabled}
+              functionVariant="button"
             >
               {buttonItem.name}
             </Button>
