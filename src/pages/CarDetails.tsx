@@ -1,5 +1,8 @@
+import CarIcon from '../assets/CarIcon'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 import FuelIcon from '../assets/FuelIcon'
+import HorseIcon from '../assets/HorseIcon'
+import ProfileIcon from '../assets/ProfileIcon'
 import CarDetailsItem from '../components/carDetailsItem'
 import { useCarTypes } from '../hooks'
 import useCar from '../hooks/useCar'
@@ -13,10 +16,10 @@ export default function CarDetails() {
   const carTypeName = currentCarTypes?.name.split(' ').slice(-1).join(' ')
 
   const carDetails = [
-    { title: carData?.ownerId, icon: <FuelIcon /> },
-    { title: carTypeName, icon: <FuelIcon /> },
+    { title: carData?.ownerId, icon: <ProfileIcon /> },
+    { title: carTypeName, icon: <CarIcon /> },
     { title: carData?.licensePlate, icon: <FuelIcon /> },
-    { title: carData?.horsepower, icon: <FuelIcon /> },
+    { title: carData?.horsepower, icon: <HorseIcon /> },
     { title: carData?.fuelType, icon: <FuelIcon /> },
     { title: carData?.info, icon: <FuelIcon /> },
   ]
