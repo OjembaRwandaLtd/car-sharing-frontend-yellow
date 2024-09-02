@@ -17,8 +17,8 @@ export enum Links {
   ADD_CAR = '/add-car',
   MY_BOOKINGS = '/my-bookings',
   NEW_BOOKING = '/new-booking',
-  MY_CARS = '/my-cars',
   CAR_DETAILS = '/car-details/:carId',
+  MY_CARS = '/my-cars',
   MANAGE_BOOKINGS = '/manage-bookings',
   NOT_FOUND = '*',
 }
