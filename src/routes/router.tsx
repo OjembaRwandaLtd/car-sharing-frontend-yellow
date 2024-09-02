@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import GuestLayout from '../layouts/GuestLayout'
 import AppLayout from '../layouts/AppLayout'
-import App from '../App'
 import AddCar from '../pages/AddCar'
 import MyBookings from '../pages/MyBookings'
 import NewBooking from '../pages/NewBooking'
@@ -9,6 +8,7 @@ import MyCars from '../pages/MyCars'
 import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import Home from '../pages/Home'
 
 export const links = {
   home: '/',
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <App />,
+            element: <Home />,
           },
           {
             path: links.addCar,
