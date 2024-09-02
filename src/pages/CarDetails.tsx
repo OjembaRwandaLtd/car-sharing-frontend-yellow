@@ -1,3 +1,4 @@
+import { Link, useParams } from 'react-router-dom'
 import CarIcon from '../assets/CarIcon'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 import DangerIcon from '../assets/DangerIcon'
@@ -10,7 +11,8 @@ import { useCarTypes, useUser } from '../hooks'
 import useCar from '../hooks/useCar'
 
 export default function CarDetails() {
-  const [{ data: carData }] = useCar(2)
+  const carId = Number(useParams().carId)
+  const [{ data: carData }] = useCar(carId)
   const carOwnerId = carData?.ownerId || ''
   const [{ data: userData }] = useUser(carOwnerId)
   const [{ data: carTypes }] = useCarTypes()
@@ -34,7 +36,9 @@ export default function CarDetails() {
   return (
     <div className="px-5 py-8 text-gray-100">
       <div className="flex items-center">
-        <ChevronBackIcon />
+        <Link to=".." relative="path">
+          <ChevronBackIcon />
+        </Link>
         <h1 className="w-96 text-center font-lora text-3xl font-semibold text-white">DETAILS</h1>
       </div>
       <img src={carImage} alt="car" />

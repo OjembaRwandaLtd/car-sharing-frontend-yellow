@@ -18,7 +18,7 @@ export enum Links {
   MY_BOOKINGS = '/my-bookings',
   NEW_BOOKING = '/new-booking',
   MY_CARS = '/my-cars',
-  CAR_DETAILS = '/car-details',
+  CAR_DETAILS = '/car-details/:carId',
   MANAGE_BOOKINGS = '/manage-bookings',
   NOT_FOUND = '*',
 }
@@ -55,6 +55,10 @@ const router = createBrowserRouter([
             element: <MyBookings />,
           },
           {
+            path: Links.CAR_DETAILS,
+            element: <CarDetails />,
+          },
+          {
             path: Links.NEW_BOOKING,
             element: <NewBooking />,
           },
@@ -65,10 +69,6 @@ const router = createBrowserRouter([
           {
             path: Links.MANAGE_BOOKINGS,
             element: <ManageBookings />,
-          },
-          {
-            path: Links.CAR_DETAILS,
-            element: <CarDetails />,
           },
           {
             path: Links.NOT_FOUND,
