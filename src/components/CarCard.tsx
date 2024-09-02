@@ -2,7 +2,6 @@ import ProfileIcon from '../assets/ProfileIcon'
 import { CarDto, CarTypeDto } from '../util/api'
 import { useUser } from '../hooks'
 import { Link } from 'react-router-dom'
-import { Links } from '../routes/router'
 import CarIcon from '../assets/CarIcon'
 
 interface CarCardProps {
@@ -27,7 +26,7 @@ export default function CarCard({ car, carType }: Readonly<CarCardProps>) {
         </div>
         {/* This link points to a random route for now! */}
         <Link
-          to={Links.MY_BOOKINGS}
+          to={`/car-details/${car.id}`}
           className="pt-8 font-inter text-sm font-semibold text-primary-mustard"
         >
           Show details
