@@ -30,17 +30,11 @@ export default function Home() {
           Hello {users[0].username}!!
           <span>What are you up to today?</span>
         </p>
-        <Button path={LINKS.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
-          Book A car
-        </Button>
-        <Button
-          stylesVariant="disabled"
-          functionVariant="button"
-          handleClick={() => console.log('clicked')}
-          isDisabled={true}
-        >
-          Book A car
-        </Button>
+        <div className="flex">
+          <Button path={LINKS.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
+            Book A car
+          </Button>
+        </div>
         <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
         <div className="flex flex-col gap-4">
           {buttonItems.map((buttonItem, index) => (

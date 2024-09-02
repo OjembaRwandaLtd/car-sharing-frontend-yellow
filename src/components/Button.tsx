@@ -3,9 +3,9 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 
 export const ButtonStyles = {
-  primary: 'bg-white text-primary-indigo',
-  secondary: 'border-2 border-white text-white',
-  disabled: 'bg-primary-gray text-white',
+  primary: 'bg-primary-white text-primary-indigo',
+  secondary: 'border-2 border-white bg-primary-white',
+  disabled: 'bg-primary-gray text-primary-indigo',
 }
 
 type DisabledButtonType = {
