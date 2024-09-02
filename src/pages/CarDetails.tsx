@@ -1,7 +1,9 @@
 import CarIcon from '../assets/CarIcon'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
+import DangerIcon from '../assets/DangerIcon'
 import FuelIcon from '../assets/FuelIcon'
 import HorseIcon from '../assets/HorseIcon'
+import LicensePlateIcon from '../assets/LicensePlateIcon'
 import ProfileIcon from '../assets/ProfileIcon'
 import CarDetailsItem from '../components/CarDetailsItem'
 import { useCarTypes, useUser } from '../hooks'
@@ -19,10 +21,10 @@ export default function CarDetails() {
   const carDetails = [
     { title: userData?.name, icon: <ProfileIcon /> },
     { title: carTypeName, icon: <CarIcon /> },
-    { title: carData?.licensePlate, icon: <FuelIcon /> },
+    { title: carData?.licensePlate, icon: <LicensePlateIcon /> },
     { title: carData?.horsepower && `${carData?.horsepower}hp`, icon: <HorseIcon /> },
     { title: carData?.fuelType, icon: <FuelIcon /> },
-    { title: carData?.info, icon: <FuelIcon /> },
+    { title: carData?.info, icon: <DangerIcon /> },
   ]
 
   const allCarDetails = carDetails
