@@ -10,13 +10,28 @@ import { links } from '../routes/router'
 
 export default function MenuList() {
   const generalDetails = [
-    { icon: <CarIcon />, title: 'Book A Car', path: links.newBooking },
-    { icon: <BookingsIcon />, title: 'Bookings', path: links.myBookings },
+    {
+      icon: <CarIcon />,
+      title: 'Book A Car',
+      path: links.newBooking,
+      ariaLabel: 'Go to book a  car page',
+    },
+    {
+      icon: <BookingsIcon />,
+      title: 'Bookings',
+      path: links.myBookings,
+      ariaLabel: 'View my bookings',
+    },
   ]
   const myCarsDetails = [
-    { icon: <CarsIcon />, title: 'See my Cars', path: links.myCars },
-    { icon: <ListIcon />, title: "My Car's Bookings", path: links.manageBookings },
-    { icon: <CarPlusIcon />, title: 'Add New Car', path: links.addCar },
+    { icon: <CarsIcon />, title: 'See my Cars', path: links.myCars, ariaLabel: 'View my cars' },
+    {
+      icon: <ListIcon />,
+      title: "My Car's Bookings",
+      path: links.manageBookings,
+      ariaLabel: 'View my car bookings',
+    },
+    { icon: <CarPlusIcon />, title: 'Add New Car', path: links.addCar, ariaLabel: 'Add a new car' },
   ]
   const generalItems = generalDetails.map(generalDetail => (
     <HUMenuItem key={generalDetail.title}>
@@ -37,7 +52,7 @@ export default function MenuList() {
       <MenuItems
         transition
         anchor="bottom end"
-        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-6 pb-6"
+        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-5 pb-5"
       >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
@@ -45,7 +60,7 @@ export default function MenuList() {
           {myCarsItems}
         </div>
         <HUMenuItem>
-          <MenuItem icon={<LogoutIcon />} path="login" title="Log Out" />
+          <MenuItem icon={<LogoutIcon />} path="login" title="Log Out" ariaLabel="Logout" />
         </HUMenuItem>
       </MenuItems>
     </Menu>
