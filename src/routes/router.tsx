@@ -9,6 +9,7 @@ import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home'
+import CarDetails from '../pages/CarDetails'
 
 export enum Links {
   HOME = '/',
@@ -17,6 +18,7 @@ export enum Links {
   MY_BOOKINGS = '/my-bookings',
   NEW_BOOKING = '/new-booking',
   MY_CARS = '/my-cars',
+  CAR_DETAILS = '/car-details',
   MANAGE_BOOKINGS = '/manage-bookings',
   NOT_FOUND = '*',
 }
@@ -63,6 +65,10 @@ const router = createBrowserRouter([
           {
             path: Links.MANAGE_BOOKINGS,
             element: <ManageBookings />,
+          },
+          {
+            path: Links.CAR_DETAILS,
+            element: <CarDetails />,
           },
           {
             path: Links.NOT_FOUND,

@@ -3,30 +3,31 @@ import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 import FuelIcon from '../assets/FuelIcon'
 import HorseIcon from '../assets/HorseIcon'
 import ProfileIcon from '../assets/ProfileIcon'
-import CarDetailsItem from '../components/carDetailsItem'
-import { useCarTypes } from '../hooks'
+import CarDetailsItem from '../components/CarDetailsItem'
+import { useCarTypes, useUser } from '../hooks'
 import useCar from '../hooks/useCar'
 
 export default function CarDetails() {
-  const [{ data: carTypes }] = useCarTypes()
   const [{ data: carData }] = useCar(2)
-
+  const carOwnerId = carData?.ownerId || ''
+  const [{ data: userData }] = useUser(carOwnerId)
+  const [{ data: carTypes }] = useCarTypes()
   const currentCarTypes = carTypes?.find(carType => carType.id === carData?.carTypeId)
   const carImage = carTypes?.find(item => item.id === currentCarTypes?.id)?.imageUrl
   const carTypeName = currentCarTypes?.name.split(' ').slice(-1).join(' ')
 
   const carDetails = [
-    { title: carData?.ownerId, icon: <ProfileIcon /> },
+    { title: userData?.name, icon: <ProfileIcon /> },
     { title: carTypeName, icon: <CarIcon /> },
     { title: carData?.licensePlate, icon: <FuelIcon /> },
-    { title: carData?.horsepower, icon: <HorseIcon /> },
+    { title: carData?.horsepower && `${carData?.horsepower}hp`, icon: <HorseIcon /> },
     { title: carData?.fuelType, icon: <FuelIcon /> },
     { title: carData?.info, icon: <FuelIcon /> },
   ]
 
   const allCarDetails = carDetails
     .filter(item => item.title)
-    .map((item, id) => <CarDetailsItem key={id} title={item.title} icon={item.icon} />)
+    .map(item => <CarDetailsItem key={item.title} title={item.title} icon={item.icon} />)
 
   return (
     <div className="px-5 py-8 text-gray-100">
