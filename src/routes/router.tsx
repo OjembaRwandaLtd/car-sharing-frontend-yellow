@@ -9,7 +9,7 @@ import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home'
-import CarDetailsPage from '../pages/CarDetailsPage'
+import CarDetails from '../pages/CarDetails'
 
 export enum Links {
   HOME = '/',
@@ -55,12 +55,12 @@ const router = createBrowserRouter([
             element: <MyBookings />,
           },
           {
-            path: Links.NEW_BOOKING,
-            element: <NewBooking />,
+            path: Links.CAR_DETAILS,
+            element: <CarDetails />,
           },
           {
-            path: Links.CAR_DETAILS,
-            element: <CarDetailsPage />,
+            path: Links.NEW_BOOKING,
+            element: <NewBooking />,
           },
           {
             path: Links.MY_CARS,
