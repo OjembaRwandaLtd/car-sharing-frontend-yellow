@@ -16,6 +16,7 @@ module.exports = {
         'primary-mustard': '#F8FCAD',
         'primary-gray': '#C9CDD3',
         'secondary-mustard': '#EBF541',
+        'primary-white': '#F9FAFB',
       },
     },
   },
