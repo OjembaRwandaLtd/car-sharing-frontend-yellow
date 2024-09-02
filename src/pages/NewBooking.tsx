@@ -10,7 +10,7 @@ export default function NewBooking() {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
-        <Link to="/">
+        <Link to=".." relative="path">
           <BackIcon className="text-primary-mustard" />
         </Link>
         <h1 className="w-full text-center font-lora text-3xl font-medium text-primary-white">
