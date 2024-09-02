@@ -7,16 +7,16 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: LINKS.MY_CARS,
-      stylesVariant: 'disabled' as const,
-      isDisabled: true,
-      functionVariant: 'button',
+      stylesVariant: 'primary' as const,
+      isDisabled: false,
+      functionVariant: 'link',
     },
     {
       name: 'See My Bookings',
       pathRoute: LINKS.MY_BOOKINGS,
       stylesVariant: 'secondary' as const,
       isDisabled: false,
-      functionVariant: 'button',
+      functionVariant: 'link',
     },
   ]
 
@@ -30,11 +30,14 @@ export default function Home() {
           Hello {users[0].username}!!
           <span>What are you up to today?</span>
         </p>
+        <Button path={LINKS.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
+          Book A car
+        </Button>
         <Button
-          path={LINKS.NEW_BOOKING}
-          stylesVariant="primary"
-          isDisabled={false}
+          stylesVariant="disabled"
           functionVariant="button"
+          handleClick={() => console.log('clicked')}
+          isDisabled={true}
         >
           Book A car
         </Button>
@@ -45,8 +48,7 @@ export default function Home() {
               path={buttonItem.pathRoute}
               key={index}
               stylesVariant={buttonItem.stylesVariant}
-              isDisabled={buttonItem.isDisabled}
-              functionVariant="button"
+              functionVariant={'link'}
             >
               {buttonItem.name}
             </Button>
