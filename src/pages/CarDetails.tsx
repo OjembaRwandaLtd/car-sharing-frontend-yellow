@@ -9,9 +9,9 @@ export default function CarDetails() {
   const [{ data: carData }] = useCar(carId)
 
   const [{ data: carTypes }] = useCarTypes()
-  const currentCarTypes = carTypes?.find(carType => carType.id === carData?.carTypeId)
-  const carImage = carTypes?.find(item => item.id === currentCarTypes?.id)?.imageUrl
-  const carTypeName = currentCarTypes?.name.split(' ').slice(-1).join(' ')
+  const currentCarType = carTypes?.find(carType => carType.id === carData?.carTypeId)
+  const carImage = currentCarType?.imageUrl
+  const carTypeName = currentCarType?.name.split(' ').slice(-1).join(' ')
 
   return (
     <div className="px-5 py-8 text-primary-white">
