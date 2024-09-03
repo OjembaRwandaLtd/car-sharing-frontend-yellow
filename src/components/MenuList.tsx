@@ -1,5 +1,5 @@
-import { Menu, MenuButton, MenuItems, MenuItem as HUMenuItem } from '@headlessui/react'
-import MenuItem from './MenuItem'
+import { Menu, MenuButton, MenuItems } from '@headlessui/react'
+import MenuListItem from './MenuListItem'
 import CarIcon from '../assets/CarIcon'
 import ListIcon from '../assets/ListIcon'
 import BookingsIcon from '../assets/BookingsIcon'
@@ -10,23 +10,39 @@ import { Links } from '../routes/router'
 
 export default function MenuList() {
   const generalDetails = [
-    { icon: <CarIcon />, title: 'Book A Car', path: Links.NEW_BOOKING },
-    { icon: <BookingsIcon />, title: 'Bookings', path: Links.MY_BOOKINGS },
+    {
+      icon: <CarIcon />,
+      title: 'Book A Car',
+      path: Links.NEW_BOOKING,
+      ariaLabel: 'Go to book a  car page',
+    },
+    {
+      icon: <BookingsIcon />,
+      title: 'Bookings',
+      path: Links.MY_BOOKINGS,
+      ariaLabel: 'View my bookings',
+    },
   ]
   const myCarsDetails = [
-    { icon: <CarsIcon />, title: 'See my Cars', path: Links.MY_CARS },
-    { icon: <ListIcon />, title: "My Car's Bookings", path: Links.MANAGE_BOOKINGS },
-    { icon: <CarPlusIcon />, title: 'Add New Car', path: Links.ADD_CAR },
+    { icon: <CarsIcon />, title: 'See my Cars', path: Links.MY_CARS, ariaLabel: 'View my cars' },
+    {
+      icon: <ListIcon />,
+      title: "My Car's Bookings",
+      path: Links.MANAGE_BOOKINGS,
+      ariaLabel: 'View my car bookings',
+    },
+    {
+      icon: <CarPlusIcon />,
+      title: 'Add New Car',
+      path: Links.ADD_CAR,
+      ariaLabel: 'Add a new car',
+    },
   ]
   const generalItems = generalDetails.map(generalDetail => (
-    <HUMenuItem key={generalDetail.title}>
-      <MenuItem {...generalDetail} />
-    </HUMenuItem>
+    <MenuListItem key={generalDetail.title} {...generalDetail} />
   ))
   const myCarsItems = myCarsDetails.map(myCarsDetail => (
-    <HUMenuItem key={myCarsDetail.title}>
-      <MenuItem {...myCarsDetail} />
-    </HUMenuItem>
+    <MenuListItem key={myCarsDetail.title} {...myCarsDetail} />
   ))
 
   return (
@@ -37,16 +53,14 @@ export default function MenuList() {
       <MenuItems
         transition
         anchor="bottom end"
-        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-6 pb-6"
+        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-5 pb-5"
       >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
           <h3 className="font-semibold text-white">My cars</h3>
           {myCarsItems}
         </div>
-        <HUMenuItem>
-          <MenuItem icon={<LogoutIcon />} path="login" title="Log Out" />
-        </HUMenuItem>
+        <MenuListItem icon={<LogoutIcon />} path="login" title="Log Out" ariaLabel="Logout" />
       </MenuItems>
     </Menu>
   )
