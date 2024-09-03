@@ -20,7 +20,7 @@ export default function CarDetailsCard({ carType, carData }: carDetailItemProps)
     return <h2 className="text-3xl text-primary-white">Loading...</h2>
   }
   if (error) {
-    throw Error('Error occured')
+    throw Error('Could not fetch owner details')
   }
 
   const carDetails = [
