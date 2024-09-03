@@ -9,7 +9,7 @@ interface CarCardProps {
   carType: CarTypeDto | undefined
 }
 
-export default function CarCard({ car, carType }: Readonly<CarCardProps>) {
+export default function CarCard({ car, carType }: CarCardProps) {
   const [{ data: user }] = useUser(car.ownerId)
   return (
     <div className="mb-3 flex h-56 items-center rounded-xl bg-secondary-indigo py-4 pr-7">
