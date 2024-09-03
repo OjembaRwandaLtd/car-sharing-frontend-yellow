@@ -1,12 +1,16 @@
 import CarCard from '../components/CarCard'
 import useCars from '../hooks/useCars'
-import { useCarTypes } from '../hooks'
+import { useCarTypes, useUser } from '../hooks'
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 
 export default function NewBooking() {
-  const [{ data: carTypes }] = useCarTypes()
-  const [{ data, loading, error }] = useCars()
+  const [{ data: carTypes }] = useCarTypes() // CarTypes
+  const [{ data, loading, error }] = useCars() // Cars
+
+  const usersPromise = data?.map(car => useUser(car.ownerId))
+  const users = usersPromise?.map(userPromise => userPromise[0].data)
+
   if (loading) {
     return <div className="p-5 text-3xl text-primary-white">Loading...</div>
   }
@@ -27,7 +31,9 @@ export default function NewBooking() {
       <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {data?.map(car => {
           const carType = carTypes?.find(type => type.id === car.carTypeId)
-          return <CarCard key={car.id} car={car} carType={carType} />
+          const user = users?.find(user => user?.id === car.ownerId)
+
+          return <CarCard key={car.id} car={car} carType={carType} user={user} />
         })}
       </div>
     </div>
