@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import GuestLayout from '../layouts/GuestLayout'
 import AppLayout from '../layouts/AppLayout'
-import App from '../App'
 import AddCar from '../pages/AddCar'
 import MyBookings from '../pages/MyBookings'
 import NewBooking from '../pages/NewBooking'
@@ -9,63 +8,64 @@ import MyCars from '../pages/MyCars'
 import ManageBookings from '../pages/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import Home from '../pages/Home'
 
-export const links = {
-  home: '/',
-  login: '/login',
-  addCar: '/add-car',
-  myBookings: '/my-bookings',
-  newBooking: '/new-booking',
-  myCars: '/my-cars',
-  manageBookings: '/manage-bookings',
-  notFound: '*',
+export enum Links {
+  HOME = '/',
+  LOGIN = '/login',
+  ADD_CAR = '/add-car',
+  MY_BOOKINGS = '/my-bookings',
+  NEW_BOOKING = '/new-booking',
+  MY_CARS = '/my-cars',
+  MANAGE_BOOKINGS = '/manage-bookings',
+  NOT_FOUND = '*',
 }
 
 const router = createBrowserRouter([
   {
-    path: links.home,
+    path: Links.HOME,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: links.login,
+        path: Links.LOGIN,
         element: <GuestLayout />,
         children: [
           {
-            path: links.notFound,
+            path: Links.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],
       },
       {
-        path: links.home,
+        path: Links.HOME,
         element: <AppLayout />,
         children: [
           {
             index: true,
-            element: <App />,
+            element: <Home />,
           },
           {
-            path: links.addCar,
+            path: Links.ADD_CAR,
             element: <AddCar />,
           },
           {
-            path: links.myBookings,
+            path: Links.MY_BOOKINGS,
             element: <MyBookings />,
           },
           {
-            path: links.newBooking,
+            path: Links.NEW_BOOKING,
             element: <NewBooking />,
           },
           {
-            path: links.myCars,
+            path: Links.MY_CARS,
             element: <MyCars />,
           },
           {
-            path: links.manageBookings,
+            path: Links.MANAGE_BOOKINGS,
             element: <ManageBookings />,
           },
           {
-            path: links.notFound,
+            path: Links.NOT_FOUND,
             element: <NotFoundPage />,
           },
         ],
