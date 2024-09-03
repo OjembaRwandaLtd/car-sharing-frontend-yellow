@@ -14,7 +14,15 @@ interface carDetailItemProps {
 
 export default function CarDetailsCard({ carType, carData }: carDetailItemProps) {
   const ownerId = carData?.ownerId || ''
-  const [{ data: userData }] = useUser(ownerId)
+  const [{ loading, error, data: userData }] = useUser(ownerId)
+
+  if (loading) {
+    return <h2 className="text-3xl text-primary-white">Loading...</h2>
+  }
+  if (error) {
+    throw Error('Error occured')
+  }
+
   const carDetails = [
     { title: userData?.name, icon: <ProfileIcon /> },
     { title: carType, icon: <CarIcon /> },
@@ -35,5 +43,6 @@ export default function CarDetailsCard({ carType, carData }: carDetailItemProps)
         <span className={item.className}>{item.title}</span>
       </div>
     ))
+
   return <div className="flex flex-col gap-2 px-11 pt-8">{allCarDetails}</div>
 }

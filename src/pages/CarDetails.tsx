@@ -6,9 +6,17 @@ import CarDetailsCard from '../components/CarDetailsCard'
 
 export default function CarDetails() {
   const carId = Number(useParams().carId)
-  const [{ data: carData }] = useCar(carId)
 
-  const [{ data: carTypes }] = useCarTypes()
+  const [{ loading: carLoading, error: carError, data: carData }] = useCar(carId)
+  const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
+
+  if (carLoading || carTypeLoading) {
+    return <h2 className="text-3xl text-primary-white">Loading...</h2>
+  }
+  if (carError || carTypeError) {
+    throw Error('Error occured')
+  }
+
   const currentCarType = carTypes?.find(carType => carType.id === carData?.carTypeId)
   const carImage = currentCarType?.imageUrl
   const carTypeName = currentCarType?.name.split(' ').slice(-1).join(' ')
