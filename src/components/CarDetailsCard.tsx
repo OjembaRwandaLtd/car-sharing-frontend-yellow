@@ -13,7 +13,7 @@ interface carDetailItemProps {
 }
 
 export default function CarDetailsCard({ carType, carData }: carDetailItemProps) {
-  const ownerId = carData?.ownerId || ''
+  const ownerId = carData?.ownerId ?? ''
   const [{ loading, error, data: userData }] = useUser(ownerId)
 
   if (loading) {
