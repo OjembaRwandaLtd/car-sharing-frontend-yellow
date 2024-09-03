@@ -21,7 +21,7 @@ export default function CarDetails() {
         </Link>
         <h1 className="w-96 text-center font-lora text-3xl font-medium ">DETAILS</h1>
       </div>
-      <img className="w-80 h-52 object-cover my-4" src={carImage} alt="car" />
+      <img className="my-4 h-52 w-80 object-cover" src={carImage} alt="car" />
       <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
       <CarDetailsCard carType={carTypeName} carData={carData} />
     </div>
