@@ -6,7 +6,14 @@ import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 
 export default function NewBooking() {
   const [{ data: carTypes }] = useCarTypes()
-  const [{ data }] = useCars()
+  const [{ data, loading, error }] = useCars()
+  if (loading) {
+    return <div className="p-5 text-3xl text-primary-white">Loading...</div>
+  }
+
+  if (error) {
+    return <div className="p-5 text-3xl text-primary-white">Error Occured!!!</div>
+  }
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
