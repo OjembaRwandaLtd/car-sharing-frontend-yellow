@@ -14,7 +14,7 @@ export default function CarDetails() {
     return <h2 className="text-3xl text-primary-white">Loading...</h2>
   }
   if (carError || carTypeError) {
-    throw Error('Error occured')
+    throw Error('Could not fetch car details')
   }
 
   const currentCarType = carTypes?.find(carType => carType.id === carData?.carTypeId)
@@ -27,7 +27,7 @@ export default function CarDetails() {
         <Link to=".." relative="path">
           <ChevronBackIcon />
         </Link>
-        <h1 className="w-96 text-center font-lora text-3xl font-medium ">DETAILS</h1>
+        <h1 className="w-full text-center font-lora text-3xl font-medium">DETAILS</h1>
       </div>
       <img className="my-4 h-52 w-80 object-cover" src={carImage} alt="car" />
       <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
