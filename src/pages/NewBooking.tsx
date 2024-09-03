@@ -2,7 +2,7 @@ import CarCard from '../components/CarCard'
 import useCars from '../hooks/useCars'
 import { useCarTypes } from '../hooks'
 import { Link } from 'react-router-dom'
-import BackIcon from '../assets/BackIcon'
+import { ChevronBackIcon } from '../assets/ChevronBackIcon'
 
 export default function NewBooking() {
   const [{ data: carTypes }] = useCarTypes()
@@ -11,7 +11,7 @@ export default function NewBooking() {
     <div className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
         <Link to=".." relative="path">
-          <BackIcon className="text-primary-mustard" />
+          <ChevronBackIcon className="text-primary-mustard" />
         </Link>
         <h1 className="w-full text-center font-lora text-3xl font-medium text-primary-white">
           ALL CARS
