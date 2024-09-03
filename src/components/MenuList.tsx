@@ -6,32 +6,37 @@ import BookingsIcon from '../assets/BookingsIcon'
 import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
-import { links } from '../routes/router'
+import { Links } from '../routes/router'
 
 export default function MenuList() {
   const generalDetails = [
     {
       icon: <CarIcon />,
       title: 'Book A Car',
-      path: links.newBooking,
+      path: Links.NEW_BOOKING,
       ariaLabel: 'Go to book a  car page',
     },
     {
       icon: <BookingsIcon />,
       title: 'Bookings',
-      path: links.myBookings,
+      path: Links.MY_BOOKINGS,
       ariaLabel: 'View my bookings',
     },
   ]
   const myCarsDetails = [
-    { icon: <CarsIcon />, title: 'See my Cars', path: links.myCars, ariaLabel: 'View my cars' },
+    { icon: <CarsIcon />, title: 'See my Cars', path: Links.MY_CARS, ariaLabel: 'View my cars' },
     {
       icon: <ListIcon />,
       title: "My Car's Bookings",
-      path: links.manageBookings,
+      path: Links.MANAGE_BOOKINGS,
       ariaLabel: 'View my car bookings',
     },
-    { icon: <CarPlusIcon />, title: 'Add New Car', path: links.addCar, ariaLabel: 'Add a new car' },
+    {
+      icon: <CarPlusIcon />,
+      title: 'Add New Car',
+      path: Links.ADD_CAR,
+      ariaLabel: 'Add a new car',
+    },
   ]
   const generalItems = generalDetails.map(generalDetail => (
     <MenuListItem key={generalDetail.title} {...generalDetail} />
