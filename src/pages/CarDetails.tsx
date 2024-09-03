@@ -1,37 +1,25 @@
 import { Link, useParams } from 'react-router-dom'
-import CarIcon from '../assets/CarIcon'
 import { ChevronBackIcon } from '../assets/ChevronBackIcon'
-import DangerIcon from '../assets/DangerIcon'
-import FuelIcon from '../assets/FuelIcon'
-import HorseIcon from '../assets/HorseIcon'
-import LicensePlateIcon from '../assets/LicensePlateIcon'
-import ProfileIcon from '../assets/ProfileIcon'
-import CarDetailsItem from '../components/CarDetailsItem'
-import { useCarTypes, useUser } from '../hooks'
+import { useCarTypes } from '../hooks'
 import useCar from '../hooks/useCar'
+import CarDetailsCard from '../components/CarDetailsCard'
 
 export default function CarDetails() {
   const carId = Number(useParams().carId)
-  const [{ data: carData }] = useCar(carId)
-  const carOwnerId = carData?.ownerId || ''
-  const [{ data: userData }] = useUser(carOwnerId)
-  const [{ data: carTypes }] = useCarTypes()
-  const currentCarTypes = carTypes?.find(carType => carType.id === carData?.carTypeId)
-  const carImage = carTypes?.find(item => item.id === currentCarTypes?.id)?.imageUrl
-  const carTypeName = currentCarTypes?.name.split(' ').slice(-1).join(' ')
 
-  const carDetails = [
-    { title: userData?.name, icon: <ProfileIcon /> },
-    { title: carTypeName, icon: <CarIcon /> },
-    { title: carData?.licensePlate, icon: <LicensePlateIcon /> },
-    { title: carData?.horsepower && `${carData?.horsepower}hp`, icon: <HorseIcon /> },
-    { title: carData?.fuelType, icon: <FuelIcon /> },
-    { title: carData?.info, icon: <DangerIcon />, className: 'font-bold' },
-  ]
+  const [{ loading: carLoading, error: carError, data: carData }] = useCar(carId)
+  const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
 
-  const allCarDetails = carDetails
-    .filter(item => item.title)
-    .map(item => <CarDetailsItem key={item.title} {...item} />)
+  if (carLoading || carTypeLoading) {
+    return <h2 className="text-3xl text-primary-white">Loading...</h2>
+  }
+  if (carError || carTypeError) {
+    throw Error('Could not fetch car details')
+  }
+
+  const currentCarType = carTypes?.find(carType => carType.id === carData?.carTypeId)
+  const carImage = currentCarType?.imageUrl
+  const carTypeName = currentCarType?.name.split(' ').slice(-1).join(' ')
 
   return (
     <div className="px-5 py-8 text-primary-white">
@@ -39,11 +27,11 @@ export default function CarDetails() {
         <Link to=".." relative="path">
           <ChevronBackIcon />
         </Link>
-        <h1 className="w-96 text-center font-lora text-3xl font-medium ">DETAILS</h1>
+        <h1 className="w-full text-center font-lora text-3xl font-medium">DETAILS</h1>
       </div>
-      <img className="mb-10 mt-8 h-52 w-full object-cover" src={carImage} alt="car" />
+      <img className="my-4 h-52 w-80 object-cover" src={carImage} alt="car" />
       <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
-      <div className="flex flex-col gap-2 py-8 pl-11">{allCarDetails}</div>
+      <CarDetailsCard carType={carTypeName} carData={carData} />
     </div>
   )
 }
