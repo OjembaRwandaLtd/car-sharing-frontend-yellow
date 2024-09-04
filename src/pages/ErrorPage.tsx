@@ -3,8 +3,23 @@ import ErrorPageIcon from '../assets/ErrorPageIcon'
 import NavBar from '../components/NavBar'
 import MenuList from '../components/MenuList'
 import ProfileIcon from '../assets/ProfileIcon'
+import { useRouteError } from 'react-router-dom'
 
 export default function ErrorPage() {
+  const error = useRouteError()
+  // eslint-disable-next-line no-console
+  console.log('DDDDDDDD: ', error)
+  const errorMessage = (() => {
+    if (error instanceof Error) {
+      return error.message
+    } else if (typeof error === 'string') {
+      return error
+    } else if (typeof error === 'object' && error !== null && 'message' in error) {
+      return (error as { message: string }).message
+    }
+    return 'Unknown error occurred'
+  })()
+
   return (
     <div className="bg-primary-indigo text-white">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
@@ -15,9 +30,10 @@ export default function ErrorPage() {
         <div className="mt-10 flex justify-center">
           <ErrorPageIcon />
         </div>
+
         <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-primary-white">
-          Something went wrong.
-          <span>We will solve your issue soon.</span>
+          <span>{errorMessage}</span>
+          We will solve your issue soon.
         </p>
         <Button style={ButtonStyles.secondary} behavior={ButtonBehavior.Link} path="/">
           Go back
