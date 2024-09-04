@@ -13,7 +13,7 @@ export default function MenuList() {
     {
       icon: <CarIcon />,
       title: 'Book A Car',
-      path: Links.NEW_BOOKING,
+      path: Links.ALL_CARS,
       ariaLabel: 'Go to book a  car page',
     },
     {
@@ -34,7 +34,7 @@ export default function MenuList() {
     {
       icon: <CarPlusIcon />,
       title: 'Add New Car',
-      path: Links.ADD_CAR,
+      path: Links.NEW_CAR,
       ariaLabel: 'Add a new car',
     },
   ]

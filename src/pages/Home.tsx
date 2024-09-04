@@ -30,7 +30,7 @@ export default function Home() {
         <span>What are you up to today?</span>
       </p>
       <div className="flex">
-        <Button path={Links.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
+        <Button path={Links.ALL_CARS} stylesVariant="primary" functionVariant="link">
           Book A car
         </Button>
       </div>
