@@ -1,19 +1,28 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
-import { useCarTypes } from '../../hooks'
+import { useCarTypes, useUsers } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 
 export default function AllCars() {
-  const [{ data: carTypes }] = useCarTypes() // CarTypes
-  const [{ data, loading, error }] = useCars() // Cars
+  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes() // CarTypes
+  const [{ data: allCarsData, loading: allCarsLoading, error: allCarsError }] = useCars() // Cars
+  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers() // Users
 
-  if (loading) {
+  if (allCarsError || carTypesError || usersError) {
+    throw Error('Could not fetch cars')
+  }
+
+  if (allCarsLoading || carTypesLoading || usersLoading) {
     return <div className="p-5 text-3xl text-primary-white">Loading...</div>
   }
 
-  if (error) {
-    return <div className="p-5 text-3xl text-primary-white">Error Occured!!!</div>
+  if (!allCarsData || !carTypes || !users) {
+    return <div className="p-5 text-3xl text-primary-white">Could not fetch</div>
+  }
+
+  if (allCarsData.length === 0 || carTypes.length === 0 || users.length === 0) {
+    return <div className="p-5 text-3xl text-primary-white">No cars found</div>
   }
   return (
     <div className="flex flex-col items-center justify-center">
@@ -26,9 +35,11 @@ export default function AllCars() {
         </h1>
       </div>
       <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {data?.map(car => {
-          const carType = carTypes?.find(type => type.id === car.carTypeId)
-          return <CarCard key={car.id} car={car} carType={carType} />
+        {allCarsData.map(car => {
+          const carType = carTypes.find(type => type.id === car.carTypeId)
+          const user = users.find(user => user.id === car.ownerId)
+          if (!carType || !user) throw new Error('Car type or user not found')
+          return <CarCard key={car.id} car={car} carType={carType} user={user} />
         })}
       </div>
     </div>
