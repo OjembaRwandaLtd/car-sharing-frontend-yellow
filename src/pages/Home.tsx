@@ -7,12 +7,12 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: Links.MY_CARS,
-      style: 'primary' as const,
+      style: buttonStyles.secondary,
     },
     {
       name: 'See My Bookings',
       pathRoute: Links.MY_BOOKINGS,
-      style: 'secondary' as const,
+      style: buttonStyles.secondary,
     },
   ]
 

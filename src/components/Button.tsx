@@ -9,7 +9,7 @@ export enum ButtonBehavior {
 
 export enum buttonStyles {
   primary = 'bg-primary-white text-primary-indigo',
-  secondary = 'border-2 border-white bg-primary-white',
+  secondary = 'border-2 border-white text-primary-white',
   disabled = 'bg-primary-gray text-primary-indigo',
 }
 
