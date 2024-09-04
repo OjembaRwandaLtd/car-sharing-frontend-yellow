@@ -3,6 +3,7 @@ import useCars from '../../hooks/useCars'
 import { useCarTypes, useUsers } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
+import Spinner from '../../assets/Spinner'
 
 export default function AllCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes() // CarTypes
@@ -14,7 +15,7 @@ export default function AllCars() {
   }
 
   if (allCarsLoading || carTypesLoading || usersLoading) {
-    return <div className="p-5 text-3xl text-primary-white">Loading...</div>
+    return <Spinner />
   }
 
   if (!allCarsData || !carTypes || !users) {
