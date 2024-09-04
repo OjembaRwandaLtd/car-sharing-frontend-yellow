@@ -1,8 +1,8 @@
 import { Link, useParams } from 'react-router-dom'
-import { ChevronBackIcon } from '../assets/ChevronBackIcon'
-import { useCarTypes } from '../hooks'
-import useCar from '../hooks/useCar'
-import CarDetailsCard from '../components/CarDetailsCard'
+import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
+import { useCarTypes } from '../../hooks'
+import useCar from '../../hooks/useCar'
+import CarDetailsCard from '../../components/CarDetailsCard'
 
 export default function CarDetails() {
   const carId = Number(useParams().carId)
