@@ -15,12 +15,13 @@ import NewBooking from '../pages/bookings/NewBooking'
 export enum Links {
   HOME = '/',
   LOGIN = '/login',
-  ADD_CAR = '/add-car',
-  MY_BOOKINGS = '/my-bookings',
-  NEW_BOOKING = '/new-booking',
-  CAR_DETAILS = '/car-details/:carId',
-  MY_CARS = '/my-cars',
-  MANAGE_BOOKINGS = '/manage-bookings',
+  CARS = '/cars',
+  MY_CARS = '/cars/mycars',
+  NEW_CAR = '/cars/new',
+  CAR_DETAILS = '/cars/:carId',
+  MY_BOOKINGS = '/bookings',
+  NEW_BOOKING = '/bookings/new',
+  MANAGE_BOOKINGS = '/bookings/manage',
   NOT_FOUND = '*',
 }
 
