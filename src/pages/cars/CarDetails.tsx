@@ -3,6 +3,7 @@ import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import { useCarTypes } from '../../hooks'
 import useCar from '../../hooks/useCar'
 import CarDetailsCard from '../../components/CarDetailsCard'
+import Spinner from '../../assets/Spinner'
 
 export default function CarDetails() {
   const carId = Number(useParams().carId)
@@ -11,7 +12,7 @@ export default function CarDetails() {
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
 
   if (carLoading || carTypeLoading) {
-    return <h2 className="text-3xl text-primary-white">Loading...</h2>
+    return <Spinner />
   }
   if (carError || carTypeError) {
     throw Error('Could not fetch car details')
