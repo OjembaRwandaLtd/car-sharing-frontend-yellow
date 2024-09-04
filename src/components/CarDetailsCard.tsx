@@ -4,6 +4,7 @@ import FuelIcon from '../assets/FuelIcon'
 import HorseIcon from '../assets/HorseIcon'
 import LicensePlateIcon from '../assets/LicensePlateIcon'
 import ProfileIcon from '../assets/ProfileIcon'
+import Spinner from '../assets/Spinner'
 import { useUser } from '../hooks'
 import { CarDto } from '../util/api'
 
@@ -17,7 +18,7 @@ export default function CarDetailsCard({ carType, carData }: carDetailItemProps)
   const [{ loading, error, data: userData }] = useUser(ownerId)
 
   if (loading) {
-    return <h2 className="text-3xl text-primary-white">Loading...</h2>
+    return <Spinner />
   }
   if (error) {
     throw Error('Could not fetch owner details')
