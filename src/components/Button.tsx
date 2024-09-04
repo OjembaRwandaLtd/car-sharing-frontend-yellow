@@ -7,7 +7,7 @@ export enum ButtonBehavior {
   Link,
 }
 
-export enum buttonStyles {
+export enum ButtonStyles {
   primary = 'bg-primary-white text-primary-indigo',
   secondary = 'border-2 border-white text-primary-white',
   disabled = 'bg-primary-gray text-primary-indigo',
@@ -25,14 +25,14 @@ interface ButtonProps {
 function Button({
   children,
   behavior,
-  style = buttonStyles.primary,
+  style = ButtonStyles.primary,
   disabled = false,
   path: href,
   onClick,
 }: ButtonProps) {
   const className = classNames(
     'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    disabled ? buttonStyles.disabled : style,
+    disabled ? ButtonStyles.disabled : style,
   )
 
   if (behavior === ButtonBehavior.Button) {

@@ -1,4 +1,4 @@
-import Button, { buttonStyles, ButtonBehavior } from '../components/Button'
+import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
 export default function Home() {
@@ -7,12 +7,12 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: Links.MY_CARS,
-      style: buttonStyles.secondary,
+      style: ButtonStyles.secondary,
     },
     {
       name: 'See My Bookings',
       pathRoute: Links.MY_BOOKINGS,
-      style: buttonStyles.secondary,
+      style: ButtonStyles.secondary,
     },
   ]
 
@@ -28,7 +28,7 @@ export default function Home() {
       <div className="flex">
         <Button
           path={Links.NEW_BOOKING}
-          style={buttonStyles.primary}
+          style={ButtonStyles.primary}
           behavior={ButtonBehavior.Link}
         >
           Book A car
@@ -36,10 +36,10 @@ export default function Home() {
       </div>
       <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
       <div className="flex flex-col gap-4">
-        {buttonItems.map((buttonItem, index) => (
+        {buttonItems.map(buttonItem => (
           <Button
             path={buttonItem.pathRoute}
-            key={index}
+            key={buttonItem.name}
             style={buttonItem.style}
             behavior={ButtonBehavior.Link}
           >

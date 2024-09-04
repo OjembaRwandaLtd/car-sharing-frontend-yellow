@@ -1,4 +1,4 @@
-import Button, { buttonStyles, ButtonBehavior } from '../components/Button'
+import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import ErrorPageIcon from '../assets/ErrorPageIcon'
 import NavBar from '../components/NavBar'
 import MenuList from '../components/MenuList'
@@ -19,7 +19,7 @@ export default function ErrorPage() {
           Something went wrong.
           <span>We will solve your issue soon.</span>
         </p>
-        <Button style={buttonStyles.secondary} behavior={ButtonBehavior.Link} path="/">
+        <Button style={ButtonStyles.secondary} behavior={ButtonBehavior.Link} path="/">
           Go back
         </Button>
       </div>
