@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
 export default function Home() {
@@ -7,16 +7,12 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: Links.MY_CARS,
-      stylesVariant: 'primary' as const,
-      isDisabled: false,
-      functionVariant: 'link',
+      style: ButtonStyles.secondary,
     },
     {
       name: 'See My Bookings',
       pathRoute: Links.MY_BOOKINGS,
-      stylesVariant: 'secondary' as const,
-      isDisabled: false,
-      functionVariant: 'link',
+      style: ButtonStyles.secondary,
     },
   ]
 
@@ -30,18 +26,18 @@ export default function Home() {
         <span>What are you up to today?</span>
       </p>
       <div className="flex">
-        <Button path={Links.CARS} stylesVariant="primary" functionVariant="link">
+        <Button path={Links.CARS} style={ButtonStyles.primary} behavior={ButtonBehavior.Link}>
           Book A car
         </Button>
       </div>
       <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
       <div className="flex flex-col gap-4">
-        {buttonItems.map((buttonItem, index) => (
+        {buttonItems.map(buttonItem => (
           <Button
             path={buttonItem.pathRoute}
-            key={index}
-            stylesVariant={buttonItem.stylesVariant}
-            functionVariant={'link'}
+            key={buttonItem.name}
+            style={buttonItem.style}
+            behavior={ButtonBehavior.Link}
           >
             {buttonItem.name}
           </Button>

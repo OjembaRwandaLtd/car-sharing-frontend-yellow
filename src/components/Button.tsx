@@ -2,53 +2,54 @@ import classNames from 'classnames'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export const ButtonStyles = {
-  primary: 'bg-primary-white text-primary-indigo',
-  secondary: 'border-2 border-white text-primary-white',
-  disabled: 'bg-primary-gray text-primary-indigo',
+export enum ButtonBehavior {
+  Button,
+  Link,
 }
 
-type DisabledButtonType = {
-  isDisabled: true
-  stylesVariant: 'disabled'
+export enum ButtonStyles {
+  primary = 'bg-primary-white text-primary-indigo',
+  secondary = 'border-2 border-white text-primary-white',
+  disabled = 'bg-primary-gray text-primary-indigo',
 }
 
-type EnabledButtonType = {
-  isDisabled: false
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
-}
-type ButtonType = {
-  functionVariant: 'button'
-  handleClick: () => void
-} & (DisabledButtonType | EnabledButtonType)
-
-type LinkType = {
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
-  functionVariant: 'link'
-  path: string
-}
-
-type ButtonProps = {
+interface ButtonProps {
   children: React.ReactNode
-} & (ButtonType | LinkType)
+  behavior: ButtonBehavior
+  style: string
+  disabled?: boolean
+  path?: string
+  onClick?: () => void
+}
 
-export default function Button(props: ButtonProps) {
-  const buttonClass = classNames(
+function Button({
+  children,
+  behavior,
+  style = ButtonStyles.primary,
+  disabled = false,
+  path: href,
+  onClick,
+}: ButtonProps) {
+  const className = classNames(
     'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    ButtonStyles[props.stylesVariant],
+    disabled ? ButtonStyles.disabled : style,
   )
 
-  if (props.functionVariant === 'button') {
+  if (behavior === ButtonBehavior.Button) {
     return (
-      <button className={buttonClass} disabled={props.isDisabled} onClick={props.handleClick}>
-        {props.children}
+      <button className={className} disabled={disabled} onClick={onClick}>
+        {children}
       </button>
     )
   }
 
   return (
-    <NavLink to={props.path} className={buttonClass}>
-      {props.children}
-    </NavLink>
+    href && (
+      <NavLink to={href} className={className}>
+        {children}
+      </NavLink>
+    )
   )
 }
+
+export default Button
