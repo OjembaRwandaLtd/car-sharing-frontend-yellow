@@ -1,10 +1,10 @@
-import CarCard from '../components/CarCard'
-import useCars from '../hooks/useCars'
-import { useCarTypes } from '../hooks'
+import CarCard from '../../components/CarCard'
+import useCars from '../../hooks/useCars'
+import { useCarTypes } from '../../hooks'
 import { Link } from 'react-router-dom'
-import { ChevronBackIcon } from '../assets/ChevronBackIcon'
+import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 
-export default function NewBooking() {
+export default function AllCars() {
   const [{ data: carTypes }] = useCarTypes() // CarTypes
   const [{ data, loading, error }] = useCars() // Cars
 
