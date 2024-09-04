@@ -1,4 +1,4 @@
-import Button from '../components/Button'
+import Button, { buttonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
 export default function Home() {
@@ -7,16 +7,12 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: Links.MY_CARS,
-      stylesVariant: 'primary' as const,
-      isDisabled: false,
-      functionVariant: 'link',
+      style: 'primary' as const,
     },
     {
       name: 'See My Bookings',
       pathRoute: Links.MY_BOOKINGS,
-      stylesVariant: 'secondary' as const,
-      isDisabled: false,
-      functionVariant: 'link',
+      style: 'secondary' as const,
     },
   ]
 
@@ -30,7 +26,11 @@ export default function Home() {
         <span>What are you up to today?</span>
       </p>
       <div className="flex">
-        <Button path={Links.NEW_BOOKING} stylesVariant="primary" functionVariant="link">
+        <Button
+          path={Links.NEW_BOOKING}
+          style={buttonStyles.primary}
+          behavior={ButtonBehavior.Link}
+        >
           Book A car
         </Button>
       </div>
@@ -40,8 +40,8 @@ export default function Home() {
           <Button
             path={buttonItem.pathRoute}
             key={index}
-            stylesVariant={buttonItem.stylesVariant}
-            functionVariant={'link'}
+            style={buttonItem.style}
+            behavior={ButtonBehavior.Link}
           >
             {buttonItem.name}
           </Button>
