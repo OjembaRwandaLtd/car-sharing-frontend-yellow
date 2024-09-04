@@ -13,7 +13,7 @@ export default function MenuList() {
     {
       icon: <CarIcon />,
       title: 'Book A Car',
-      path: Links.ALL_CARS,
+      path: Links.CARS,
       ariaLabel: 'Go to book a  car page',
     },
     {

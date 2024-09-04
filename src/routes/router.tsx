@@ -15,7 +15,7 @@ import NewBooking from '../pages/bookings/NewBooking'
 export enum Links {
   HOME = '/',
   LOGIN = '/login',
-  ALL_CARS = '/cars',
+  CARS = '/cars',
   MY_CARS = '/cars/mycars',
   NEW_CAR = '/cars/new',
   CAR_DETAILS = '/cars/',
