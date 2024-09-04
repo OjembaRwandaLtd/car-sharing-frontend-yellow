@@ -26,11 +26,7 @@ export default function Home() {
         <span>What are you up to today?</span>
       </p>
       <div className="flex">
-        <Button
-          path={Links.NEW_BOOKING}
-          style={ButtonStyles.primary}
-          behavior={ButtonBehavior.Link}
-        >
+        <Button path={Links.CARS} style={ButtonStyles.primary} behavior={ButtonBehavior.Link}>
           Book A car
         </Button>
       </div>
