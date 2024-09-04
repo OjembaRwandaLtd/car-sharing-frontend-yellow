@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom'
 
 export const ButtonStyles = {
   primary: 'bg-primary-white text-primary-indigo',
-  secondary: 'border-2 border-white bg-primary-white',
+  secondary: 'border-2 border-white text-primary-white',
   disabled: 'bg-primary-gray text-primary-indigo',
 }
 
