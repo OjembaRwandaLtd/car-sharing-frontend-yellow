@@ -18,9 +18,9 @@ export default function Home() {
   ]
 
   return (
-    <div className="w-full bg-primary-indigo px-4 py-10 md:px-24">
-      <div className="flex flex-row-reverse items-center">
-        <HomepageCar className="hidden object-contain md:block" />
+    <div className="flex w-full flex-row-reverse items-center bg-primary-indigo px-4 py-10 md:pl-24">
+      <HomepageCar className="hidden opacity-80 md:block" />
+      <div className="w-full p-6">
         <div className="grow">
           <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3">
             CAR <span className="font-medium italic">sharing</span>
@@ -30,24 +30,24 @@ export default function Home() {
             <span>What are you up to today?</span>
           </p>
         </div>
-      </div>
-      <div className="flex md:w-1/2">
-        <Button path={Links.CARS} style={ButtonStyles.primary} behavior={ButtonBehavior.Link}>
-          Book A car
-        </Button>
-      </div>
-      <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
-      <div className="flex flex-col gap-4 md:w-1/2">
-        {buttonItems.map(buttonItem => (
-          <Button
-            path={buttonItem.pathRoute}
-            key={buttonItem.name}
-            style={buttonItem.style}
-            behavior={ButtonBehavior.Link}
-          >
-            {buttonItem.name}
+        <div className="flex">
+          <Button path={Links.CARS} style={ButtonStyles.primary} behavior={ButtonBehavior.Link}>
+            Book A car
           </Button>
-        ))}
+        </div>
+        <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
+        <div className="flex flex-col gap-4 md:flex-row md:gap-8">
+          {buttonItems.map(buttonItem => (
+            <Button
+              path={buttonItem.pathRoute}
+              key={buttonItem.name}
+              style={buttonItem.style}
+              behavior={ButtonBehavior.Link}
+            >
+              {buttonItem.name}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   )
