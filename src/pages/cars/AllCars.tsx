@@ -16,8 +16,8 @@ export default function AllCars() {
     return <div className="p-5 text-3xl text-primary-white">Error Occured!!!</div>
   }
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="my-8 flex w-full items-center justify-start px-6">
+    <div className="flex flex-col items-center justify-center ">
+      <div className="my-8 flex w-full items-center justify-start px-6 ">
         <Link to=".." relative="path">
           <ChevronBackIcon className="text-primary-mustard" />
         </Link>
@@ -25,7 +25,7 @@ export default function AllCars() {
           ALL CARS
         </h1>
       </div>
-      <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3 md:mx-0 md:w-full md:grid-cols-2 md:gap-8 md:px-20">
         {data?.map(car => {
           const carType = carTypes?.find(type => type.id === car.carTypeId)
           return <CarCard key={car.id} car={car} carType={carType} />
