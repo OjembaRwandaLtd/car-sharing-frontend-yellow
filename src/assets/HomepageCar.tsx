@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import carPicture from './car-homepage.png'
+import carPicture from './Homepage-car.avif'
 interface CarImageProps {
   className?: string
 }

@@ -3,7 +3,7 @@ import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
 export default function Home() {
-  const users = [{ username: 'Manuela' }, { username: 'Alexa' }] // Dummy data
+  const users = [{ username: 'Manuela' }, { username: 'Alexa' }]
   const buttonItems = [
     {
       name: 'See My Cars',
@@ -18,23 +18,23 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex w-full flex-row-reverse items-center bg-primary-indigo px-4 py-10 md:pl-24">
-      <HomepageCar className="hidden opacity-80 md:block" />
-      <div className="w-full p-6">
+    <div className="flex w-full items-center bg-primary-indigo px-4 py-10 md:grid lg:grid-cols-2 lg:pl-24 lg:py-0">
+      <HomepageCar className="drop-shadow-blue mx-auto hidden opacity-80 md:block lg:order-2" />
+      <div className="w-full p-6 lg:order-1">
         <div className="grow">
-          <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3">
+          <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
             CAR <span className="font-medium italic">sharing</span>
           </h1>
-          <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100 md:text-2xl">
+          <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100 lg:gap-4 lg:text-2xl">
             Hello {users[0].username}!!
             <span>What are you up to today?</span>
           </p>
         </div>
         <div className="flex">
           <Button
-            behavior={ButtonBehavior.Link}
-            customStyles={ButtonStyles.primary}
             path={Links.CARS}
+            customStyles={ButtonStyles.primary}
+            behavior={ButtonBehavior.Link}
           >
             Book A car
           </Button>

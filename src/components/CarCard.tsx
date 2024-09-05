@@ -26,7 +26,7 @@ export default function CarCard({ car, carType, user }: CarCardProps) {
         </div>
         {/* This link points to a random route for now! */}
         <Link
-          to={`${Links.CAR_DETAILS}${car.id}`}
+          to={`${Links.CARS}/${car.id}`}
           className="pt-8 font-inter text-sm font-semibold text-primary-mustard md:text-lg"
         >
           Show details
