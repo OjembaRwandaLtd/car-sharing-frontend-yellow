@@ -2,52 +2,53 @@ import classNames from 'classnames'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export const ButtonStyles = {
-  primary: 'bg-primary-white text-primary-indigo',
-  secondary: 'border-2 border-white bg-primary-white',
-  disabled: 'bg-primary-gray text-primary-indigo',
+export enum ButtonBehavior {
+  Button,
+  Link,
 }
 
-type DisabledButtonType = {
-  isDisabled: true
-  stylesVariant: 'disabled'
+export enum ButtonStyles {
+  primary = 'bg-primary-white text-primary-indigo',
+  secondary = 'border-2 border-white text-primary-white',
+  disabled = 'bg-primary-gray text-primary-indigo',
 }
 
-type EnabledButtonType = {
-  isDisabled: false
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
+interface ButtonVersion {
+  behavior: ButtonBehavior.Button
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
+  disabled?: boolean
 }
-type ButtonType = {
-  functionVariant: 'button'
-  handleClick: () => void
-} & (DisabledButtonType | EnabledButtonType)
 
-type LinkType = {
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
-  functionVariant: 'link'
+interface LinkVersion {
+  behavior: ButtonBehavior.Link
   path: string
 }
 
 type ButtonProps = {
   children: React.ReactNode
-} & (ButtonType | LinkType)
+  customStyles: ButtonStyles
+} & (ButtonVersion | LinkVersion)
 
 export default function Button(props: ButtonProps) {
-  const buttonClass = classNames(
-    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    ButtonStyles[props.stylesVariant],
-  )
-
-  if (props.functionVariant === 'button') {
+  if (props.behavior === ButtonBehavior.Button) {
+    const className = classNames(
+      'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
+      props.disabled ? ButtonStyles.disabled : props.customStyles,
+    )
     return (
-      <button className={buttonClass} disabled={props.isDisabled} onClick={props.handleClick}>
+      <button className={className} disabled={props.disabled} onClick={props.onClick}>
         {props.children}
       </button>
     )
   }
 
+  const className = classNames(
+    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
+    props.customStyles,
+  )
+
   return (
-    <NavLink to={props.path} className={buttonClass}>
+    <NavLink to={props.path} className={className}>
       {props.children}
     </NavLink>
   )
