@@ -1,17 +1,16 @@
 import ProfileIcon from '../assets/ProfileIcon'
-import { CarDto, CarTypeDto } from '../util/api'
+import { CarDto, CarTypeDto, UserDto } from '../util/api'
 import { Link } from 'react-router-dom'
 import { Links } from '../routes/router'
 import CarIcon from '../assets/CarIcon'
-import { useUser } from '../hooks'
 
 interface CarCardProps {
   car: CarDto
-  carType?: CarTypeDto
+  carType: CarTypeDto
+  user: UserDto
 }
 
-export default function CarCard({ car, carType }: CarCardProps) {
-  const [{ data: user }] = useUser(car.ownerId)
+export default function CarCard({ car, carType, user }: CarCardProps) {
   return (
     <div className="mb-3 flex h-56 items-center  rounded-xl bg-secondary-indigo py-4 pr-7 md:h-auto">
       <img src={carType?.imageUrl} alt={carType?.name} className="w-44 grow-0 md:w-80" />
