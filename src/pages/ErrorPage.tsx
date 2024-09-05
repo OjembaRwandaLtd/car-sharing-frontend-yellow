@@ -7,8 +7,7 @@ import { useRouteError } from 'react-router-dom'
 
 export default function ErrorPage() {
   const error = useRouteError()
-  // eslint-disable-next-line no-console
-  console.log('DDDDDDDD: ', error)
+
   const errorMessage = (() => {
     if (error instanceof Error) {
       return error.message
@@ -23,10 +22,12 @@ export default function ErrorPage() {
   return (
     <div className="bg-primary-indigo text-white">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
+
       <div className="flex h-screen w-full flex-col px-4 py-10">
         <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-primary-white">
           OOOOOPS!
         </h1>
+
         <div className="mt-10 flex justify-center">
           <ErrorPageIcon />
         </div>
@@ -35,7 +36,8 @@ export default function ErrorPage() {
           <span>{errorMessage}</span>
           We will solve your issue soon.
         </p>
-        <Button style={ButtonStyles.secondary} behavior={ButtonBehavior.Link} path="/">
+
+        <Button behavior={ButtonBehavior.Link} customStyles={ButtonStyles.secondary} path="/">
           Go back
         </Button>
       </div>

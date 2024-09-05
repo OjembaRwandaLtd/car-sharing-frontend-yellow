@@ -13,43 +13,43 @@ export enum ButtonStyles {
   disabled = 'bg-primary-gray text-primary-indigo',
 }
 
-interface ButtonProps {
-  children: React.ReactNode
-  behavior: ButtonBehavior
-  style: string
+interface ButtonVersion {
+  behavior: ButtonBehavior.Button
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
   disabled?: boolean
-  path?: string
-  onClick?: () => void
 }
 
-function Button({
-  children,
-  behavior,
-  style = ButtonStyles.primary,
-  disabled = false,
-  path: href,
-  onClick,
-}: ButtonProps) {
-  const className = classNames(
-    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    disabled ? ButtonStyles.disabled : style,
-  )
+interface LinkVersion {
+  behavior: ButtonBehavior.Link
+  path: string
+}
 
-  if (behavior === ButtonBehavior.Button) {
+type ButtonProps = {
+  children: React.ReactNode
+  customStyles: ButtonStyles
+} & (ButtonVersion | LinkVersion)
+
+export default function Button(props: ButtonProps) {
+  if (props.behavior === ButtonBehavior.Button) {
+    const className = classNames(
+      'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
+      props.disabled ? ButtonStyles.disabled : props.customStyles,
+    )
     return (
-      <button className={className} disabled={disabled} onClick={onClick}>
-        {children}
+      <button className={className} disabled={props.disabled} onClick={props.onClick}>
+        {props.children}
       </button>
     )
   }
 
+  const className = classNames(
+    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
+    props.customStyles,
+  )
+
   return (
-    href && (
-      <NavLink to={href} className={className}>
-        {children}
-      </NavLink>
-    )
+    <NavLink to={props.path} className={className}>
+      {props.children}
+    </NavLink>
   )
 }
-
-export default Button
