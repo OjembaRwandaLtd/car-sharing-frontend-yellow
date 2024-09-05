@@ -18,14 +18,14 @@ export default function Home() {
   ]
 
   return (
-    <div className="bg-primary-indigo flex w-full items-center px-4 py-10 md:grid lg:grid-cols-2 lg:py-0 lg:pl-24">
-      <HomepageCar className="drop-shadow-blue mx-auto hidden opacity-80 md:block lg:order-2" />
+    <div className="flex w-full items-center bg-primary-indigo px-4 py-10 md:grid lg:grid-cols-2 lg:py-0 lg:pl-24">
+      <HomepageCar className="mx-auto hidden opacity-80 drop-shadow-blue md:block lg:order-2" />
       <div className="w-full p-6 lg:order-1">
         <div className="grow">
-          <h1 className="font-lora flex flex-col text-center text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
+          <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
             CAR <span className="font-medium italic">sharing</span>
           </h1>
-          <p className="font-lora mx-auto my-12 flex flex-col text-center text-xl font-medium text-gray-100 lg:gap-4 lg:text-2xl">
+          <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100 lg:gap-4 lg:text-2xl">
             Hello {users[0].username}!!
             <span>What are you up to today?</span>
           </p>
@@ -39,7 +39,7 @@ export default function Home() {
             Book A car
           </Button>
         </div>
-        <p className="font-lora my-7 text-center text-xl font-medium text-gray-100">or</p>
+        <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
         <div className="flex flex-col gap-4 md:flex-row md:gap-8">
           {buttonItems.map(buttonItem => (
             <Button
