@@ -7,9 +7,9 @@ import Spinner from '../../assets/Spinner'
 import { CarDto } from '../../util/api'
 
 export default function AllCars() {
-  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes() // CarTypes
-  const [{ data: allCarsData, loading: allCarsLoading, error: allCarsError }] = useCars() // Cars
-  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers() // Users
+  const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
+  const [{ data: allCarsData, loading: allCarsLoading, error: allCarsError }] = useCars()
+  const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
 
   if (allCarsError || carTypesError || usersError) {
     throw Error('Could not fetch cars')
