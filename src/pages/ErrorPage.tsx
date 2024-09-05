@@ -11,12 +11,15 @@ export default function ErrorPage() {
   const errorMessage = (() => {
     if (error instanceof Error) {
       return error.message
-    } else if (typeof error === 'string') {
+    }
+
+    if (typeof error === 'string') {
       return error
-    } else if (typeof error === 'object' && error !== null && 'message' in error) {
+    }
+    if (error && typeof error === 'object' && 'message' in error) {
       return (error as { message: string }).message
     }
-    return 'Unknown error occurred'
+    return 'Something went wrong'
   })()
 
   return (
