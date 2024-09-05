@@ -8,7 +8,16 @@ module.exports = {
         inter: ['inter'],
       },
       dropShadow: {
-        blue: '0 35px 35px rgba(0,234,255,0.5)',
+        blue: '0 35px 35px rgba(0,141,187,0.79)',
+      },
+      keyframes: {
+        moveCar: {
+          '0%': { transform: 'translateX(-89%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        moveCar: 'moveCar 5s ease-in-out',
       },
       colors: {
         'primary-indigo': '#265E78',

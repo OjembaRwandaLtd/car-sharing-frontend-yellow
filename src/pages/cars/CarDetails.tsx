@@ -34,7 +34,11 @@ export default function CarDetails() {
         <h1 className="w-full text-center font-lora text-3xl font-medium">DETAILS</h1>
       </div>
       <div className="md:mt-10 md:flex md:items-center md:justify-center md:gap-32">
-        <img className="my-4 h-52 w-80 object-cover md:w-96" src={carImage} alt="car" />
+        <img
+          className="my-4 h-52 w-80 object-cover md:w-96 lg:animate-moveCar lg:drop-shadow-blue"
+          src={carImage}
+          alt="car"
+        />
         <div>
           <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
           <CarDetailsCard carType={carTypeName} carData={carData} ownerName={userData?.name} />
