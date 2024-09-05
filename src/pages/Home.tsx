@@ -1,3 +1,4 @@
+import HomepageCar from '../assets/HomepageCar'
 import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
@@ -17,21 +18,26 @@ export default function Home() {
   ]
 
   return (
-    <div className="h-screen w-full bg-primary-indigo px-4 py-10">
-      <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50">
-        CAR <span className="font-medium italic">sharing</span>
-      </h1>
-      <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100">
-        Hello {users[0].username}!!
-        <span>What are you up to today?</span>
-      </p>
-      <div className="flex">
+    <div className="w-full bg-primary-indigo px-4 py-10 md:px-24">
+      <div className="flex flex-row-reverse items-center">
+        <HomepageCar className="hidden object-contain md:block" />
+        <div className="grow">
+          <h1 className="flex flex-col md:flex-row md:gap-3 md:justify-center text-center font-lora text-5xl font-bold text-gray-50">
+            CAR <span className="font-medium italic">sharing</span>
+          </h1>
+          <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100 md:text-2xl">
+            Hello {users[0].username}!!
+            <span>What are you up to today?</span>
+          </p>
+        </div>
+      </div>
+      <div className="flex md:w-1/2">
         <Button path={Links.CARS} style={ButtonStyles.primary} behavior={ButtonBehavior.Link}>
           Book A car
         </Button>
       </div>
       <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 md:w-1/2">
         {buttonItems.map(buttonItem => (
           <Button
             path={buttonItem.pathRoute}
