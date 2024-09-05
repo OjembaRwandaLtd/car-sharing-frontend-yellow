@@ -20,10 +20,15 @@ export default function CarDetails() {
   if (carError || carTypeError || userError) {
     throw Error('Could not fetch car details')
   }
-
-  const currentCarType = carTypes?.find(carType => carType.id === carData?.carTypeId)
-  const carImage = currentCarType?.imageUrl
-  const carTypeName = currentCarType?.name.split(' ').slice(-1).join(' ')
+  if (!carData || !carTypes || !userData) {
+    return <div className="p-5 text-3xl text-primary-white">The car was found</div>
+  }
+  const currentCarType = carTypes.find(carType => carType.id === carData.carTypeId)
+  if (!currentCarType) {
+    throw Error('Could not fetch car details')
+  }
+  const carImage = currentCarType.imageUrl
+  const carTypeName = currentCarType.name.split(' ').slice(-1).join(' ')
 
   return (
     <div className="px-5 py-8 text-primary-white">
@@ -40,8 +45,8 @@ export default function CarDetails() {
           alt="car"
         />
         <div>
-          <h2 className="pl-11 font-lora text-xl  font-medium">{carData?.name}</h2>
-          <CarDetailsCard carType={carTypeName} carData={carData} ownerName={userData?.name} />
+          <h2 className="pl-11 font-lora text-xl  font-medium">{carData.name}</h2>
+          <CarDetailsCard carType={carTypeName} carData={carData} ownerName={userData.name} />
         </div>
       </div>
     </div>
