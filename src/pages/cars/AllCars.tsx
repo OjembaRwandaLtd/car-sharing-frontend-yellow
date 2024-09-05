@@ -35,8 +35,8 @@ export default function AllCars() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="my-8 flex w-full items-center justify-start px-6">
+    <div className="flex flex-col items-center justify-center ">
+      <div className="my-8 flex w-full items-center justify-start px-6 ">
         <Link to=".." relative="path">
           <ChevronBackIcon className="text-primary-mustard" />
         </Link>
@@ -44,7 +44,7 @@ export default function AllCars() {
           ALL CARS
         </h1>
       </div>
-      <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3 md:mx-0 md:w-full md:grid-cols-2 md:gap-8 md:px-20">
         {allCarsData.map(car => {
           const { carType, user } = getCarDetails(car)
           return <CarCard key={car.id} car={car} carType={carType} user={user} />

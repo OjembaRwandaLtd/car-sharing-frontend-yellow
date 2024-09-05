@@ -18,7 +18,6 @@ export enum Links {
   CARS = '/cars',
   MY_CARS = '/cars/mycars',
   NEW_CAR = '/cars/new',
-  CAR_DETAILS = '/cars/',
   MY_BOOKINGS = '/bookings',
   NEW_BOOKING = '/bookings/new',
   MANAGE_BOOKINGS = '/bookings/manage',
