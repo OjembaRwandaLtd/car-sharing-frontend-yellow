@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import { NavLink } from 'react-router-dom'
 
 export enum ButtonBehavior {
@@ -13,17 +13,16 @@ export enum ButtonStyles {
   disabled = 'bg-primary-gray text-primary-indigo',
 }
 
-interface ButtonVersion {
+interface ButtonVersion extends ButtonHTMLAttributes<HTMLButtonElement> {
   behavior: ButtonBehavior.Button
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void
-  disabled?: boolean
 }
 
-interface LinkVersion {
+interface LinkVersion extends AnchorHTMLAttributes<HTMLAnchorElement> {
   behavior: ButtonBehavior.Link
   path: string
 }
 
+// Here we used type for intersecting ButtonVersion and LinkVersion
 type ButtonProps = {
   children: React.ReactNode
   customStyles: ButtonStyles
