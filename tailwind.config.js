@@ -7,6 +7,9 @@ module.exports = {
         lora: ['lora'],
         inter: ['inter'],
       },
+      dropShadow: {
+        blue: '0 35px 35px rgba(0,234,255,0.5)',
+      },
       colors: {
         'primary-indigo': '#265E78',
         'secondary-indigo': '#3E7591',
