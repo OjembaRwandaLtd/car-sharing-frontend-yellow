@@ -4,28 +4,17 @@ import FuelIcon from '../assets/FuelIcon'
 import HorseIcon from '../assets/HorseIcon'
 import LicensePlateIcon from '../assets/LicensePlateIcon'
 import ProfileIcon from '../assets/ProfileIcon'
-import Spinner from '../assets/Spinner'
-import { useUser } from '../hooks'
 import { CarDto } from '../util/api'
 
 interface carDetailItemProps {
   carData?: CarDto
   carType?: string
+  ownerName?: string
 }
 
-export default function CarDetailsCard({ carType, carData }: carDetailItemProps) {
-  const ownerId = carData?.ownerId ?? ''
-  const [{ loading, error, data: userData }] = useUser(ownerId)
-
-  if (loading) {
-    return <Spinner />
-  }
-  if (error) {
-    throw Error('Could not fetch owner details')
-  }
-
+export default function CarDetailsCard({ carType, carData, ownerName }: carDetailItemProps) {
   const carDetails = [
-    { title: userData?.name, icon: <ProfileIcon /> },
+    { title: ownerName, icon: <ProfileIcon /> },
     { title: carType, icon: <CarIcon /> },
     { title: carData?.licensePlate, icon: <LicensePlateIcon /> },
     { title: carData?.horsepower && `${carData?.horsepower}hp`, icon: <HorseIcon /> },

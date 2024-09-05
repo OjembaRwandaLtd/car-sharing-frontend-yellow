@@ -44,7 +44,7 @@ export default function AllCars() {
           ALL CARS
         </h1>
       </div>
-      <div className="mx-4 grid grid-cols-1 gap-4 sm:grid-cols-3 md:mx-0 md:w-full md:grid-cols-2 md:gap-8 md:px-20">
+      <div className="mx-4 grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
         {allCarsData.map(car => {
           const { carType, user } = getCarDetails(car)
           return <CarCard key={car.id} car={car} carType={carType} user={user} />
