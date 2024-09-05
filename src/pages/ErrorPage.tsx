@@ -23,7 +23,7 @@ export default function ErrorPage() {
   })()
 
   return (
-    <div className="bg-primary-indigo text-white h-screen">
+    <div className="h-screen bg-primary-indigo text-white">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
 
       <div className="flex w-full flex-col px-4 py-10 md:h-min md:py-5 ">
