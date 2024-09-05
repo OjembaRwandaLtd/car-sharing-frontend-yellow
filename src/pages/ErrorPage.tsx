@@ -11,28 +11,31 @@ export default function ErrorPage() {
   const errorMessage = (() => {
     if (error instanceof Error) {
       return error.message
-    } else if (typeof error === 'string') {
+    }
+
+    if (typeof error === 'string') {
       return error
-    } else if (typeof error === 'object' && error !== null && 'message' in error) {
+    }
+    if (error && typeof error === 'object' && 'message' in error) {
       return (error as { message: string }).message
     }
-    return 'Unknown error occurred'
+    return 'Something went wrong'
   })()
 
   return (
-    <div className="bg-primary-indigo text-white">
+    <div className="h-screen bg-primary-indigo text-white">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
 
-      <div className="flex h-screen w-full flex-col px-4 py-10">
+      <div className="flex w-full flex-col px-4 py-10 md:h-min md:py-5 ">
         <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-primary-white">
           OOOOOPS!
         </h1>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-10 flex justify-center md:mt-5">
           <ErrorPageIcon />
         </div>
 
-        <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-primary-white">
+        <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-primary-white md:my-6">
           <span>{errorMessage}</span>
           We will solve your issue soon.
         </p>

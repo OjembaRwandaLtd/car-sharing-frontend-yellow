@@ -1,4 +1,4 @@
-import HomepageCar from '../assets/HomepageCar'
+import carPicture from '../assets/Homepage-car.avif'
 import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
 import { Links } from '../routes/router'
 
@@ -19,7 +19,11 @@ export default function Home() {
 
   return (
     <div className="flex w-full items-center bg-primary-indigo px-4 py-10 md:grid lg:grid-cols-2 lg:py-0 lg:pl-24">
-      <HomepageCar className="mx-auto hidden opacity-80 drop-shadow-blue md:block lg:order-2" />
+      <img
+        src={carPicture}
+        alt="car"
+        className="mx-auto hidden opacity-80 drop-shadow-blue md:block lg:order-2"
+      />
       <div className="w-full p-6 lg:order-1">
         <div className="grow">
           <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
