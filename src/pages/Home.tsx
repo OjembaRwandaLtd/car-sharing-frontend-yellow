@@ -22,7 +22,7 @@ export default function Home() {
       <div className="flex flex-row-reverse items-center">
         <HomepageCar className="hidden object-contain md:block" />
         <div className="grow">
-          <h1 className="flex flex-col md:flex-row md:gap-3 md:justify-center text-center font-lora text-5xl font-bold text-gray-50">
+          <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3">
             CAR <span className="font-medium italic">sharing</span>
           </h1>
           <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-gray-100 md:text-2xl">
