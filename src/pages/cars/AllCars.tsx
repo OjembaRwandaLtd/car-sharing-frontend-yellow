@@ -35,8 +35,8 @@ export default function AllCars() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center ">
-      <div className="my-8 flex w-full items-center justify-start px-6 ">
+    <div className="flex flex-col items-center justify-center">
+      <div className="my-8 flex w-full items-center justify-start px-6">
         <Link to=".." relative="path">
           <ChevronBackIcon className="text-primary-mustard" />
         </Link>
