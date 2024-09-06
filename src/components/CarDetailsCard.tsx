@@ -29,10 +29,10 @@ export default function CarDetailsCard({ carType, carData, ownerName }: carDetai
         key={item.title}
         className="flex items-center gap-3 font-inter capitalize text-primary-white"
       >
-        <span className="h-6 w-6">{item.icon}</span>
-        <span className={item.className}>{item.title}</span>
+        <dt className="h-6 w-6">{item.icon}</dt>
+        <dd className={item.className}>{item.title}</dd>
       </div>
     ))
 
-  return <div className="flex flex-col gap-2 px-11 pt-8">{allCarDetails}</div>
+  return <dl className="flex flex-col gap-2 px-11 pt-8">{allCarDetails}</dl>
 }

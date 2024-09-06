@@ -29,9 +29,10 @@ type ButtonProps = {
 } & (ButtonVersion | LinkVersion)
 
 export default function Button(props: ButtonProps) {
+  const sharedStyles = 'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full'
   if (props.behavior === ButtonBehavior.Button) {
     const className = classNames(
-      'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
+      sharedStyles,
       props.disabled ? ButtonStyles.disabled : props.customStyles,
     )
     return (
@@ -41,10 +42,7 @@ export default function Button(props: ButtonProps) {
     )
   }
 
-  const className = classNames(
-    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    props.customStyles,
-  )
+  const className = classNames(sharedStyles, props.customStyles)
 
   return (
     <NavLink to={props.path} className={className}>
