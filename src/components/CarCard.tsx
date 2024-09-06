@@ -12,7 +12,7 @@ interface CarCardProps {
 
 export default function CarCard({ car, carType, user }: CarCardProps) {
   return (
-    <figure className="mb-3 flex h-56 items-center  rounded-xl bg-secondary-indigo py-4 pr-7 md:h-auto">
+    <figure className="mb-3 grid h-56 grid-cols-2 items-center rounded-xl bg-secondary-indigo py-4 pr-7 md:h-auto">
       <img src={carType?.imageUrl} alt={carType?.name} className="w-44 grow-0 md:w-80" />
       <figcaption className="flex shrink-0 grow flex-col items-start">
         <h3 className="pb-5 font-lora text-xl font-medium text-primary-white">{car.name}</h3>
