@@ -1,5 +1,3 @@
-import { json } from 'react-router-dom'
-
 interface APIUser {
   name: string
   id: number
@@ -18,19 +16,24 @@ export async function getUser({ username, password }: User) {
       },
     })
     if (!response.ok) {
-      return json({ error: 'something went wrong' })
+      throw new Error('Failed to fetch users')
     }
+
     const users = (await response.json()) as APIUser[]
     const user = users.find(user => user.name === username)
+
     if (!user) {
-      return json({ error: 'User not found' })
+      throw new Error('User not found')
     }
-    const userPassword = `${user.name.toLowerCase()}-PW`
-    if (password !== userPassword) {
-      return json({ error: 'invalid password' })
+
+    const expectedPassword = `${user.name.toLowerCase()}-PW`
+
+    if (password !== expectedPassword) {
+      throw new Error('Invalid password')
     }
-    return json({ user })
+    return user
   } catch (error) {
     console.error(error)
+    throw new Error('An error occured')
   }
 }

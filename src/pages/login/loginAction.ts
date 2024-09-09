@@ -31,13 +31,11 @@ export const loginAction: ActionFunction = async ({ request }) => {
       return json({ errors })
     }
 
-    const user = {
-      username,
-      password,
-    }
-    getUser(user)
+    const user = await getUser({ username, password })
+
     return json({ message: 'Success', user })
   } catch (error) {
+    console.log('Error in login action', error)
     return json({ error: 'Something went wrong.' })
   }
 }

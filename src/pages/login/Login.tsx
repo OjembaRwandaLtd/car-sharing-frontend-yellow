@@ -1,16 +1,19 @@
 import { useActionData, useNavigate } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import ValidationErrors from './components/ValidationErrors'
+import { useEffect } from 'react'
 
 export interface Errors {
   username: string | null
   password: string | null
 }
 
+export interface LoaderData {
+  // Define any data you expect from the loader
+}
+
 export interface ActionData {
   error?: string
-  errors?: Errors
-  message?: string
   user?: {
     username: string
     password: string
@@ -20,11 +23,15 @@ export interface ActionData {
 export default function Login() {
   const actionData = useActionData() as ActionData
   const navigate = useNavigate()
-  if (actionData && actionData.user) {
-    navigate('/', {
-      state: actionData.user,
-    })
-  }
+
+  useEffect(() => {
+    if (actionData && actionData.user) {
+      navigate('/', {
+        state: actionData.user,
+      })
+    }
+  }, [actionData, navigate])
+
   return (
     <main className="mx-4 flex min-h-screen flex-col items-center justify-evenly">
       <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
