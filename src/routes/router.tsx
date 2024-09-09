@@ -11,6 +11,7 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
+import LoginSplash from '../pages/LoginSplash'
 
 export enum Links {
   HOME = '/',
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: Links.LOGIN,
         element: <GuestLayout />,
         children: [
+          {
+            path: 'splash',
+            element: <LoginSplash />,
+          },
           {
             path: Links.NOT_FOUND,
             element: <NotFoundPage />,
