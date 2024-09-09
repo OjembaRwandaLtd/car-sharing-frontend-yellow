@@ -13,7 +13,7 @@ export default function LoginSplash() {
         <span>with the world</span>
       </p>
       <Button behavior={ButtonBehavior.Link} customStyles={ButtonStyles.primary} path={Links.LOGIN}>
-        Login In
+        Log In
       </Button>
     </div>
   )
