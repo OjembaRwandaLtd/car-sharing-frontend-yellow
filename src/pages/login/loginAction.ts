@@ -1,5 +1,6 @@
 import { json, ActionFunction } from 'react-router-dom'
 import { Errors } from './Login'
+import { getUser } from './getUser'
 
 /* eslint-disable no-console */
 export const loginAction: ActionFunction = async ({ request }) => {
@@ -34,8 +35,7 @@ export const loginAction: ActionFunction = async ({ request }) => {
       username,
       password,
     }
-
-    console.log('Database operations')
+    getUser(user)
     return json({ message: 'Success', user })
   } catch (error) {
     return json({ error: 'Something went wrong.' })
