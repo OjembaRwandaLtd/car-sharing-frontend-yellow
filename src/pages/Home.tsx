@@ -18,7 +18,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="flex w-full items-center bg-primary-indigo px-4 py-10 md:grid lg:grid-cols-2 lg:py-0 lg:pl-24">
+    <div className="grid w-full items-center bg-primary-indigo px-4 py-10 lg:mx-auto lg:max-w-7xl lg:grid-cols-2 lg:py-0 lg:pl-24">
       <img
         src={carPicture}
         alt="car"
@@ -40,7 +40,7 @@ export default function Home() {
             customStyles={ButtonStyles.primary}
             behavior={ButtonBehavior.Link}
           >
-            Book A car
+            Book Car
           </Button>
         </div>
         <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>
