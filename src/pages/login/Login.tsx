@@ -13,6 +13,7 @@ export interface LoaderData {
 }
 
 export interface ActionData {
+  errors?: Errors
   error?: string
   user?: {
     username: string
