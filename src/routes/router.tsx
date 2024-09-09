@@ -11,7 +11,7 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
-import Login from '../pages/Login'
+import Login, { loginAction } from '../pages/Login'
 
 export enum Links {
   HOME = '/',
@@ -37,6 +37,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: <Login />,
+            action: loginAction,
           },
           {
             path: Links.NOT_FOUND,
