@@ -36,7 +36,7 @@ export default function Home() {
             customStyles={ButtonStyles.primary}
             behavior={ButtonBehavior.Link}
           >
-            Book A car
+            Book Car
           </Button>
         </div>
         <p className="my-7 text-center font-lora text-xl font-medium text-gray-100">or</p>

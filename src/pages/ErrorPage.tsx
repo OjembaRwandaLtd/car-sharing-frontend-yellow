@@ -37,7 +37,7 @@ export default function ErrorPage() {
           We will solve your issue soon.
         </p>
 
-        <Button behavior={ButtonBehavior.Link} customStyles={ButtonStyles.secondary} path="/">
+        <Button behavior={ButtonBehavior.Link} customStyles={ButtonStyles.primary} path="/">
           Go back
         </Button>
       </div>
