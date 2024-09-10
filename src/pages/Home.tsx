@@ -18,7 +18,7 @@ export default function Home() {
   ]
 
   return (
-    <div className="grid w-full items-center bg-primary-indigo px-4 py-10 lg:mx-auto lg:max-w-7xl lg:grid-cols-2 lg:py-0 lg:pl-24">
+    <main className="grid w-full items-center bg-primary-indigo px-4 py-10 lg:mx-auto lg:max-w-7xl lg:grid-cols-2 lg:py-0 lg:pl-24">
       <img
         src={carPicture}
         alt="car"
@@ -57,6 +57,6 @@ export default function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   )
 }

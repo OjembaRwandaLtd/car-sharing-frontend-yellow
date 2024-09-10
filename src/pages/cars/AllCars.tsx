@@ -35,7 +35,7 @@ export default function AllCars() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
         <Link to=".." relative="path">
           <ChevronBackIcon className="text-primary-mustard" />
@@ -50,6 +50,6 @@ export default function AllCars() {
           return <CarCard key={car.id} car={car} carType={carType} user={user} />
         })}
       </div>
-    </div>
+    </main>
   )
 }
