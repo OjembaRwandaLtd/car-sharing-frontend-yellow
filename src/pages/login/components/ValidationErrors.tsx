@@ -1,4 +1,4 @@
-import { ActionData } from '../Login'
+import { ActionData } from '../../../util/types'
 
 interface ValidationErrorsProps {
   actionData: ActionData

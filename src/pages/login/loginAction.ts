@@ -1,8 +1,7 @@
 import { json, ActionFunction } from 'react-router-dom'
-import { Errors } from './Login'
 import { getUser } from './getUser'
+import { Errors } from '../../util/types'
 
-/* eslint-disable no-console */
 export const loginAction: ActionFunction = async ({ request }) => {
   try {
     const data = await request.formData()
@@ -26,7 +25,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
       errors.password = 'Password must have at least 6 characters'
     }
 
-    // Return errors if we have them
     if (errors.password || errors.username) {
       return json({ errors })
     }
@@ -35,7 +33,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
 
     return json({ message: 'Success', user })
   } catch (error) {
-    console.log('Error in login action', error)
     return json({ error: 'Something went wrong.' })
   }
 }

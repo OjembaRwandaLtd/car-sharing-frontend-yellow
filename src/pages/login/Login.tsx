@@ -2,24 +2,7 @@ import { useActionData, useNavigate } from 'react-router-dom'
 import LoginForm from './components/LoginForm'
 import ValidationErrors from './components/ValidationErrors'
 import { useEffect } from 'react'
-
-export interface Errors {
-  username: string | null
-  password: string | null
-}
-
-export interface LoaderData {
-  // Define any data you expect from the loader
-}
-
-export interface ActionData {
-  errors?: Errors
-  error?: string
-  user?: {
-    username: string
-    password: string
-  }
-}
+import { ActionData } from '../../util/types'
 
 export default function Login() {
   const actionData = useActionData() as ActionData
@@ -27,6 +10,7 @@ export default function Login() {
 
   useEffect(() => {
     if (actionData && actionData.user) {
+      localStorage.setItem('token', actionData.user.token)
       navigate('/', {
         state: actionData.user,
       })
