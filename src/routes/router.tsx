@@ -13,6 +13,7 @@ import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
 import Login from '../pages/login/Login'
 import { loginAction } from '../pages/login/loginAction'
+import Splash from '../pages/Splash'
 
 export enum Links {
   HOME = '/',
@@ -28,15 +29,18 @@ export enum Links {
 
 const router = createBrowserRouter([
   {
-    path: Links.HOME,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: Links.LOGIN,
+        path: Links.HOME,
         element: <GuestLayout />,
         children: [
           {
             index: true,
+            element: <Splash />,
+          },
+          {
+            path: Links.LOGIN,
             element: <Login />,
             action: loginAction,
           },
@@ -47,11 +51,10 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: Links.HOME,
         element: <AppLayout />,
         children: [
           {
-            index: true,
+            path: 'home',
             element: <Home />,
           },
           {
