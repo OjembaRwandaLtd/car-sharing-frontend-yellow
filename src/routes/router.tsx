@@ -11,7 +11,7 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
-import LoginSplash from '../pages/LoginSplash'
+import Splash from '../pages/Splash'
 import Login from '../pages/Login'
 
 export enum Links {
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <LoginSplash />,
+            element: <Splash />,
           },
           {
             path: Links.LOGIN,
