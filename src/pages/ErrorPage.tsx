@@ -23,7 +23,7 @@ export default function ErrorPage() {
   })()
 
   return (
-    <div className="h-screen bg-primary-indigo text-white">
+    <main className="h-screen bg-primary-indigo text-white">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
 
       <div className="flex w-full flex-col px-4 py-10 md:h-min md:py-5 ">
@@ -44,6 +44,6 @@ export default function ErrorPage() {
           Go back
         </Button>
       </div>
-    </div>
+    </main>
   )
 }

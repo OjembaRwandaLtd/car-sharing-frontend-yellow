@@ -31,7 +31,7 @@ export default function CarDetails() {
   const carTypeName = currentCarType.name.split(' ').slice(-1).join(' ')
 
   return (
-    <div className="px-5 py-8 text-primary-white">
+    <main className="px-5 py-8 text-primary-white">
       <div className="flex items-center">
         <Link to=".." relative="path">
           <ChevronBackIcon />
@@ -49,6 +49,6 @@ export default function CarDetails() {
           <CarDetailsCard carType={carTypeName} carData={car} ownerName={user.name} />
         </figcaption>
       </figure>
-    </div>
+    </main>
   )
 }

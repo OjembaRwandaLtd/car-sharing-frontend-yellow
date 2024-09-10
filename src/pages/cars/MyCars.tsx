@@ -1,3 +1,3 @@
 export default function MyCars() {
-  return <div>MyCars</div>
+  return <main>MyCars</main>
 }
