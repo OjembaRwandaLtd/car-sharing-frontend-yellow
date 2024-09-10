@@ -30,7 +30,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
     }
 
     const user = await getUser({ username, password })
-
     return json({ message: 'Success', user })
   } catch (error) {
     return json({ error: 'Something went wrong.' })

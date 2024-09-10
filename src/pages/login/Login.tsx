@@ -3,6 +3,7 @@ import LoginForm from './components/LoginForm'
 import ValidationErrors from './components/ValidationErrors'
 import { useEffect } from 'react'
 import { ActionData } from '../../util/types'
+import { Links } from '../../routes/router'
 
 export default function Login() {
   const actionData = useActionData() as ActionData
@@ -11,11 +12,9 @@ export default function Login() {
   useEffect(() => {
     if (actionData && actionData.user) {
       localStorage.setItem('token', actionData.user.token)
-      navigate('/', {
-        state: actionData.user,
-      })
+      navigate(`${Links.HOME}home`)
     }
-  }, [actionData, navigate])
+  }, [actionData])
 
   return (
     <main className="mx-4 flex min-h-screen flex-col items-center justify-evenly">

@@ -14,13 +14,9 @@ export async function getUser({ username, password }: User) {
 
     const user = (await response.json()) as APIUser
 
-    if (!user) {
-      throw new Error('Invalid credentials')
-    }
-
     return user
   } catch (error) {
     console.error(error)
-    throw new Error('An error occured')
+    throw new Error('An error occurred while authenticating the user')
   }
 }
