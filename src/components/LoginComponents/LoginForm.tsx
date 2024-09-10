@@ -4,7 +4,7 @@ import Input, { InputBehavior } from '../Input'
 
 export default function LoginForm() {
   const inputStyles =
-    'border-none bg-transparent text-lg text-primary-white outline-none placeholder:text-primary-white'
+    'border-none bg-transparent text-lg text-primary-indigo outline-none placeholder:text-primary-white'
   return (
     <Form className="w-full" method="post">
       <div className="mb-16 flex w-full flex-col gap-4">
