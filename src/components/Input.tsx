@@ -4,23 +4,23 @@ import { useState } from 'react'
 import classNames from 'classnames'
 
 export enum InputBehavior {
-  Dropdown,
-  Input,
+  DROPDOWN,
+  INPUT,
 }
 interface DropdownProps {
-  behavior: InputBehavior.Dropdown
+  behavior: InputBehavior.DROPDOWN
   name: string
   options: string[]
 }
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  behavior: InputBehavior.Input
+  behavior: InputBehavior.INPUT
   icon?: React.ReactNode
 }
 
 export default function Input(props: InputProps | DropdownProps) {
   const styles = 'flex w-full rounded-full bg-light-indigo px-6 py-4 text-primary-white'
-  if (props.behavior === InputBehavior.Dropdown) {
+  if (props.behavior === InputBehavior.DROPDOWN) {
     const [selected, setSelected] = useState(props.options[0])
     return (
       <Listbox name={props.name} defaultValue={props.options[0]} onChange={setSelected}>
