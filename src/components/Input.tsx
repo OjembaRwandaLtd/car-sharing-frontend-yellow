@@ -1,6 +1,7 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronDownIcon } from '../assets/ChevronDownIcon'
 import { useState } from 'react'
+import classNames from 'classnames'
 
 export enum InputBehavior {
   Dropdown,
@@ -23,12 +24,12 @@ export default function Input(props: InputProps | DropdownProps) {
     const [selected, setSelected] = useState(props.options[0])
     return (
       <Listbox name={props.name} defaultValue={props.options[0]} onChange={setSelected}>
-        <ListboxButton className={`${styles} items-center justify-between`}>
+        <ListboxButton className={classNames(styles, 'items-center justify-between')}>
           {selected}
           <ChevronDownIcon />
         </ListboxButton>
         <ListboxOptions
-          className="mt-2 w-[var(--button-width)] rounded-lg bg-light-indigo p-2 text-white"
+          className="mt-2 w-[var(--button-width)] rounded-lg bg-light-indigo p-2 text-primary-white"
           anchor="bottom"
           transition
         >
@@ -47,7 +48,7 @@ export default function Input(props: InputProps | DropdownProps) {
   }
   const { icon, ...otherProps } = props
   return (
-    <div className={`${styles} gap-4`}>
+    <div className={classNames(styles, 'gap-4')}>
       {icon}
       <input
         className=" w-full bg-transparent placeholder:text-primary-white focus:outline-none"
