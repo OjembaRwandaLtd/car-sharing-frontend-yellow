@@ -25,14 +25,14 @@ export default function CarDetailsCard({ carType, carData, ownerName }: carDetai
   const allCarDetails = carDetails
     .filter(item => item.title)
     .map(item => (
-      <div
+      <li
         key={item.title}
         className="flex items-center gap-3 font-inter capitalize text-primary-white"
       >
-        <dt className="h-6 w-6">{item.icon}</dt>
-        <dd className={item.className}>{item.title}</dd>
-      </div>
+        <span className="h-6 w-6">{item.icon}</span>
+        <span className={item.className}>{item.title}</span>
+      </li>
     ))
 
-  return <dl className="flex flex-col gap-2 px-11 pt-8">{allCarDetails}</dl>
+  return <ul className="flex flex-col gap-2 px-11 pt-8">{allCarDetails}</ul>
 }
