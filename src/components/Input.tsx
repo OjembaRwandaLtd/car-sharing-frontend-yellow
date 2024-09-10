@@ -1,5 +1,6 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronDownIcon } from '../assets/ChevronDownIcon'
+import { useState } from 'react'
 
 export enum InputBehavior {
   Dropdown,
@@ -7,8 +8,7 @@ export enum InputBehavior {
 }
 interface DropdownProps {
   behavior: InputBehavior.Dropdown
-  value: string
-  onChange: (value: string) => void
+  name: string
   options: string[]
 }
 
@@ -20,30 +20,29 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function Input(props: InputProps | DropdownProps) {
   const styles = 'flex w-full rounded-full bg-light-indigo px-6 py-4 text-primary-white'
   if (props.behavior === InputBehavior.Dropdown) {
+    const [selected, setSelected] = useState(props.options[0])
     return (
-      <div className="relative ">
-        <Listbox value={props.value} onChange={props.onChange}>
-          <ListboxButton className={`${styles} items-center justify-between`}>
-            {props.value}
-            <ChevronDownIcon />
-          </ListboxButton>
-          <ListboxOptions
-            className="mt-2 w-[var(--button-width)] rounded-lg bg-light-indigo p-2 text-white"
-            anchor="bottom"
-            transition
-          >
-            {props.options.map(option => (
-              <ListboxOption
-                key={option}
-                value={option}
-                className="hover:bg-blue-100/50 focus:bg-blue-100/50"
-              >
-                {option}
-              </ListboxOption>
-            ))}
-          </ListboxOptions>
-        </Listbox>
-      </div>
+      <Listbox name={props.name} defaultValue={props.options[0]} onChange={setSelected}>
+        <ListboxButton className={`${styles} items-center justify-between`}>
+          {selected}
+          <ChevronDownIcon />
+        </ListboxButton>
+        <ListboxOptions
+          className="mt-2 w-[var(--button-width)] rounded-lg bg-light-indigo p-2 text-white"
+          anchor="bottom"
+          transition
+        >
+          {props.options.map(option => (
+            <ListboxOption
+              key={option}
+              value={option}
+              className="hover:bg-blue-100/50 focus:bg-blue-100/50"
+            >
+              {option}
+            </ListboxOption>
+          ))}
+        </ListboxOptions>
+      </Listbox>
     )
   }
   const { icon, ...otherProps } = props
