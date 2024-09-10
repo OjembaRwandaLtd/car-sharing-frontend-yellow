@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItems } from '@headlessui/react'
+import { Menu, MenuButton, MenuItems, Button as HUIButton } from '@headlessui/react'
 import MenuListItem from './MenuListItem'
 import CarIcon from '../assets/CarIcon'
 import ListIcon from '../assets/ListIcon'
@@ -7,6 +7,8 @@ import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
 import { Links } from '../routes/router'
+import { useAuth } from '../contexts/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function MenuList() {
   const generalDetails = [
@@ -45,6 +47,14 @@ export default function MenuList() {
     <MenuListItem key={myCarsDetail.title} {...myCarsDetail} />
   ))
 
+  const auth = useAuth()
+  const navigate = useNavigate()
+  function handleLogout() {
+    auth.setToken(null)
+    localStorage.removeItem('token')
+    navigate('/login', { replace: true })
+  }
+
   return (
     <Menu>
       <MenuButton className="bg-primary-blue text-white">
@@ -60,7 +70,13 @@ export default function MenuList() {
           <h3 className="font-semibold text-white">My cars</h3>
           {myCarsItems}
         </div>
-        <MenuListItem icon={<LogoutIcon />} path="login" title="Log Out" ariaLabel="Logout" />
+        <HUIButton
+          className="flex items-center gap-3 rounded-md p-1 font-inter text-white hover:bg-blue-100/50 focus:bg-blue-100/50"
+          onClick={handleLogout}
+        >
+          <LogoutIcon />
+          <span>Log Out</span>
+        </HUIButton>
       </MenuItems>
     </Menu>
   )
