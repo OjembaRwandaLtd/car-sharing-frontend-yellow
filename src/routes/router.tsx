@@ -11,8 +11,10 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
+import Login from '../pages/login/Login'
+import { loginAction } from '../pages/login/actions/loginAction'
 import Splash from '../pages/Splash'
-import Login from '../pages/Login'
+import ProtectedRoute from '../layouts/ProtectedRoute'
 
 export enum Links {
   HOME = '/',
@@ -41,15 +43,16 @@ const router = createBrowserRouter([
           {
             path: Links.LOGIN,
             element: <Login />,
-          },
-          {
-            path: Links.NOT_FOUND,
-            element: <NotFoundPage />,
+            action: loginAction,
           },
         ],
       },
       {
-        element: <AppLayout />,
+        element: (
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             path: 'home',
