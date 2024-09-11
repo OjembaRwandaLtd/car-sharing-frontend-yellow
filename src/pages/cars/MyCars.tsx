@@ -37,11 +37,11 @@ export default function MyCars() {
     return carType
   }
   return (
-    <main>
+    <main className="px-4">
       <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-primary-white">
         MY CARS
       </h1>
-      <div className="mx-4 grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
         {myCars.map(car => (
           <CarCard key={car.id} car={car} user={user} carType={getCarType(car.carTypeId)}>
             <Button behavior={ButtonBehavior.Button} customStyles={ButtonStyles.delete}>
@@ -49,6 +49,15 @@ export default function MyCars() {
             </Button>
           </CarCard>
         ))}
+      </div>
+      <div className="flex md:w-1/2 md:mx-auto py-8">
+        <Button
+          path={Links.NEW_CAR}
+          behavior={ButtonBehavior.Link}
+          customStyles={ButtonStyles.primary}
+        >
+          Add Car
+        </Button>
       </div>
     </main>
   )
