@@ -10,7 +10,6 @@ export default function MyCars() {
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
   const [{ loading: userLoading, error: userError, data: user }] = useUser(userId)
   const myCars = cars?.filter(car => car.ownerId === userId)
-  console.log(cars)
 
   if (carsLoading || carTypeLoading || userLoading) return <Spinner />
 
