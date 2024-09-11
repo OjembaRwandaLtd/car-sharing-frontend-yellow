@@ -52,7 +52,7 @@ export default function MenuList() {
   function handleLogout() {
     auth.setToken(null)
     localStorage.removeItem('token')
-    navigate('/login', { replace: true })
+    navigate('/', { replace: true })
   }
 
   return (

@@ -32,6 +32,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
     const user = await getUser({ username, password })
     return json({ message: 'Success', user })
   } catch (error) {
-    return json({ error: 'Login attempt was unsuccessful!' })
+    return json({ error: 'Failed to login. Email or Password incorrect!' })
   }
 }
