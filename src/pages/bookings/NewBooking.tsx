@@ -1,3 +1,3 @@
 export default function NewBooking() {
-  return <div>NewBooking</div>
+  return <h2>NewBookings</h2>
 }

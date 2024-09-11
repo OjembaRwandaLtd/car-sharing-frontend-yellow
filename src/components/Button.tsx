@@ -1,53 +1,51 @@
 import classNames from 'classnames'
-import React from 'react'
+import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export const ButtonStyles = {
-  primary: 'bg-primary-white text-primary-indigo',
-  secondary: 'border-2 border-white bg-primary-white',
-  disabled: 'bg-primary-gray text-primary-indigo',
+export enum ButtonBehavior {
+  Button,
+  Link,
 }
 
-type DisabledButtonType = {
-  isDisabled: true
-  stylesVariant: 'disabled'
+export enum ButtonStyles {
+  primary = 'bg-primary-white text-primary-indigo',
+  secondary = 'border-2 border-white text-primary-white',
+  disabled = 'bg-primary-gray text-primary-indigo',
 }
 
-type EnabledButtonType = {
-  isDisabled: false
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
+interface ButtonVersion extends ButtonHTMLAttributes<HTMLButtonElement> {
+  behavior: ButtonBehavior.Button
 }
-type ButtonType = {
-  functionVariant: 'button'
-  handleClick: () => void
-} & (DisabledButtonType | EnabledButtonType)
 
-type LinkType = {
-  stylesVariant: Exclude<keyof typeof ButtonStyles, 'disabled'>
-  functionVariant: 'link'
+interface LinkVersion extends AnchorHTMLAttributes<HTMLAnchorElement> {
+  behavior: ButtonBehavior.Link
   path: string
 }
 
+// Here we used type for intersecting ButtonVersion and LinkVersion
 type ButtonProps = {
   children: React.ReactNode
-} & (ButtonType | LinkType)
+  customStyles: ButtonStyles
+} & (ButtonVersion | LinkVersion)
 
 export default function Button(props: ButtonProps) {
-  const buttonClass = classNames(
-    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full',
-    ButtonStyles[props.stylesVariant],
-  )
-
-  if (props.functionVariant === 'button') {
+  const sharedStyles = 'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full'
+  if (props.behavior === ButtonBehavior.Button) {
+    const className = classNames(
+      sharedStyles,
+      props.disabled ? ButtonStyles.disabled : props.customStyles,
+    )
     return (
-      <button className={buttonClass} disabled={props.isDisabled} onClick={props.handleClick}>
+      <button className={className} disabled={props.disabled} onClick={props.onClick}>
         {props.children}
       </button>
     )
   }
 
+  const className = classNames(sharedStyles, props.customStyles)
+
   return (
-    <NavLink to={props.path} className={buttonClass}>
+    <NavLink to={props.path} className={className}>
       {props.children}
     </NavLink>
   )
