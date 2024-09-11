@@ -1,6 +1,7 @@
 import classNames from 'classnames'
 import Logo from '../assets/Logo'
 import { NavLink } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 interface NavBarProps {
   className?: string
@@ -10,7 +11,7 @@ interface NavBarProps {
 
 export default function NavBar({ className = '', MenuList, ProfileIcon }: Readonly<NavBarProps>) {
   const hasIcons = MenuList || ProfileIcon
-
+  const { token } = useAuth()
   const navClassname = classNames(
     'sticky top-0 z-20 flex justify-between rounded-b-lg bg-primary-blue p-5 font-inter text-primary-white shadow-lg',
     {
@@ -22,7 +23,7 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
     <header className={navClassname}>
       {MenuList}
       <NavLink
-        to={hasIcons ? '/' : ''}
+        to={token ? '/home' : '/'}
         className="absolute left-1/2 -translate-x-1/2 rounded-b-full bg-primary-blue px-4 pb-3 shadow-lg"
       >
         <Logo className="pb-2" />

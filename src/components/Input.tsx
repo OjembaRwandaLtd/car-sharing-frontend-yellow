@@ -19,12 +19,13 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export default function Input(props: InputProps | DropdownProps) {
-  const styles = 'flex w-full rounded-full bg-light-indigo px-6 py-4 text-primary-white'
+  const styles =
+    'flex w-full rounded-full bg-light-indigo px-6 py-4 text-primary-white items-center'
   if (props.behavior === InputBehavior.DROPDOWN) {
     const [selected, setSelected] = useState(props.options[0])
     return (
       <Listbox name={props.name} defaultValue={props.options[0]} onChange={setSelected}>
-        <ListboxButton className={classNames(styles, 'items-center justify-between')}>
+        <ListboxButton className={classNames(styles, 'justify-between')}>
           {selected}
           <ChevronDownIcon />
         </ListboxButton>

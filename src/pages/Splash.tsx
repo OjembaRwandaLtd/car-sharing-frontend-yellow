@@ -1,7 +1,20 @@
+import { useEffect } from 'react'
 import Button, { ButtonBehavior, ButtonStyles } from '../components/Button'
 import { Links } from '../routes/router'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../contexts/AuthContext'
 
 export default function Splash() {
+  const navigate = useNavigate()
+  const auth = useAuth()
+
+  useEffect(() => {
+    if (auth.token) {
+      navigate(`${Links.HOME}home`, { replace: true })
+      return
+    }
+  }, [navigate])
+
   return (
     <main className="w-full items-center px-4 py-10">
       <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-primary-white md:flex-row md:justify-center md:gap-3 lg:text-7xl">
