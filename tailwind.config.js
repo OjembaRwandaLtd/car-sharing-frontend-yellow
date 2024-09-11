@@ -29,6 +29,7 @@ module.exports = {
         'primary-gray': '#C9CDD3',
         'secondary-mustard': '#EBF541',
         'primary-white': '#F9FAFB',
+        'black-hover': 'rgba(0, 0, 0, 0.072)',
       },
     },
   },
