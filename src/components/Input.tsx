@@ -11,6 +11,7 @@ interface DropdownProps {
   behavior: InputBehavior.DROPDOWN
   name: string
   options: string[]
+  disableOption?: boolean
 }
 
 interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -25,7 +26,11 @@ export default function Input(props: InputProps) {
   if (props.behavior === InputBehavior.DROPDOWN) {
     const [selected, setSelected] = useState(props.options[0])
     return (
-      <Listbox name={props.name} defaultValue={props.options[0]} onChange={setSelected}>
+      <Listbox
+        name={props.name}
+        defaultValue={props.disableOption ? null : props.options[0]}
+        onChange={setSelected}
+      >
         <ListboxButton className={classNames(styles, 'justify-between')}>
           {selected}
           <ChevronDownIcon />
@@ -35,10 +40,11 @@ export default function Input(props: InputProps) {
           anchor="bottom"
           transition
         >
-          {props.options.map(option => (
+          {props.options.map((option, index) => (
             <ListboxOption
               key={option}
               value={option}
+              disabled={props.disableOption && index === 0}
               className="rounded-lg p-2 hover:bg-black-hover focus:bg-black-hover"
             >
               {option}
