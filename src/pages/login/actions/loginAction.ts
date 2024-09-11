@@ -1,6 +1,6 @@
 import { json, ActionFunction } from 'react-router-dom'
 import { getUser } from './getUser'
-import { Errors } from '../../util/types'
+import { Errors } from '../../../util/types'
 
 export const loginAction: ActionFunction = async ({ request }) => {
   try {
@@ -32,6 +32,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
     const user = await getUser({ username, password })
     return json({ message: 'Success', user })
   } catch (error) {
-    return json({ error: 'Something went wrong.' })
+    return json({ error: 'Login attempt was unsuccessful!' })
   }
 }
