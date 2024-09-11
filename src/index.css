@@ -3,10 +3,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 * {
   @apply box-border;
 }
 
 body {
   @apply font-normal text-left text-sm relative text-gray-700;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #F9FAFB;
+  -webkit-box-shadow: 0 0 0px 1000px #64A1C0 inset;
 }
