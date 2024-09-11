@@ -53,7 +53,7 @@ export default function Input(props: InputProps) {
     <div className={classNames(styles, 'gap-4')}>
       {icon}
       <input
-        className=" w-full bg-transparent placeholder:text-primary-white focus:outline-none autofill:bg-transparent"
+        className=" w-full bg-transparent placeholder:text-primary-white autofill:bg-transparent focus:outline-none"
         {...otherProps}
       />
     </div>
