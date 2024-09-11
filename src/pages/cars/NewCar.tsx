@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { ActionFunction, useActionData } from 'react-router-dom'
+import { useActionData } from 'react-router-dom'
 import AddCarForm from '../../components/AddCarForm'
 import { useEffect } from 'react'
 import axios from 'axios'
@@ -26,15 +25,14 @@ export default function NewCar() {
 
   async function addNewCar(data: AddNewCarType) {
     try {
-      const newCar = await axios.post(`${apiUrl}/cars`, data, {
+      await axios.post(`${apiUrl}/cars`, data, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${getAuthToken()}`,
         },
       })
-      console.log(newCar)
     } catch (error) {
-      console.error(error)
+      throw new Error('Could not add new car')
     }
   }
 
@@ -46,26 +44,4 @@ export default function NewCar() {
       <AddCarForm />
     </main>
   )
-}
-
-export const addCarAction: ActionFunction = async ({ request }) => {
-  try {
-    const data = await request.formData()
-    const name = data.get('carName')
-    const licensePlate = data.get('plateNumber')
-    const horsepower = Number(data.get('horsePower'))
-    // const fuelType = data.get('fuelType')
-    const info = data.get('information')
-
-    return {
-      carTypeId: 2,
-      name,
-      licensePlate,
-      horsepower,
-      fuelType: 'electric',
-      info,
-    }
-  } catch (error) {
-    console.error(error)
-  }
 }
