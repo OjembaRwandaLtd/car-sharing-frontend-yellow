@@ -46,7 +46,7 @@ export default function NewCar() {
           </label>
           <Input behavior={InputBehavior.INPUT} placeholder="e.g. No smoking"></Input>
         </div>
-        <div className="flex gap-3 mt-28">
+        <div className="mt-28 flex gap-3">
           <Button behavior={ButtonBehavior.Button} customStyles={ButtonStyles.secondary}>
             Cancel
           </Button>
