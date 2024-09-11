@@ -11,6 +11,7 @@ export enum ButtonStyles {
   primary = 'bg-primary-white text-primary-indigo',
   secondary = 'border-2 border-white text-primary-white',
   disabled = 'bg-primary-gray text-primary-indigo',
+  delete = 'border-2 border-primary-orange text-primary-orange',
 }
 
 interface ButtonVersion extends ButtonHTMLAttributes<HTMLButtonElement> {
