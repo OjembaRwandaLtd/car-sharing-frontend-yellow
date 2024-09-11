@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { ActionFunction, useActionData } from 'react-router-dom'
 import AddCarForm from '../../components/AddCarForm'
 import { useEffect } from 'react'
@@ -24,7 +25,6 @@ export default function NewCar() {
   }, [actionData])
 
   async function addNewCar(data: AddNewCarType) {
-    console.log(data)
     try {
       const newCar = await axios.post(`${apiUrl}/cars`, data, {
         headers: {
