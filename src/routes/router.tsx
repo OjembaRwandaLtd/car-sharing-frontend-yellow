@@ -9,7 +9,7 @@ import ErrorPage from '../pages/ErrorPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
-import NewCar from '../pages/cars/NewCar'
+import NewCar, { addCarAction } from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
 import Login from '../pages/login/Login'
 import { loginAction } from '../pages/login/actions/loginAction'
@@ -72,6 +72,7 @@ const router = createBrowserRouter([
               {
                 path: 'new',
                 element: <NewCar />,
+                action: addCarAction,
               },
               {
                 path: ':carId',
