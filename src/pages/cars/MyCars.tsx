@@ -9,7 +9,10 @@ import { useEffect, useState } from 'react'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState(-1)
+  const [deleted, setDeleted] = useState(false)
+
   const userId = 11
+
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
   const [{ loading: userLoading, error: userError, data: user }] = useUser(userId)
@@ -26,8 +29,14 @@ export default function MyCars() {
       },
       signal,
     })
-      .then(response => response.json())
-      .then(() => alert('Successfully deleted car!'))
+      .then(response => {
+        if (response.ok) {
+          alert('Successfully deleted car!')
+          setDeleted(true)
+        } else {
+          alert("Couldn't delete car")
+        }
+      })
       .catch(() => {
         alert("Couldn't delete car")
       })
@@ -35,7 +44,11 @@ export default function MyCars() {
     return () => {
       controller.abort()
     }
-  }, [deleteId])
+  }, [deleteId, deleted])
+  function handleDeleteCar(carId: number) {
+    const text = 'Do you really want to delete this car?'
+    if (confirm(text)) setDeleteId(carId)
+  }
 
   if (carsLoading || carTypeLoading || userLoading) return <Spinner />
 
@@ -73,7 +86,7 @@ export default function MyCars() {
           <CarCard key={car.id} car={car} user={user} carType={getCarType(car.carTypeId)}>
             <Button
               behavior={ButtonBehavior.Button}
-              onClick={() => setDeleteId(car.id)}
+              onClick={() => handleDeleteCar(car.id)}
               customStyles={ButtonStyles.delete}
             >
               Delete Car
