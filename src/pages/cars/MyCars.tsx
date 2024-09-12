@@ -7,14 +7,13 @@ import { apiUrl } from '../../util/apiUrl'
 import { getAuthToken } from '../../util/auth'
 import { useEffect, useState } from 'react'
 import useLoggedUser from '../../hooks/useLoggedUser'
+import CarsNotFound from '../../components/ui/CarsNotFound'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState(-1)
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
   const [{ loading: loggedUserLoading, error: loggedUserError, data: loggedUser }] = useLoggedUser()
-
-  const myCars = cars?.filter(car => car.ownerId === loggedUser?.id)
 
   useEffect(() => {
     if (deleteId === -1) return
@@ -40,7 +39,7 @@ export default function MyCars() {
     return () => {
       controller.abort()
     }
-  }, [deleteId, myCars])
+  }, [deleteId])
   function handleDeleteCar(carId: number) {
     const text = 'Do you really want to delete this car?'
     if (confirm(text)) setDeleteId(carId)
@@ -50,21 +49,10 @@ export default function MyCars() {
 
   if (carsError || carTypeError || loggedUserError) throw new Error('Could not fetch cars')
 
-  if (!loggedUser) throw new Error('User not found')
+  if (!cars || !carTypes || !loggedUser) throw new Error('Cars not found')
 
-  if (!myCars || myCars.length === 0)
-    return (
-      <main className="flex flex-col items-center justify-center gap-20 p-5 text-3xl text-primary-white">
-        <h1 className="font-medium">You don&apos;t have any cars</h1>
-        <Button
-          path={Links.NEW_CAR}
-          behavior={ButtonBehavior.Link}
-          customStyles={ButtonStyles.primary}
-        >
-          Add Car
-        </Button>
-      </main>
-    )
+  const myCars = cars.filter(car => car.ownerId === loggedUser.id)
+  if (!myCars || myCars.length === 0) return <CarsNotFound />
 
   function getCarType(carTypeId: number) {
     const carType = carTypes?.find(type => type.id === carTypeId)
