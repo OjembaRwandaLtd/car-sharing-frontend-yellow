@@ -46,7 +46,7 @@ export default function MyCars() {
 
   return (
     <main className="px-4">
-      <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-primary-white">
+      <h1 className="text-primary-white my-8 w-full text-center font-lora text-3xl font-medium">
         MY CARS
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
