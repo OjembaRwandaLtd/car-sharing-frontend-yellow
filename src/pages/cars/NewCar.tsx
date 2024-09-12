@@ -5,38 +5,38 @@ import axios from 'axios'
 import { apiUrl } from '../../util/apiUrl'
 import { getAuthToken } from '../../util/auth'
 import Spinner from '../../assets/Spinner'
-
-interface AddNewCarType {
-  carTypeId: number
-  name: string
-  fuelType: string
-  horsepower: number
-  licensePlate: string
-  info: string
-}
+import { useToast } from '@chakra-ui/react'
+import { AddNewCarType } from '../../util/types'
 
 export default function NewCar() {
   const [loading, setLoading] = useState(false)
-  const actionData = useActionData() as AddNewCarType | null
+  const actionData = useActionData() as AddNewCarType
   const navigate = useNavigate()
+  const toast = useToast()
 
   useEffect(() => {
     if (actionData) {
       addNewCar(actionData)
         .then(() => {
-          navigate('/cars', { state: { newCar: 'New car is added' } })
+          toast({
+            title: 'New Car Was Added',
+            description: 'New Car Was Added',
+            status: 'success',
+            duration: 5000,
+            isClosable: true,
+          })
+          navigate('/cars')
         })
         .catch(error => {
           console.error('Failed to add car:', error)
         })
     }
-  }, [actionData, navigate])
+  }, [actionData])
 
   async function addNewCar(data: AddNewCarType) {
     setLoading(true)
     try {
       await axios.post(`${apiUrl}/cars`, data, {
-        // Fixed typo here
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${getAuthToken()}`,
