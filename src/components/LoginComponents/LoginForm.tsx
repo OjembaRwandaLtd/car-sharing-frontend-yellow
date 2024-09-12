@@ -23,7 +23,7 @@ export default function LoginForm() {
           placeholder="Password"
         />
       </div>
-      <Button type="submit" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.PRIMARY}>
+      <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
         Log In
       </Button>
     </Form>

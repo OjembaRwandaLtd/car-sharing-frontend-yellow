@@ -1,4 +1,10 @@
-import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOption,
+  ListboxOptions,
+  Input as InputField,
+} from '@headlessui/react'
 import { ChevronDownIcon } from '../../assets/ChevronDownIcon'
 import { useState } from 'react'
 import classNames from 'classnames'
@@ -45,7 +51,7 @@ export default function Input(props: InputProps) {
               key={option}
               value={option}
               disabled={props.disableOption && index === 0}
-              className="rounded-lg p-2 hover:bg-light-black focus:bg-light-black"
+              className="rounded-lg p-2 hover:bg-black-hover focus:bg-black-hover"
             >
               {option}
             </ListboxOption>
@@ -58,7 +64,7 @@ export default function Input(props: InputProps) {
   return (
     <div className={classNames(styles, 'gap-4')}>
       {icon}
-      <input
+      <InputField
         className=" w-full bg-transparent placeholder:text-primary-white autofill:bg-transparent focus:outline-none"
         {...otherProps}
       />
