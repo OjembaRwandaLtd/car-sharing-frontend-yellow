@@ -14,7 +14,7 @@ export interface APIUser {
   token: string
 }
 
-export interface User {
+export interface LoginDto {
   username: string
   password: string
 }

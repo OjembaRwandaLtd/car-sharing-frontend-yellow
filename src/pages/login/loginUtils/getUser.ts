@@ -1,8 +1,8 @@
 import { apiUrl } from '../../../util/apiUrl'
-import { APIUser, User } from '../../../util/types'
+import { APIUser, LoginDto } from '../../../util/types'
 import axios from 'axios'
 
-export async function getUser({ username, password }: User) {
+export async function getUser({ username, password }: LoginDto) {
   try {
     const res = await axios.post(`${apiUrl}/auth`, { username, password })
     const { data: user } = res as { data: APIUser }
