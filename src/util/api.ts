@@ -41,7 +41,6 @@ interface NewCarDto {
   plate: string | null
   fuelType: FuelType
 }
-
 interface ChangeCarStateDto {
   state: CarState
 }
