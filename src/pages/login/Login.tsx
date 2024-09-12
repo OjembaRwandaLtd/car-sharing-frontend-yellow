@@ -30,7 +30,7 @@ export default function Login() {
         CAR <span className="font-medium italic">sharing</span>
       </h1>
       <div className="flex w-full flex-col items-center gap-8 md:pt-20">
-        <p className="text-center font-lora text-xl font-medium text-white">Log in</p>
+        <p className="text-center font-lora text-xl font-medium text-moni-gray-100">Log in</p>
 
         {actionData && <ValidationErrors actionData={actionData} />}
 

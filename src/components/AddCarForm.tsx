@@ -1,6 +1,6 @@
 import { Form } from 'react-router-dom'
-import Button, { ButtonBehavior, ButtonStyles } from '../components/Button'
-import Input, { InputBehavior } from './Input'
+import Button, { ButtonBehavior, ButtonStyles } from '../components/UI/Button'
+import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
 
@@ -19,7 +19,7 @@ export default function AddCarForm() {
   return (
     <Form className="flex flex-col gap-4" method="post">
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-primary-white">Name</label>
+        <label className="pl-2 font-inter text-sm text-moni-gray-100">Name</label>
         <Input
           behavior={InputBehavior.INPUT}
           placeholder="e.g. My Nice Moni Car"
@@ -28,7 +28,7 @@ export default function AddCarForm() {
       </div>
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-primary-white">Type</label>
+        <label className="pl-2 font-inter text-sm text-moni-gray-100">Type</label>
         <Input
           behavior={InputBehavior.DROPDOWN}
           name="type"
@@ -38,7 +38,7 @@ export default function AddCarForm() {
 
       <div className="grid grid-cols-2 gap-3 md:gap-5">
         <div className={inputWrapperStyles}>
-          <label className="pl-2 font-inter text-sm text-primary-white">License Plate</label>
+          <label className="pl-2 font-inter text-sm text-moni-gray-100">License Plate</label>
           <Input
             behavior={InputBehavior.INPUT}
             placeholder="e.g. M-XY 123"
@@ -46,13 +46,13 @@ export default function AddCarForm() {
           ></Input>
         </div>
         <div className={inputWrapperStyles}>
-          <label className="pl-2 font-inter text-sm text-primary-white">Horse Power</label>
+          <label className="pl-2 font-inter text-sm text-moni-gray-100">Horse Power</label>
           <Input behavior={InputBehavior.INPUT} placeholder="110" name="horsePower"></Input>
         </div>
       </div>
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-primary-white">Fuel type</label>
+        <label className="pl-2 font-inter text-sm text-moni-gray-100">Fuel type</label>
         <Input
           behavior={InputBehavior.DROPDOWN}
           options={['e.g electric', ...fuelTypes]}
@@ -64,14 +64,14 @@ export default function AddCarForm() {
       <input type="hidden" name="carTypes" value={JSON.stringify(carTypes)} />
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-primary-white">Additional Information</label>
+        <label className="pl-2 font-inter text-sm text-moni-gray-100">Additional Information</label>
         <Input behavior={InputBehavior.INPUT} placeholder="e.g. No smoking" name="info"></Input>
       </div>
       <div className="mt-28 flex gap-3">
-        <Button type="reset" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.secondary}>
+        <Button type="reset" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
           Cancel
         </Button>
-        <Button type="submit" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.primary}>
+        <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
           Add Car
         </Button>
       </div>

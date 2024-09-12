@@ -51,7 +51,7 @@ export default function NewCar() {
 
   return (
     <main className="w-full items-center px-4 py-5">
-      <h1 className="text-center font-lora text-3xl font-medium uppercase text-primary-white">
+      <h1 className="text-center font-lora text-3xl font-medium uppercase text-moni-gray-100">
         New Car
       </h1>
       <AddCarForm />

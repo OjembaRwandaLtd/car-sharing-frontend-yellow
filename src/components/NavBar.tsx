@@ -13,7 +13,7 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
   const hasIcons = MenuList || ProfileIcon
   const { token } = useAuth()
   const navClassname = classNames(
-    'sticky top-0 z-20 flex justify-between rounded-b-lg bg-primary-blue p-5 font-inter text-primary-white shadow-lg',
+    'sticky top-0 z-20 flex justify-between rounded-b-lg bg-moni-gray-800 p-5 font-inter text-moni-gray-100 shadow-lg',
     {
       [className]: !hasIcons,
     },
@@ -24,7 +24,7 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
       {MenuList}
       <NavLink
         to={token ? '/home' : '/'}
-        className="absolute left-1/2 -translate-x-1/2 rounded-b-full bg-primary-blue px-4 pb-3 shadow-lg"
+        className="absolute left-1/2 -translate-x-1/2 rounded-b-full bg-moni-gray-800 px-4 pb-3 shadow-lg"
       >
         <Logo className="pb-2" />
       </NavLink>
