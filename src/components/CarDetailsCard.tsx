@@ -27,7 +27,7 @@ export default function CarDetailsCard({ carType, carData, ownerName }: CarDetai
     .map(item => (
       <li
         key={item.title}
-        className="flex items-center gap-3 font-inter capitalize text-primary-white"
+        className="flex items-center gap-3 font-inter capitalize text-moni-gray-100"
       >
         <span className="h-6 w-6">{item.icon}</span>
         <span className={item.className}>{item.title}</span>

@@ -23,11 +23,11 @@ export default function ErrorPage() {
   })()
 
   return (
-    <main className="h-screen bg-primary-indigo text-white">
+    <main className="h-screen bg-moni-indigo-800 text-moni-gray-100">
       <NavBar MenuList={<MenuList />} ProfileIcon={<ProfileIcon />} />
 
       <div className="flex w-full flex-col px-4 py-10 md:h-min md:py-5 ">
-        <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-primary-white">
+        <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-moni-gray-100">
           OOOOOPS!
         </h1>
 
@@ -35,7 +35,7 @@ export default function ErrorPage() {
           <ErrorPageIcon />
         </div>
 
-        <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-primary-white md:my-6">
+        <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-moni-gray-100 md:my-6">
           <span>{errorMessage}</span>
           We will solve your issue soon.
         </p>

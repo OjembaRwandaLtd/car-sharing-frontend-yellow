@@ -8,10 +8,10 @@ export enum ButtonBehavior {
 }
 
 export enum ButtonStyles {
-  PRIMARY = 'bg-primary-white text-primary-indigo',
-  SECONDARY = 'border-2 border-white text-primary-white',
-  DISABLED = 'bg-primary-gray text-primary-indigo',
-  DELETE = 'border-2 border-primary-orange text-primary-orange',
+  PRIMARY = 'bg-moni-gray-100 text-moni-indigo-800',
+  SECONDARY = 'border-2 border-moni-gray-100 text-moni-gray-100',
+  DISABLED = 'bg-moni-gray-200 text-moni-indigo-800',
+  DELETE = 'border-2 border-moni-lachs-200 text-moni-lachs-200',
 }
 
 interface ButtonVersion extends ButtonHTMLAttributes<HTMLButtonElement> {
