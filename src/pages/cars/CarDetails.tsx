@@ -21,7 +21,7 @@ export default function CarDetails() {
     throw Error('Could not fetch car details')
   }
   if (!car || !carTypes || !user) {
-    return <div className="p-5 text-3xl text-primary-white">The car was found</div>
+    return <div className="p-5 text-3xl text-moni-gray-100">The car was found</div>
   }
   const currentCarType = carTypes.find(carType => carType.id === car.carTypeId)
   if (!currentCarType) {
@@ -31,7 +31,7 @@ export default function CarDetails() {
   const carTypeName = currentCarType.name.split(' ').slice(-1).join(' ')
 
   return (
-    <div className="px-5 py-8 text-primary-white">
+    <main className="px-5 py-8 text-moni-gray-100">
       <div className="flex items-center">
         <Link to=".." relative="path">
           <ChevronBackIcon />
@@ -49,6 +49,6 @@ export default function CarDetails() {
           <CarDetailsCard carType={carTypeName} carData={car} ownerName={user.name} />
         </figcaption>
       </figure>
-    </div>
+    </main>
   )
 }

@@ -11,6 +11,11 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
+import Login from '../pages/login/Login'
+import Splash from '../pages/Splash'
+import ProtectedRoute from '../layouts/ProtectedRoute'
+import { loginAction } from '../actions/loginAction'
+import { addCarAction } from '../actions/newCarAction'
 
 export enum Links {
   HOME = '/',
@@ -26,25 +31,32 @@ export enum Links {
 
 const router = createBrowserRouter([
   {
-    path: Links.HOME,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: Links.LOGIN,
+        path: Links.HOME,
         element: <GuestLayout />,
         children: [
           {
-            path: Links.NOT_FOUND,
-            element: <NotFoundPage />,
+            index: true,
+            element: <Splash />,
+          },
+          {
+            path: Links.LOGIN,
+            element: <Login />,
+            action: loginAction,
           },
         ],
       },
       {
-        path: Links.HOME,
-        element: <AppLayout />,
+        element: (
+          <ProtectedRoute>
+            <AppLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
-            index: true,
+            path: 'home',
             element: <Home />,
           },
           {
@@ -61,6 +73,7 @@ const router = createBrowserRouter([
               {
                 path: 'new',
                 element: <NewCar />,
+                action: addCarAction,
               },
               {
                 path: ':carId',

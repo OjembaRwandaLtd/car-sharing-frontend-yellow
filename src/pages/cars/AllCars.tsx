@@ -20,11 +20,11 @@ export default function AllCars() {
   }
 
   if (!allCarsData || !carTypes || !users) {
-    return <div className="p-5 text-3xl text-primary-white">Could not fetch</div>
+    return <div className="p-5 text-3xl text-moni-gray-100">Could not fetch</div>
   }
 
   if (allCarsData.length === 0 || carTypes.length === 0 || users.length === 0) {
-    return <div className="p-5 text-3xl text-primary-white">No cars found</div>
+    return <div className="p-5 text-3xl text-moni-gray-100">No cars found</div>
   }
 
   function getCarDetails(car: CarDto) {
@@ -35,12 +35,12 @@ export default function AllCars() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
         <Link to=".." relative="path">
-          <ChevronBackIcon className="text-primary-mustard" />
+          <ChevronBackIcon className="text-moni-mustard-100" />
         </Link>
-        <h1 className="w-full text-center font-lora text-3xl font-medium text-primary-white">
+        <h1 className="w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
           ALL CARS
         </h1>
       </div>
@@ -50,6 +50,6 @@ export default function AllCars() {
           return <CarCard key={car.id} car={car} carType={carType} user={user} />
         })}
       </div>
-    </div>
+    </main>
   )
 }
