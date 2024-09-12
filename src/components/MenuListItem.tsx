@@ -14,7 +14,7 @@ export default function MenuListItem({ icon, title, path, ariaLabel }: MenuListI
       <NavLink
         to={path}
         aria-label={ariaLabel}
-        className="flex items-center gap-3 rounded-md p-1 font-inter text-white hover:bg-black-hover focus:bg-black-hover"
+        className="flex items-center gap-3 rounded-md p-1 font-inter text-white hover:bg-light-black focus:bg-light-black"
       >
         <span className="h-6 w-6">{icon}</span>
         <span>{title}</span>

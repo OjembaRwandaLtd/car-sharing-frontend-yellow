@@ -45,7 +45,7 @@ export default function Input(props: InputProps) {
               key={option}
               value={option}
               disabled={props.disableOption && index === 0}
-              className="rounded-lg p-2 hover:bg-black-hover focus:bg-black-hover"
+              className="rounded-lg p-2 hover:bg-light-black focus:bg-light-black"
             >
               {option}
             </ListboxOption>
