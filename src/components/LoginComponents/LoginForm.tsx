@@ -6,7 +6,7 @@ import KeyIcon from '../../assets/KeyIcon'
 
 export default function LoginForm() {
   return (
-    <Form className="w-full" method="post">
+    <Form className="w-full md:w-1/3" method="post">
       <div className="mb-16 flex w-full flex-col gap-4">
         <Input
           icon={<ProfileIcon />}
