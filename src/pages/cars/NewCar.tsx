@@ -43,7 +43,14 @@ export default function NewCar() {
         },
       })
     } catch (error) {
-      console.error('Error from catch:', error)
+      toast({
+        title: 'Failed',
+        description: 'Could not add new car',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      })
+      throw new Error()
     } finally {
       setLoading(false)
     }
