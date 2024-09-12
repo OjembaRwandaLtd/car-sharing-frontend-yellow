@@ -68,10 +68,10 @@ export default function AddCarForm() {
         <Input behavior={InputBehavior.INPUT} placeholder="e.g. No smoking" name="info"></Input>
       </div>
       <div className="mt-28 flex gap-3">
-        <Button behavior={ButtonBehavior.Button} customStyles={ButtonStyles.secondary}>
+        <Button type="reset" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.secondary}>
           Cancel
         </Button>
-        <Button behavior={ButtonBehavior.Button} customStyles={ButtonStyles.primary}>
+        <Button type="submit" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.primary}>
           Add Car
         </Button>
       </div>

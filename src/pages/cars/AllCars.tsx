@@ -1,12 +1,31 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
 import { useCarTypes, useUsers } from '../../hooks'
-import { Link } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
 import { CarDto } from '../../util/api'
+import { useEffect } from 'react'
+
+import { useToast } from '@chakra-ui/react'
 
 export default function AllCars() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const toast = useToast()
+
+  useEffect(() => {
+    if (location.state?.newCar) {
+      toast({
+        title: location.state.newCar,
+        description: 'New Car Was Added',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      })
+    }
+  }, [location.state?.newCar, navigate, toast])
+
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: allCarsData, loading: allCarsLoading, error: allCarsError }] = useCars()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
