@@ -3,22 +3,22 @@ import React, { AnchorHTMLAttributes, ButtonHTMLAttributes } from 'react'
 import { NavLink } from 'react-router-dom'
 
 export enum ButtonBehavior {
-  Button,
-  Link,
+  BUTTON,
+  LINK,
 }
 
 export enum ButtonStyles {
-  primary = 'bg-primary-white text-primary-indigo',
-  secondary = 'border-2 border-white text-primary-white',
-  disabled = 'bg-primary-gray text-primary-indigo',
+  PRIMARY = 'bg-primary-white text-primary-indigo',
+  SECONDARY = 'border-2 border-white text-primary-white',
+  DISABLED = 'bg-primary-gray text-primary-indigo',
 }
 
 interface ButtonVersion extends ButtonHTMLAttributes<HTMLButtonElement> {
-  behavior: ButtonBehavior.Button
+  behavior: ButtonBehavior.BUTTON
 }
 
 interface LinkVersion extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  behavior: ButtonBehavior.Link
+  behavior: ButtonBehavior.LINK
   path: string
 }
 
@@ -30,10 +30,10 @@ type ButtonProps = {
 
 export default function Button(props: ButtonProps) {
   const sharedStyles = 'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full'
-  if (props.behavior === ButtonBehavior.Button) {
+  if (props.behavior === ButtonBehavior.BUTTON) {
     const className = classNames(
       sharedStyles,
-      props.disabled ? ButtonStyles.disabled : props.customStyles,
+      props.disabled ? ButtonStyles.DISABLED : props.customStyles,
     )
     return (
       <button className={className} disabled={props.disabled} onClick={props.onClick}>

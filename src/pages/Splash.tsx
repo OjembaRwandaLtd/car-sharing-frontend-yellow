@@ -27,7 +27,7 @@ export default function Splash() {
       <div className="flex w-full flex-col lg:mx-auto lg:w-96">
         <Button
           behavior={ButtonBehavior.Link}
-          customStyles={ButtonStyles.primary}
+          customStyles={ButtonStyles.PRIMARY}
           path={Links.LOGIN}
         >
           Log In

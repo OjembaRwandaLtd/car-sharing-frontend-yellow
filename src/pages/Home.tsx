@@ -8,17 +8,17 @@ export default function Home() {
     {
       name: 'See My Cars',
       pathRoute: Links.MY_CARS,
-      style: ButtonStyles.secondary,
+      style: ButtonStyles.SECONDARY,
     },
     {
       name: 'See My Bookings',
       pathRoute: Links.MY_BOOKINGS,
-      style: ButtonStyles.secondary,
+      style: ButtonStyles.SECONDARY,
     },
   ]
 
   return (
-    <main className="grid w-full items-center bg-primary-indigo px-4 py-10 lg:mx-auto lg:max-w-7xl lg:grid-cols-2 lg:py-0 lg:pl-24">
+    <main className="grid w-full items-center bg-primary-indigo px-4 py-10 lg:mx-auto lg:mt-10 lg:max-w-7xl lg:grid-cols-2 lg:py-0 lg:pl-24">
       <img
         src={carPicture}
         alt="car"
@@ -37,8 +37,8 @@ export default function Home() {
         <div className="flex">
           <Button
             path={Links.CARS}
-            customStyles={ButtonStyles.primary}
-            behavior={ButtonBehavior.Link}
+            customStyles={ButtonStyles.PRIMARY}
+            behavior={ButtonBehavior.LINK}
           >
             Book Car
           </Button>
@@ -50,7 +50,7 @@ export default function Home() {
               path={buttonItem.pathRoute}
               key={buttonItem.name}
               customStyles={buttonItem.style}
-              behavior={ButtonBehavior.Link}
+              behavior={ButtonBehavior.LINK}
             >
               {buttonItem.name}
             </Button>
