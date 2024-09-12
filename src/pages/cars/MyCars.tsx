@@ -3,11 +3,10 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { Links } from '../../routes/router'
 import CarCard from '../../components/CarCard'
 import { useCars, useCarTypes } from '../../hooks'
-import { apiUrl } from '../../util/apiUrl'
-import { getAuthToken } from '../../util/auth'
 import { useEffect, useState } from 'react'
 import useLoggedUser from '../../hooks/useLoggedUser'
 import CarsNotFound from '../../components/CarsNotFound'
+import { deleteCar } from '../../util/deleteCar'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState(-1)
@@ -19,23 +18,8 @@ export default function MyCars() {
     if (deleteId === -1) return
     const controller = new AbortController()
     const signal = controller.signal
-    fetch(`${apiUrl}cars/${deleteId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${getAuthToken()}`,
-      },
-      signal,
-    })
-      .then(response => {
-        if (response.ok) {
-          alert('Successfully deleted car!')
-          window.location.reload()
-        } else alert("Couldn't delete car")
-      })
-      .catch(err => {
-        if (err) alert("Couldn't delete car")
-      })
 
+    deleteCar(signal, deleteId)
     return () => {
       controller.abort()
     }
@@ -62,7 +46,7 @@ export default function MyCars() {
 
   return (
     <main className="px-4">
-      <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
+      <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-primary-white">
         MY CARS
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
