@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import Button, { ButtonBehavior, ButtonStyles } from '../components/Button'
+import Button, { ButtonBehavior, ButtonStyles } from '../components/UI/Button'
 import { Links } from '../routes/router'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'

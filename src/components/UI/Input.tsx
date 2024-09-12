@@ -1,5 +1,5 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
-import { ChevronDownIcon } from '../assets/ChevronDownIcon'
+import { ChevronDownIcon } from '../../assets/ChevronDownIcon'
 import { useState } from 'react'
 import classNames from 'classnames'
 

@@ -1,5 +1,5 @@
 import carPicture from '../assets/Homepage-car.avif'
-import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
+import Button, { ButtonStyles, ButtonBehavior } from '../components/UI/Button'
 import { Links } from '../routes/router'
 
 export default function Home() {

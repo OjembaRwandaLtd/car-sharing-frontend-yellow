@@ -1,4 +1,4 @@
-import Button, { ButtonStyles, ButtonBehavior } from '../components/Button'
+import Button, { ButtonStyles, ButtonBehavior } from '../components/UI/Button'
 import ErrorPageIcon from '../assets/ErrorPageIcon'
 import NavBar from '../components/NavBar'
 import MenuList from '../components/MenuList'

@@ -49,6 +49,7 @@ export default function MenuList() {
 
   const auth = useAuth()
   const navigate = useNavigate()
+
   function handleLogout() {
     auth.setToken(null)
     localStorage.removeItem('token')

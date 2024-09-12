@@ -1,6 +1,6 @@
 import { Form } from 'react-router-dom'
-import Button, { ButtonBehavior, ButtonStyles } from '../Button'
-import Input, { InputBehavior } from '../Input'
+import Button, { ButtonBehavior, ButtonStyles } from '../UI/Button'
+import Input, { InputBehavior } from '../UI/Input'
 import ProfileIcon from '../../assets/ProfileIcon'
 import KeyIcon from '../../assets/KeyIcon'
 
