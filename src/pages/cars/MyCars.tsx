@@ -2,27 +2,25 @@ import Spinner from '../../assets/Spinner'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/Button'
 import { Links } from '../../routes/router'
 import CarCard from '../../components/CarCard'
-import { useUser, useCars, useCarTypes } from '../../hooks'
+import { useCars, useCarTypes } from '../../hooks'
 import { apiUrl } from '../../util/apiUrl'
 import { getAuthToken } from '../../util/auth'
 import { useEffect, useState } from 'react'
+import useLoggedUser from '../../hooks/useLoggedUser'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState(-1)
-  const [deleted, setDeleted] = useState(false)
-
-  const userId = 11
-
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
-  const [{ loading: userLoading, error: userError, data: user }] = useUser(userId)
-  const myCars = cars?.filter(car => car.ownerId === userId)
+  const [{ loading: loggedUserLoading, error: loggedUserError, data: loggedUser }] = useLoggedUser()
+
+  const myCars = cars?.filter(car => car.ownerId === loggedUser?.id)
 
   useEffect(() => {
     if (deleteId === -1) return
     const controller = new AbortController()
     const signal = controller.signal
-    fetch(`${apiUrl}/cars/${deleteId}`, {
+    fetch(`${apiUrl}cars/${deleteId}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
@@ -32,29 +30,28 @@ export default function MyCars() {
       .then(response => {
         if (response.ok) {
           alert('Successfully deleted car!')
-          setDeleted(true)
-        } else {
-          alert("Couldn't delete car")
-        }
+          window.location.reload()
+        } else alert("Couldn't delete car")
       })
-      .catch(() => {
-        alert("Couldn't delete car")
+      .catch(err => {
+        if (err) alert("Couldn't delete car")
       })
 
     return () => {
       controller.abort()
     }
-  }, [deleteId, deleted])
+  }, [deleteId, myCars])
   function handleDeleteCar(carId: number) {
     const text = 'Do you really want to delete this car?'
     if (confirm(text)) setDeleteId(carId)
   }
 
-  if (carsLoading || carTypeLoading || userLoading) return <Spinner />
+  if (carsLoading || carTypeLoading || loggedUserLoading) return <Spinner />
 
-  if (carsError || carTypeError || userError) throw new Error('Could not fetch cars')
+  if (carsError || carTypeError || loggedUserError) throw new Error('Could not fetch cars')
 
-  if (!user) throw new Error('User not found')
+  if (!loggedUser) throw new Error('User not found')
+
   if (!myCars || myCars.length === 0)
     return (
       <main className="flex flex-col items-center justify-center gap-20 p-5 text-3xl text-primary-white">
@@ -64,7 +61,6 @@ export default function MyCars() {
           behavior={ButtonBehavior.Link}
           customStyles={ButtonStyles.primary}
         >
-          {' '}
           Add Car
         </Button>
       </main>
@@ -83,7 +79,7 @@ export default function MyCars() {
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
         {myCars.map(car => (
-          <CarCard key={car.id} car={car} user={user} carType={getCarType(car.carTypeId)}>
+          <CarCard key={car.id} car={car} user={loggedUser} carType={getCarType(car.carTypeId)}>
             <Button
               behavior={ButtonBehavior.Button}
               onClick={() => handleDeleteCar(car.id)}
