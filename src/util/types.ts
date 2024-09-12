@@ -1,11 +1,11 @@
-export interface Errors {
+export interface LoginErrors {
   username: string | null
   password: string | null
 }
 
-export interface ActionData {
-  errors?: Errors
-  error?: string
+export interface LoginActionData {
+  inputErrors?: LoginErrors
+  authError?: string
   user?: APIUser
 }
 

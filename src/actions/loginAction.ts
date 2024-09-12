@@ -1,5 +1,5 @@
 import { json, ActionFunction } from 'react-router-dom'
-import { Errors } from '../util/types'
+import { LoginErrors } from '../util/types'
 import { getUser } from '../pages/login/loginUtils/getUser'
 
 export const loginAction: ActionFunction = async ({ request }) => {
@@ -12,7 +12,7 @@ export const loginAction: ActionFunction = async ({ request }) => {
       return json({ error: 'Both fields are required.' })
     }
 
-    const errors: Errors = {
+    const errors: LoginErrors = {
       username: null,
       password: null,
     }

@@ -2,12 +2,12 @@ import { useActionData, useNavigate } from 'react-router-dom'
 import ValidationErrors from '../../components/LoginComponents/ValidationErrors'
 import LoginForm from '../../components/LoginComponents/LoginForm'
 import { useEffect } from 'react'
-import { ActionData } from '../../util/types'
+import { LoginActionData } from '../../util/types'
 import { Links } from '../../routes/router'
 import { useAuth } from '../../contexts/AuthContext'
 
 export default function Login() {
-  const actionData = useActionData() as ActionData
+  const actionData = useActionData() as LoginActionData
   const navigate = useNavigate()
   const auth = useAuth()
 
