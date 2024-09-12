@@ -1,6 +1,6 @@
 import { json, ActionFunction } from 'react-router-dom'
-import { getUser } from './getUser'
-import { Errors } from '../../../util/types'
+import { Errors } from '../util/types'
+import { getUser } from '../pages/login/loginUtils/getUser'
 
 export const loginAction: ActionFunction = async ({ request }) => {
   try {
