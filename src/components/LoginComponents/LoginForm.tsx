@@ -3,8 +3,17 @@ import Button, { ButtonBehavior, ButtonStyles } from '../Button'
 import Input, { InputBehavior } from '../Input'
 import ProfileIcon from '../../assets/ProfileIcon'
 import KeyIcon from '../../assets/KeyIcon'
+import { useState } from 'react'
+import ShowEyeIcon from '../../assets/ShowEyeIcon'
+import HideEyeIcon from '../../assets/HideEyeIcon'
 
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false)
+
+  function handleShowPassword() {
+    setShowPassword(!showPassword)
+  }
+
   return (
     <Form className="w-full md:w-1/3" method="post">
       <div className="mb-16 flex w-full flex-col gap-4">
@@ -15,13 +24,22 @@ export default function LoginForm() {
           name="usernameOrEmail"
           placeholder="Username / e-mail"
         />
-        <Input
-          icon={<KeyIcon />}
-          behavior={InputBehavior.INPUT}
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
+        <div className="relative flex items-center justify-between">
+          <Input
+            icon={<KeyIcon />}
+            behavior={InputBehavior.INPUT}
+            type={showPassword ? 'text' : 'password'}
+            name="password"
+            placeholder="Password"
+          />
+          <button
+            type="button"
+            onClick={handleShowPassword}
+            className="absolute right-4 rounded-3xl px-3 font-inter"
+          >
+            {showPassword ? <HideEyeIcon /> : <ShowEyeIcon />}
+          </button>
+        </div>
       </div>
       <Button type="submit" behavior={ButtonBehavior.Button} customStyles={ButtonStyles.primary}>
         Log In
