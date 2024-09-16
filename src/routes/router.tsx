@@ -16,6 +16,7 @@ import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
 import { loginAction } from '../actions/loginAction'
 import { addCarAction } from '../actions/newCarAction'
+import UserContextProvider from '../contexts/UserContext'
 
 export enum Links {
   HOME = '/',
@@ -50,9 +51,11 @@ const router = createBrowserRouter([
       },
       {
         element: (
-          <ProtectedRoute>
-            <AppLayout />
-          </ProtectedRoute>
+          <UserContextProvider>
+            <ProtectedRoute>
+              <AppLayout />
+            </ProtectedRoute>
+          </UserContextProvider>
         ),
         children: [
           {
