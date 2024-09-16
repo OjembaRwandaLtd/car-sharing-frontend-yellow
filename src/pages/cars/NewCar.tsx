@@ -10,22 +10,12 @@ export default function NewCar() {
   const actionData = useActionData() as AddNewCarType
   const navigate = useNavigate()
   const toast = useToast()
-  const { loading, error, executeAddCar } = useAddCar()
+  const { loading, executeAddCar } = useAddCar()
 
   useEffect(() => {
     if (actionData) {
       executeAddCar(actionData)
         .then(() => {
-          if (error) {
-            toast({
-              title: 'Failed to add car',
-              description: error.message,
-              status: 'error',
-              duration: 2000,
-              isClosable: true,
-            })
-            return
-          }
           toast({
             title: 'New Car Was Added',
             description: 'New Car Was Added',
@@ -45,7 +35,7 @@ export default function NewCar() {
           })
         })
     }
-  }, [actionData])
+  }, [actionData?.carTypeId])
 
   if (loading) return <Spinner />
 
