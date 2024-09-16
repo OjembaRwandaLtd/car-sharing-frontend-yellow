@@ -4,13 +4,16 @@ import { useNavigate } from 'react-router-dom'
 
 type ProtectedRouteProps = PropsWithChildren
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const auth = useAuth()
+  const { isAuthenticated, setToken } = useAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!auth.token) {
+    if (!isAuthenticated) {
+      setToken(null)
+      localStorage.removeItem('token')
       navigate('/login', { replace: true })
     }
-  }, [auth.token, navigate])
-  return children
+  }, [isAuthenticated, navigate, setToken])
+
+  return isAuthenticated ? children : null
 }
