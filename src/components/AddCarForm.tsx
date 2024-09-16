@@ -4,15 +4,15 @@ import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
 
+const inputWrapperStyles = 'flex flex-col gap-2'
 export default function AddCarForm() {
-  const inputWrapperStyles = 'flex flex-col gap-2'
   const [{ loading, error, data: carTypes }] = useCarTypes()
 
   if (loading) return <Spinner />
 
   if (error) throw new Error("Couldn't fetch car types")
 
-  if (!carTypes) throw new Error('Car types not found')
+  if (!carTypes?.length) throw new Error('Car types not found')
 
   const fuelTypes = ['petrol', 'diesel', 'electric']
 
@@ -67,14 +67,14 @@ export default function AddCarForm() {
         <label className="pl-2 font-inter text-sm text-moni-gray-100">Additional Information</label>
         <Input behavior={InputBehavior.INPUT} placeholder="e.g. No smoking" name="info"></Input>
       </div>
-      <div className="mt-28 flex gap-3">
+      <menu className="mt-28 flex gap-3">
         <Button type="reset" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
           Cancel
         </Button>
         <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
           Add Car
         </Button>
-      </div>
+      </menu>
     </Form>
   )
 }
