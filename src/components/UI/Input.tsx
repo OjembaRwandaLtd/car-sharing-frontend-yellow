@@ -29,6 +29,7 @@ export default function Input(props: InputProps) {
         name={props.name}
         options={props.options}
         disableOption={props.disableOption}
+        onChange={props?.onChange}
       ></DropdownInput>
     )
   }

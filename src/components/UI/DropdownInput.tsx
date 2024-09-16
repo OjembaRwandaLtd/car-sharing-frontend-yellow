@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '../../assets/ChevronDownIcon'
 import { useState } from 'react'
 import classNames from 'classnames'
 
-export interface DropdownInputProps {
+export interface DropdownInputProps extends React.HTMLAttributes<HTMLInputElement> {
   name: string
   options: string[]
   disableOption?: boolean
@@ -14,12 +14,24 @@ const styles =
 
 export default function DropdownInput(props: DropdownInputProps) {
   const [selected, setSelected] = useState(props.options[0])
+  function handleChange(value: string) {
+    setSelected(value)
+    if (props.onChange) {
+      const event = {
+        target: {
+          name: props.name,
+          value: value,
+        },
+      } as React.ChangeEvent<HTMLInputElement>
 
+      props.onChange(event)
+    }
+  }
   return (
     <Listbox
       name={props.name}
       defaultValue={props.disableOption ? null : props.options[0]}
-      onChange={setSelected}
+      onChange={handleChange}
     >
       <ListboxButton className={classNames(styles, 'justify-between')}>
         {selected}

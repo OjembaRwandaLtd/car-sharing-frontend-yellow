@@ -15,7 +15,6 @@ import Login from '../pages/login/Login'
 import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
 import { loginAction } from '../actions/loginAction'
-import { addCarAction } from '../actions/newCarAction'
 
 export enum Links {
   HOME = '/',
@@ -73,7 +72,6 @@ const router = createBrowserRouter([
               {
                 path: 'new',
                 element: <NewCar />,
-                action: addCarAction,
               },
               {
                 path: ':carId',
