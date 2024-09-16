@@ -49,6 +49,7 @@ export default function MenuList() {
 
   const auth = useAuth()
   const navigate = useNavigate()
+
   function handleLogout() {
     auth.setToken(null)
     localStorage.removeItem('token')
@@ -57,21 +58,21 @@ export default function MenuList() {
 
   return (
     <Menu>
-      <MenuButton className="bg-primary-blue text-white">
+      <MenuButton className="bg-moni-gray-800 text-moni-gray-100">
         {({ active }) => <span> {active ? 'Close' : 'Menu'}</span>}
       </MenuButton>
       <MenuItems
         transition
         anchor="bottom end"
-        className="ml-4 mt-10 w-56 rounded-lg bg-secondary-indigo px-5 pb-5"
+        className="ml-4 mt-10 w-56 rounded-lg bg-moni-indigo-400 px-5 pb-5"
       >
         <div className="flex flex-col gap-4 pt-4">{generalItems}</div>
         <div className="my-4 flex flex-col gap-4 border-y py-4">
-          <h3 className="font-semibold text-white">My cars</h3>
+          <h3 className="font-semibold text-moni-gray-100">My cars</h3>
           {myCarsItems}
         </div>
         <HUIButton
-          className="flex items-center gap-3 rounded-md p-1 font-inter text-white hover:bg-blue-100/50 focus:bg-blue-100/50"
+          className="flex items-center gap-3 rounded-md p-1 font-inter text-moni-gray-100 hover:bg-blue-100/50 focus:bg-blue-100/50"
           onClick={handleLogout}
         >
           <LogoutIcon />

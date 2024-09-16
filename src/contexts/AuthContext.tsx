@@ -1,8 +1,15 @@
-import { createContext, PropsWithChildren, useContext, useState } from 'react'
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useState,
+} from 'react'
 
 interface AuthContextType {
   token: string | null
-  setToken: React.Dispatch<React.SetStateAction<string | null>>
+  setToken: Dispatch<SetStateAction<string | null>>
 }
 
 interface AuthContextProviderProps extends PropsWithChildren {}
@@ -11,8 +18,8 @@ const AuthContext = createContext<AuthContextType | null>(null)
 
 export default function AuthContextProvider({ children }: AuthContextProviderProps) {
   const [token, setToken] = useState<string | null>(() => {
-    const storedContext = localStorage.getItem('token')
-    return storedContext ? storedContext : null
+    const storedToken = localStorage.getItem('token')
+    return storedToken ? storedToken : null
   })
 
   return <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>

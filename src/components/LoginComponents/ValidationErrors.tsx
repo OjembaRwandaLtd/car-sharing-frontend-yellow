@@ -1,16 +1,20 @@
-import { ActionData } from '../../util/types'
+import { LoginActionData } from '../../util/types'
 
 interface ValidationErrorsProps {
-  actionData: ActionData
+  actionData: LoginActionData
 }
 
 export default function ValidationErrors({ actionData }: ValidationErrorsProps) {
   const sharedStyles = 'text-lg text-red-400'
   return (
     <div className="text-center">
-      {actionData?.error && <p className={sharedStyles}>{actionData.error}</p>}
-      {actionData?.errors?.username && <p className={sharedStyles}>{actionData.errors.username}</p>}
-      {actionData?.errors?.password && <p className={sharedStyles}>{actionData.errors.password}</p>}
+      {actionData?.authError && <p className={sharedStyles}>{actionData.authError}</p>}
+      {actionData?.inputErrors?.username && (
+        <p className={sharedStyles}>{actionData.inputErrors.username}</p>
+      )}
+      {actionData?.inputErrors?.password && (
+        <p className={sharedStyles}>{actionData.inputErrors.password}</p>
+      )}
     </div>
   )
 }
