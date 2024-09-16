@@ -17,10 +17,7 @@ interface AuthContextProviderProps extends PropsWithChildren {}
 const AuthContext = createContext<AuthContextType | null>(null)
 
 export default function AuthContextProvider({ children }: AuthContextProviderProps) {
-  const [token, setToken] = useState<string | null>(() => {
-    const storedToken = localStorage.getItem('token')
-    return storedToken ? storedToken : null
-  })
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'))
 
   return <AuthContext.Provider value={{ token, setToken }}>{children}</AuthContext.Provider>
 }

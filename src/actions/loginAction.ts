@@ -9,29 +9,29 @@ export const loginAction: ActionFunction = async ({ request }) => {
     const password = data.get('password') as string
 
     if (!username || !password) {
-      return json({ error: 'Both fields are required.' })
+      return json({ authError: 'Both fields are required.' })
     }
 
-    const errors: LoginErrors = {
+    const inputErrors: LoginErrors = {
       username: null,
       password: null,
     }
 
     if (typeof username !== 'string' || username.length < 5) {
-      errors.username = 'Username must have 5 characters'
+      inputErrors.username = 'Username must have 5 characters'
     }
 
     if (typeof password !== 'string' || password.length < 6) {
-      errors.password = 'Password must have at least 6 characters'
+      inputErrors.password = 'Password must have at least 6 characters'
     }
 
-    if (errors.password || errors.username) {
-      return json({ errors })
+    if (inputErrors.password || inputErrors.username) {
+      return json({ inputErrors })
     }
 
     const user = await getUser({ username, password })
     return json({ message: 'Success', user })
   } catch (error) {
-    return json({ error: 'Failed to login. Email or Password incorrect!' })
+    return json({ authError: 'Failed to login. Email or Password incorrect!' })
   }
 }
