@@ -51,11 +51,11 @@ const router = createBrowserRouter([
       },
       {
         element: (
-          <UserContextProvider>
-            <ProtectedRoute>
+          <ProtectedRoute>
+            <UserContextProvider>
               <AppLayout />
-            </ProtectedRoute>
-          </UserContextProvider>
+            </UserContextProvider>
+          </ProtectedRoute>
         ),
         children: [
           {

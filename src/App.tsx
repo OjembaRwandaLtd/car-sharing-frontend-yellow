@@ -1,9 +1,7 @@
 import { ReactElement } from 'react'
 import { configure } from 'axios-hooks'
 import { RouterProvider } from 'react-router-dom'
-
 import router from './routes/router'
-import AuthContextProvider from './contexts/AuthContext'
 import { ChakraProvider } from '@chakra-ui/react'
 
 // Configure axios hooks
@@ -16,9 +14,7 @@ configure({
 export default function App(): ReactElement {
   return (
     <ChakraProvider>
-      <AuthContextProvider>
-        <RouterProvider router={router} />
-      </AuthContextProvider>
+      <RouterProvider router={router} />
     </ChakraProvider>
   )
 }

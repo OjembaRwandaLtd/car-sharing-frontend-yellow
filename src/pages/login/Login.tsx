@@ -4,22 +4,20 @@ import LoginForm from '../../components/LoginComponents/LoginForm'
 import { useEffect } from 'react'
 import { LoginActionData } from '../../util/types'
 import { Links } from '../../routes/router'
-import { useAuth } from '../../contexts/AuthContext'
+import { getAuthToken } from '../../util/auth'
 
 export default function Login() {
   const actionData = useActionData() as LoginActionData
   const navigate = useNavigate()
-  const auth = useAuth()
 
   useEffect(() => {
-    if (auth.token) {
+    if (getAuthToken()) {
       navigate(`${Links.HOME}home`, { replace: true })
       return
     }
 
     if (actionData && actionData.user) {
       localStorage.setItem('token', actionData.user.token)
-      auth.setToken(actionData.user.token)
       navigate(`${Links.HOME}home`, { replace: true })
     }
   }, [actionData])

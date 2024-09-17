@@ -1,19 +1,18 @@
 import { PropsWithChildren, useEffect } from 'react'
-import { useAuth } from '../contexts/AuthContext'
+import useLocalStorageMonitor from '../hooks/useLocalStorageMonitor'
+import { getAuthToken } from '../util/auth'
 import { useNavigate } from 'react-router-dom'
 
 type ProtectedRouteProps = PropsWithChildren
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { isAuthenticated, setToken } = useAuth()
+  useLocalStorageMonitor()
   const navigate = useNavigate()
-
+  const token = getAuthToken()
   useEffect(() => {
-    if (!isAuthenticated) {
-      setToken(null)
-      localStorage.removeItem('token')
+    if (!token) {
       navigate('/login', { replace: true })
     }
-  }, [isAuthenticated, navigate, setToken])
+  }, [token, navigate])
 
-  return isAuthenticated ? children : null
+  return children
 }

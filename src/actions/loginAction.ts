@@ -17,14 +17,6 @@ export const loginAction: ActionFunction = async ({ request }) => {
       password: null,
     }
 
-    if (typeof username !== 'string' || username.length < 5) {
-      inputErrors.username = 'Username must have 5 characters'
-    }
-
-    if (typeof password !== 'string' || password.length < 6) {
-      inputErrors.password = 'Password must have at least 6 characters'
-    }
-
     if (inputErrors.password || inputErrors.username) {
       return json({ inputErrors })
     }

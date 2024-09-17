@@ -1,13 +1,13 @@
 import Button, { ButtonBehavior, ButtonStyles } from '../components/UI/Button'
 import { Links } from '../routes/router'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { getAuthToken } from '../util/auth'
 
 export default function Splash() {
   const navigate = useNavigate()
-  const auth = useAuth()
+  const token = getAuthToken()
 
-  if (auth.token) {
+  if (token) {
     navigate(`${Links.HOME}home`, { replace: true })
   }
 
