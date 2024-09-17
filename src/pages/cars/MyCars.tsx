@@ -19,6 +19,7 @@ export default function MyCars() {
     if (!carType) throw new Error('Car type not found')
     return carType
   }
+
   function handleDeleteCar(carId: number) {
     const text = 'Do you really want to delete this car?'
     if (confirm(text)) setDeleteId(carId)

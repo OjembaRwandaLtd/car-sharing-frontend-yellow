@@ -1,11 +1,14 @@
-import Button, { ButtonBehavior, ButtonStyles } from '../components/UI/Button'
 import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
 import { useState } from 'react'
 import { AddCarFormProps, NewCarFormDto } from '../util/types'
+import AddCarButtons from './UI/AddCarButtons'
 
 const inputWrapperStyles = 'flex flex-col gap-2'
+const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
+const fuelTypes = ['petrol', 'diesel', 'electric']
+
 export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
   const [{ loading, error, data: carTypes }] = useCarTypes()
   const [formData, setFormData] = useState<NewCarFormDto>({
@@ -21,8 +24,6 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
   if (error) throw new Error("Couldn't fetch car types")
   if (!carTypes?.length) throw new Error('Car types not found')
 
-  const fuelTypes = ['petrol', 'diesel', 'electric']
-
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
@@ -35,7 +36,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       onSubmit={e => handleSubmit(e, formData, carTypes)}
     >
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-moni-gray-100">Name</label>
+        <label className={labelStyles}>Name</label>
         <Input
           onChange={handleChange}
           behavior={InputBehavior.INPUT}
@@ -45,7 +46,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       </div>
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-moni-gray-100">Type</label>
+        <label className={labelStyles}>Type</label>
         <Input
           behavior={InputBehavior.DROPDOWN}
           name="typeName"
@@ -56,7 +57,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
 
       <div className="grid grid-cols-2 gap-3 md:gap-5">
         <div className={inputWrapperStyles}>
-          <label className="pl-2 font-inter text-sm text-moni-gray-100">License Plate</label>
+          <label className={labelStyles}>License Plate</label>
           <Input
             onChange={handleChange}
             behavior={InputBehavior.INPUT}
@@ -65,7 +66,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           ></Input>
         </div>
         <div className={inputWrapperStyles}>
-          <label className="pl-2 font-inter text-sm text-moni-gray-100">Horse Power</label>
+          <label className={labelStyles}>Horse Power</label>
           <Input
             onChange={handleChange}
             behavior={InputBehavior.INPUT}
@@ -76,7 +77,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       </div>
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-moni-gray-100">Fuel type</label>
+        <label className={labelStyles}>Fuel type</label>
         <Input
           onChange={handleChange}
           behavior={InputBehavior.DROPDOWN}
@@ -87,7 +88,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       </div>
 
       <div className={inputWrapperStyles}>
-        <label className="pl-2 font-inter text-sm text-moni-gray-100">Additional Information</label>
+        <label className={labelStyles}>Additional Information</label>
         <Input
           onChange={handleChange}
           behavior={InputBehavior.INPUT}
@@ -95,14 +96,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           name="info"
         ></Input>
       </div>
-      <menu className="mt-28 flex gap-3">
-        <Button type="reset" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
-          Cancel
-        </Button>
-        <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
-          Add Car
-        </Button>
-      </menu>
+      <AddCarButtons />
     </form>
   )
 }
