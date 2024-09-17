@@ -9,13 +9,25 @@ import { deleteCar } from '../../util/deleteCar'
 import { useUserContext } from '../../contexts/UserContext'
 
 export default function MyCars() {
-  const [deleteId, setDeleteId] = useState(-1)
+  const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
   const loggedUser = useUserContext()
 
+  function getCarType(carTypeId: number) {
+    const carType = carTypes?.find(type => type.id === carTypeId)
+    if (!carType) throw new Error('Car type not found')
+    return carType
+  }
+
+  function handleDeleteCar(carId: number) {
+    const text = 'Do you really want to delete this car?'
+    if (confirm(text)) setDeleteId(carId)
+  }
+
   useEffect(() => {
-    if (deleteId === -1) return
+    if (deleteId === null) return
+
     const controller = new AbortController()
     const signal = controller.signal
 
@@ -24,29 +36,21 @@ export default function MyCars() {
       controller.abort()
     }
   }, [deleteId])
-  function handleDeleteCar(carId: number) {
-    const text = 'Do you really want to delete this car?'
-    if (confirm(text)) setDeleteId(carId)
-  }
 
   if (carsLoading || carTypeLoading) return <Spinner />
 
   if (carsError || carTypeError) throw new Error('Could not fetch cars')
 
-  if (!cars || !carTypes || !loggedUser) throw new Error('Cars not found')
+  if (!loggedUser) throw new Error('You must login first')
+
+  if (!cars?.length || !carTypes?.length) throw new Error('Cars not found')
 
   const myCars = cars.filter(car => car.ownerId === loggedUser.id)
-  if (!myCars || myCars.length === 0) return <CarsNotFound />
-
-  function getCarType(carTypeId: number) {
-    const carType = carTypes?.find(type => type.id === carTypeId)
-    if (!carType) throw new Error('Car type not found')
-    return carType
-  }
+  if (myCars.length === 0) return <CarsNotFound />
 
   return (
     <main className="px-4">
-      <h1 className="text-primary-white my-8 w-full text-center font-lora text-3xl font-medium">
+      <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
         MY CARS
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
