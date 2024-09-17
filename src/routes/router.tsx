@@ -14,7 +14,6 @@ import NewBooking from '../pages/bookings/NewBooking'
 import Login from '../pages/login/Login'
 import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
-import { loginAction } from '../actions/loginAction'
 import { addCarAction } from '../actions/newCarAction'
 import UserContextProvider from '../contexts/UserContext'
 
@@ -45,7 +44,6 @@ const router = createBrowserRouter([
           {
             path: Links.LOGIN,
             element: <Login />,
-            action: loginAction,
           },
         ],
       },

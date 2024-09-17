@@ -1,14 +1,3 @@
-export interface LoginErrors {
-  username: string | null
-  password: string | null
-}
-
-export interface LoginActionData {
-  inputErrors?: LoginErrors
-  authError?: string
-  user?: APIUser
-}
-
 export interface APIUser {
   userId: number
   token: string

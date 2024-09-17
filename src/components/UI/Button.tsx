@@ -30,7 +30,8 @@ type ButtonProps = {
 } & (ButtonVersion | LinkVersion)
 
 export default function Button(props: ButtonProps) {
-  const sharedStyles = 'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full'
+  const sharedStyles =
+    'rounded-3xl py-3 text-center font-inter text-sm font-bold w-full flex items-center justify-center'
   if (props.behavior === ButtonBehavior.BUTTON) {
     const className = classNames(
       sharedStyles,
