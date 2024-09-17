@@ -2,14 +2,17 @@ import Button, { ButtonBehavior, ButtonStyles } from '../components/UI/Button'
 import { Links } from '../routes/router'
 import { useNavigate } from 'react-router-dom'
 import { getAuthToken } from '../util/auth'
+import { useEffect } from 'react'
 
 export default function Splash() {
   const navigate = useNavigate()
   const token = getAuthToken()
 
-  if (token) {
-    navigate(`${Links.HOME}home`, { replace: true })
-  }
+  useEffect(() => {
+    if (token) {
+      navigate(`${Links.HOME}home`, { replace: true })
+    }
+  }, [navigate, token])
 
   return (
     <main className="w-full items-center px-4 py-10">

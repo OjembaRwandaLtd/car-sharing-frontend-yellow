@@ -1,6 +1,19 @@
+import { useNavigate } from 'react-router-dom'
 import LoginForm from '../../components/LoginComponents/LoginForm'
+import { getAuthToken } from '../../util/auth'
+import { useEffect } from 'react'
+import { Links } from '../../routes/router'
 
 export default function Login() {
+  const navigate = useNavigate()
+  const token = getAuthToken()
+
+  useEffect(() => {
+    if (token) {
+      navigate(`${Links.HOME}home`, { replace: true })
+    }
+  }, [navigate, token])
+
   return (
     <main className="mx-4 flex min-h-screen flex-col items-center justify-evenly md:min-h-fit">
       <h1 className="flex flex-col text-center font-lora text-5xl font-bold text-gray-50 md:mt-14 md:flex-row md:justify-center md:gap-3 lg:text-7xl">
