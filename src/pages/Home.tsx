@@ -31,8 +31,7 @@ export default function Home() {
             CAR <span className="font-medium italic">sharing</span>
           </h1>
           <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-moni-gray-100 lg:gap-4 lg:text-2xl">
-            Hello {user.name}!!
-            <span>What are you up to today?</span>
+            Hello {user.name}!<span>What are you up to today?</span>
           </p>
         </div>
         <div className="flex">
