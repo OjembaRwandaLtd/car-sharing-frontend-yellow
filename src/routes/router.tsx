@@ -14,7 +14,7 @@ import NewBooking from '../pages/bookings/NewBooking'
 import Login from '../pages/login/Login'
 import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
-import { loginAction } from '../actions/loginAction'
+import UserContextProvider from '../contexts/UserContext'
 
 export enum Links {
   HOME = '/',
@@ -43,14 +43,15 @@ const router = createBrowserRouter([
           {
             path: Links.LOGIN,
             element: <Login />,
-            action: loginAction,
           },
         ],
       },
       {
         element: (
           <ProtectedRoute>
-            <AppLayout />
+            <UserContextProvider>
+              <AppLayout />
+            </UserContextProvider>
           </ProtectedRoute>
         ),
         children: [

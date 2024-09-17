@@ -7,7 +7,6 @@ import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
 import { Links } from '../routes/router'
-import { useAuth } from '../contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 export default function MenuList() {
@@ -47,11 +46,9 @@ export default function MenuList() {
     <MenuListItem key={myCarsDetail.title} {...myCarsDetail} />
   ))
 
-  const auth = useAuth()
   const navigate = useNavigate()
 
   function handleLogout() {
-    auth.setToken(null)
     localStorage.removeItem('token')
     navigate('/', { replace: true })
   }
