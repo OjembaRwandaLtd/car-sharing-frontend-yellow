@@ -1,3 +1,5 @@
+import { CarTypeDto } from './api'
+
 export interface APIUser {
   userId: number
   token: string
@@ -8,11 +10,26 @@ export interface LoginDto {
   password: string
 }
 
-export interface AddNewCarType {
+export interface AddNewCarDto {
   carTypeId: number
   name: string
   fuelType: string
   horsepower: number
   licensePlate: string
   info: string
+}
+export interface NewCarFormDto {
+  typeName: string
+  name: string
+  fuelType: string
+  horsepower: number
+  licensePlate: string
+  info: string
+}
+export interface AddCarFormProps {
+  handleSubmit: (
+    event: React.FormEvent<HTMLFormElement>,
+    data: NewCarFormDto,
+    carTypes: CarTypeDto[],
+  ) => void
 }

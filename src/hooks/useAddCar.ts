@@ -1,7 +1,7 @@
 import { apiUrl } from '../util/apiUrl'
 import { getAuthToken } from '../util/auth'
 import useAxios from 'axios-hooks'
-import { AddNewCarType } from '../util/types'
+import { AddNewCarDto } from '../util/types'
 
 export default function useAddCar() {
   const [{ data, loading, error }, execute] = useAxios(
@@ -16,6 +16,6 @@ export default function useAddCar() {
     data,
     loading,
     error,
-    executeAddCar: (carData: AddNewCarType) => execute({ data: carData }),
+    executeAddCar: (carData: AddNewCarDto) => execute({ data: carData }),
   }
 }
