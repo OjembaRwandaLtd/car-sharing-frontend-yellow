@@ -42,6 +42,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           behavior={InputBehavior.INPUT}
           placeholder="e.g. My Nice Moni Car"
           name="name"
+          required
         ></Input>
       </div>
 
@@ -63,6 +64,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
             behavior={InputBehavior.INPUT}
             placeholder="e.g. M-XY 123"
             name="licensePlate"
+            required
           ></Input>
         </div>
         <div className={inputWrapperStyles}>
@@ -72,6 +74,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
             behavior={InputBehavior.INPUT}
             placeholder="110"
             name="horsepower"
+            required
           ></Input>
         </div>
       </div>
@@ -94,6 +97,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           behavior={InputBehavior.INPUT}
           placeholder="e.g. No smoking"
           name="info"
+          required
         ></Input>
       </div>
       <AddCarButtons />
