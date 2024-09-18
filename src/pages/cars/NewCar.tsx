@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom'
-import AddCarForm from '../../components/AddCarForm'
-import Spinner from '../../assets/Spinner'
 import { useToast } from '@chakra-ui/react'
-import { NewCarFormDto } from '../../util/types'
+import { useNavigate } from 'react-router-dom'
+import AddCarForm, { CarSchemaType } from '../../components/AddCarForm'
+import Spinner from '../../assets/Spinner'
 import useAddCar from '../../hooks/useAddCar'
 import { CarTypeDto } from '../../util/api'
 import { Links } from '../../routes/router'
@@ -12,12 +11,7 @@ export default function NewCar() {
   const toast = useToast()
   const { loading, executeAddCar } = useAddCar()
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-    data: NewCarFormDto,
-    carTypes: CarTypeDto[],
-  ) {
-    event.preventDefault()
+  function handleSubmit(data: CarSchemaType, carTypes: CarTypeDto[]) {
     const [carType] = carTypes.filter(carType => carType.name === data.typeName)
     const { name, fuelType, horsepower, licensePlate, info } = data
     executeAddCar({
@@ -38,10 +32,10 @@ export default function NewCar() {
         })
         navigate(Links.MY_CARS)
       })
-      .catch(error => {
+      .catch(() => {
         toast({
           title: 'Failed to add car',
-          description: error.message,
+          description: 'Something went wrong',
           status: 'error',
           duration: 2000,
           isClosable: true,
