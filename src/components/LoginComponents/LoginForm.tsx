@@ -6,7 +6,7 @@ import { useState } from 'react'
 import ShowEyeIcon from '../../assets/ShowEyeIcon'
 import HideEyeIcon from '../../assets/HideEyeIcon'
 import useLogin from '../../hooks/useLogin'
-import ButtonSpinner from '../ButtonSpinner'
+import Spinner from '../../assets/Spinner'
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -68,7 +68,7 @@ export default function LoginForm() {
         behavior={ButtonBehavior.BUTTON}
         customStyles={ButtonStyles.PRIMARY}
       >
-        {loading ? <ButtonSpinner /> : 'Log in'}
+        {loading ? <Spinner className="h-5 w-5" /> : 'Log in'}
       </Button>
     </form>
   )
