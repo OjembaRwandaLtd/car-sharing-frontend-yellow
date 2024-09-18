@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import Logo from '../assets/Logo'
 import { NavLink } from 'react-router-dom'
-import { useAuth } from '../contexts/AuthContext'
+import { getAuthToken } from '../util/auth'
 
 interface NavBarProps {
   className?: string
@@ -11,7 +11,7 @@ interface NavBarProps {
 
 export default function NavBar({ className = '', MenuList, ProfileIcon }: Readonly<NavBarProps>) {
   const hasIcons = MenuList || ProfileIcon
-  const { token } = useAuth()
+  const token = getAuthToken()
   const navClassname = classNames(
     'sticky top-0 z-20 flex justify-between rounded-b-lg bg-moni-gray-800 p-5 font-inter text-moni-gray-100 shadow-lg',
     {

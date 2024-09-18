@@ -4,15 +4,15 @@ import { Links } from '../../routes/router'
 import CarCard from '../../components/CarCard'
 import { useCars, useCarTypes } from '../../hooks'
 import { useEffect, useState } from 'react'
-import useLoggedUser from '../../hooks/useLoggedUser'
 import CarsNotFound from '../../components/CarsNotFound'
 import { deleteCar } from '../../util/deleteCar'
+import { useUserContext } from '../../contexts/UserContext'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
-  const [{ loading: loggedUserLoading, error: loggedUserError, data: loggedUser }] = useLoggedUser()
+  const loggedUser = useUserContext()
 
   function getCarType(carTypeId: number) {
     const carType = carTypes?.find(type => type.id === carTypeId)
@@ -37,9 +37,9 @@ export default function MyCars() {
     }
   }, [deleteId])
 
-  if (carsLoading || carTypeLoading || loggedUserLoading) return <Spinner />
+  if (carsLoading || carTypeLoading) return <Spinner />
 
-  if (carsError || carTypeError || loggedUserError) throw new Error('Could not fetch cars')
+  if (carsError || carTypeError) throw new Error('Could not fetch cars')
 
   if (!loggedUser) throw new Error('You must login first')
 
