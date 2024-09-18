@@ -2,7 +2,7 @@ import { Input as InputField } from '@headlessui/react'
 import classNames from 'classnames'
 import DropdownInput from './DropdownInput'
 import { DropdownInputProps } from './DropdownInput'
-import { forwardRef } from 'react'
+import { forwardRef, InputHTMLAttributes } from 'react'
 
 export enum InputBehavior {
   DROPDOWN,
@@ -13,7 +13,7 @@ interface DropdownProps extends DropdownInputProps {
   behavior: InputBehavior.DROPDOWN
 }
 
-interface InputFieldProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   behavior: InputBehavior.INPUT
   icon?: React.ReactNode
 }

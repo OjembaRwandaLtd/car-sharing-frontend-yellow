@@ -7,28 +7,11 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CarTypeDto } from '../util/api'
 import Button, { ButtonBehavior, ButtonStyles } from './UI/Button'
+import CarSchema from '../util/carFormSchema'
 
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
 const fuelTypes = ['petrol', 'diesel', 'electric']
-
-const CarSchema = z.object({
-  name: z.string().min(3, { message: 'Car name must be at least 3 letters' }),
-  typeName: z.string({ message: 'Car type is required' }),
-  licensePlate: z
-    .string()
-    .min(1, { message: 'License plate is required' })
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z0-9 -]*$/, {
-      message: 'License plate must be letters and numbers',
-    }),
-  horsepower: z
-    .number({
-      invalid_type_error: 'Horse power is required and must be a number',
-    })
-    .min(1, { message: 'Horse power must be greater than zero' }),
-  fuelType: z.string({ message: 'Fuel type is required' }),
-  info: z.string(),
-})
 
 export type CarSchemaType = z.infer<typeof CarSchema>
 
@@ -90,6 +73,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           ></Input>
           {errors.licensePlate && <p className="text-red-400">{errors.licensePlate.message}</p>}
         </div>
+
         <div className={inputWrapperStyles}>
           <label className={labelStyles}>Horse Power</label>
           <Input
@@ -123,6 +107,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         ></Input>
         {errors.info && <p className="text-red-400">{errors.info.message}</p>}
       </div>
+
       <menu className="mt-28 flex gap-3">
         <Button
           type="reset"

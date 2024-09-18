@@ -1,9 +1,9 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronDownIcon } from '../../assets/ChevronDownIcon'
-import { forwardRef, useState } from 'react'
+import { ChangeEvent, forwardRef, HTMLAttributes, useState } from 'react'
 import classNames from 'classnames'
 
-export interface DropdownInputProps extends React.HTMLAttributes<HTMLInputElement> {
+export interface DropdownInputProps extends HTMLAttributes<HTMLInputElement> {
   name: string
   options: string[]
   disableOption?: boolean
@@ -23,7 +23,7 @@ const DropdownInput = forwardRef<HTMLButtonElement, DropdownInputProps>((props, 
           name: props.name,
           value: value,
         },
-      } as React.ChangeEvent<HTMLInputElement>
+      } as ChangeEvent<HTMLInputElement>
 
       props.onChange(event)
     }
