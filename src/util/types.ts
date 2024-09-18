@@ -27,9 +27,5 @@ export interface NewCarFormDto {
   info: string
 }
 export interface AddCarFormProps {
-  handleSubmit: (
-    event: React.FormEvent<HTMLFormElement>,
-    data: NewCarFormDto,
-    carTypes: CarTypeDto[],
-  ) => void
+  handleSubmit: (data: NewCarFormDto, carTypes: CarTypeDto[]) => void
 }

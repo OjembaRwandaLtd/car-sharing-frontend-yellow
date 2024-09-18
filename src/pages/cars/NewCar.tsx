@@ -6,25 +6,13 @@ import { NewCarFormDto } from '../../util/types'
 import useAddCar from '../../hooks/useAddCar'
 import { CarTypeDto } from '../../util/api'
 import { Links } from '../../routes/router'
-import { isValidCarForm } from '../../util/addCar/formValidation'
-import { useState } from 'react'
 
 export default function NewCar() {
   const navigate = useNavigate()
   const toast = useToast()
   const { loading, executeAddCar } = useAddCar()
-  const [hasError, setHasError] = useState(false)
 
-  function handleSubmit(
-    event: React.FormEvent<HTMLFormElement>,
-    data: NewCarFormDto,
-    carTypes: CarTypeDto[],
-  ) {
-    event.preventDefault()
-    if (!isValidCarForm(data)) {
-      setHasError(true)
-      return
-    }
+  function handleSubmit(data: NewCarFormDto, carTypes: CarTypeDto[]) {
     const [carType] = carTypes.filter(carType => carType.name === data.typeName)
     const { name, fuelType, horsepower, licensePlate, info } = data
     executeAddCar({
@@ -63,11 +51,6 @@ export default function NewCar() {
       <h1 className="text-center font-lora text-3xl font-medium uppercase text-moni-gray-100">
         New Car
       </h1>
-      {hasError && (
-        <p className="p-2 text-center text-red-400">
-          Something is wrong. Please double check your information!
-        </p>
-      )}
       <AddCarForm handleSubmit={handleSubmit} />
     </main>
   )

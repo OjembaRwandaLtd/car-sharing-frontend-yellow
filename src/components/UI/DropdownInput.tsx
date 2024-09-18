@@ -1,6 +1,6 @@
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions } from '@headlessui/react'
 import { ChevronDownIcon } from '../../assets/ChevronDownIcon'
-import { useState } from 'react'
+import { forwardRef, useState } from 'react'
 import classNames from 'classnames'
 
 export interface DropdownInputProps extends React.HTMLAttributes<HTMLInputElement> {
@@ -12,8 +12,9 @@ export interface DropdownInputProps extends React.HTMLAttributes<HTMLInputElemen
 const styles =
   'flex w-full rounded-full bg-moni-indigo-200 px-6 py-4 text-moni-gray-100 items-center'
 
-export default function DropdownInput(props: DropdownInputProps) {
+const DropdownInput = forwardRef<HTMLButtonElement, DropdownInputProps>((props, ref) => {
   const [selected, setSelected] = useState(props.options[0])
+
   function handleChange(value: string) {
     setSelected(value)
     if (props.onChange) {
@@ -27,13 +28,14 @@ export default function DropdownInput(props: DropdownInputProps) {
       props.onChange(event)
     }
   }
+
   return (
     <Listbox
       name={props.name}
       defaultValue={props.disableOption ? null : props.options[0]}
       onChange={handleChange}
     >
-      <ListboxButton className={classNames(styles, 'justify-between')}>
+      <ListboxButton ref={ref} className={classNames(styles, 'justify-between')}>
         {selected}
         <ChevronDownIcon />
       </ListboxButton>
@@ -55,4 +57,7 @@ export default function DropdownInput(props: DropdownInputProps) {
       </ListboxOptions>
     </Listbox>
   )
-}
+})
+
+DropdownInput.displayName = 'DropdownInput'
+export default DropdownInput
