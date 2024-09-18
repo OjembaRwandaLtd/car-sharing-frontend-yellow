@@ -41,6 +41,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
     register,
     handleSubmit: handleFormSubmit,
     formState: { errors },
+    reset,
   } = useForm<CarSchemaType>({
     mode: 'onChange',
     resolver: zodResolver(CarSchema),
@@ -76,7 +77,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           options={carTypes.map(carType => carType.name)}
           {...register('typeName')}
         ></Input>
-        {errors.typeName && <p className="text-red-400">typeName is required</p>}
+        {errors.typeName && <p className="text-red-400">{errors.typeName.message}</p>}
       </div>
 
       <div className="grid grid-cols-2 gap-3 md:gap-5">
@@ -123,7 +124,12 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         {errors.info && <p className="text-red-400">{errors.info.message}</p>}
       </div>
       <menu className="mt-28 flex gap-3">
-        <Button type="reset" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
+        <Button
+          type="reset"
+          onClick={() => reset()}
+          behavior={ButtonBehavior.BUTTON}
+          customStyles={ButtonStyles.SECONDARY}
+        >
           Cancel
         </Button>
         <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
