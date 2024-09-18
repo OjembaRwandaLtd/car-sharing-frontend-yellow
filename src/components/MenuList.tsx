@@ -10,6 +10,8 @@ import { Links } from '../routes/router'
 import { useNavigate } from 'react-router-dom'
 
 export default function MenuList() {
+  const navigate = useNavigate()
+
   const generalDetails = [
     {
       icon: <CarIcon />,
@@ -45,8 +47,6 @@ export default function MenuList() {
   const myCarsItems = myCarsDetails.map(myCarsDetail => (
     <MenuListItem key={myCarsDetail.title} {...myCarsDetail} />
   ))
-
-  const navigate = useNavigate()
 
   function handleLogout() {
     localStorage.removeItem('token')
