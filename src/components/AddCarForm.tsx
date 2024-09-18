@@ -2,11 +2,12 @@
 import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
-import AddCarButtons from './UI/AddCarButtons'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { CarTypeDto } from '../util/api'
+import Button, { ButtonBehavior, ButtonStyles } from './UI/Button'
+
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
 const fuelTypes = ['petrol', 'diesel', 'electric']
@@ -49,7 +50,8 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
 
   if (loading) return <Spinner />
   if (error) throw new Error("Couldn't fetch car types")
-  if (!carTypes?.length) throw new Error('Car types not found')
+  if (!carTypes) throw new Error('Car types not found')
+  if (carTypes.length === 0) return <p>Sorry could not find car type</p>
 
   return (
     <form
@@ -120,7 +122,14 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         ></Input>
         {errors.info && <p className="text-red-400">{errors.info.message}</p>}
       </div>
-      <AddCarButtons />
+      <menu className="mt-28 flex gap-3">
+        <Button type="reset" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
+          Cancel
+        </Button>
+        <Button type="submit" behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
+          Add Car
+        </Button>
+      </menu>
     </form>
   )
 }

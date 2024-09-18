@@ -33,10 +33,10 @@ export default function NewCar() {
         })
         navigate(Links.MY_CARS)
       })
-      .catch(error => {
+      .catch(() => {
         toast({
           title: 'Failed to add car',
-          description: error.message,
+          description: 'Something went wrong',
           status: 'error',
           duration: 2000,
           isClosable: true,
