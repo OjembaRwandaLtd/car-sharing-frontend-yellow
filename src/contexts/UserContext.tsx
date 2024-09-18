@@ -8,6 +8,7 @@ interface UserContextProviderProps extends PropsWithChildren {}
 
 export default function UserContextProvider({ children }: UserContextProviderProps) {
   const [{ error: loggedUserError, data: loggedUser }] = useLoggedUser()
+
   if (loggedUserError) {
     return
   }

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Button, { ButtonBehavior, ButtonStyles } from '../UI/Button'
 import Input, { InputBehavior } from '../UI/Input'
 import ProfileIcon from '../../assets/ProfileIcon'
@@ -7,6 +6,7 @@ import { useState } from 'react'
 import ShowEyeIcon from '../../assets/ShowEyeIcon'
 import HideEyeIcon from '../../assets/HideEyeIcon'
 import useLogin from '../../hooks/useLogin'
+import Spinner from '../../assets/Spinner'
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -16,7 +16,7 @@ export default function LoginForm() {
   const { login, loading } = useLogin()
 
   function handleShowPassword() {
-    setShowPassword(!showPassword)
+    setShowPassword(prevShowPassword => !prevShowPassword)
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -68,11 +68,7 @@ export default function LoginForm() {
         behavior={ButtonBehavior.BUTTON}
         customStyles={ButtonStyles.PRIMARY}
       >
-        {loading ? (
-          <span className="border-secondary h-6 w-6 animate-spin rounded-full border-4 border-moni-indigo-800 border-t-transparent"></span>
-        ) : (
-          'Log in'
-        )}
+        {loading ? <Spinner className="h-5 min-h-0 w-5" /> : 'Log in'}
       </Button>
     </form>
   )

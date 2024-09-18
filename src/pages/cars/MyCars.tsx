@@ -12,7 +12,34 @@ export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
+  const [myCars, setMyCars] = useState(cars || [])
   const loggedUser = useUserContext()
+
+  useEffect(() => {
+    if (cars) {
+      setMyCars(cars.filter(car => car.ownerId === loggedUser.id))
+    }
+  }, [cars])
+
+  useEffect(() => {
+    if (deleteId === null) return
+
+    const controller = new AbortController()
+    const signal = controller.signal
+
+    const deleteCarAsync = async () => {
+      const isCarDeleted = await deleteCar(signal, deleteId)
+      if (isCarDeleted) {
+        setMyCars(prevCars => prevCars.filter(car => car.id !== deleteId))
+      }
+    }
+
+    deleteCarAsync()
+
+    return () => {
+      controller.abort()
+    }
+  }, [deleteId])
 
   function getCarType(carTypeId: number) {
     const carType = carTypes?.find(type => type.id === carTypeId)
@@ -25,28 +52,13 @@ export default function MyCars() {
     if (confirm(text)) setDeleteId(carId)
   }
 
-  useEffect(() => {
-    if (deleteId === null) return
-
-    const controller = new AbortController()
-    const signal = controller.signal
-
-    deleteCar(signal, deleteId)
-    return () => {
-      controller.abort()
-    }
-  }, [deleteId])
+  if (!loggedUser) throw new Error('You must login first')
 
   if (carsLoading || carTypeLoading) return <Spinner />
 
-  if (carsError || carTypeError) throw new Error('Could not fetch cars')
+  if (carsError || carTypeError || !myCars || !carTypes) throw new Error('Could not fetch cars')
 
-  if (!loggedUser) throw new Error('You must login first')
-
-  if (!cars?.length || !carTypes?.length) throw new Error('Cars not found')
-
-  const myCars = cars.filter(car => car.ownerId === loggedUser.id)
-  if (myCars.length === 0) return <CarsNotFound />
+  if (!myCars.length || !carTypes.length) return <CarsNotFound />
 
   return (
     <main className="px-4">

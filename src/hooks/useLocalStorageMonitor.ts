@@ -1,17 +1,15 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-const TOKEN_KEY = 'token'
-const LOGIN_PATH = '/login'
+import useLogout from './useLogout'
 
 export default function useLocalStorageMonitor() {
   const navigate = useNavigate()
+  const { logout } = useLogout()
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.storageArea === localStorage && event.key === TOKEN_KEY) {
-        localStorage.removeItem(TOKEN_KEY)
-        navigate(LOGIN_PATH)
+      if (event.storageArea === localStorage && event.key === 'token') {
+        logout()
       }
     }
 
