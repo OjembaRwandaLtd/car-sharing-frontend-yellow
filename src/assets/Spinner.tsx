@@ -4,7 +4,10 @@ export default function Spinner({ className }: { className?: string }) {
   return (
     <div
       role="status"
-      className={classNames('flex min-h-screen items-center justify-center', className)}
+      className={classNames(
+        `flex items-center justify-center ${className ? 'min-h-0' : 'min-h-screen'}`,
+        className,
+      )}
     >
       <svg
         aria-hidden="true"
