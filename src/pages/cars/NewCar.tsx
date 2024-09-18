@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import AddCarForm from '../../components/AddCarForm'
 import Spinner from '../../assets/Spinner'
 import { useToast } from '@chakra-ui/react'
-import { NewCarFormDto } from '../../util/types'
+import { CarSchemaType } from '../../components/AddCarForm'
 import useAddCar from '../../hooks/useAddCar'
 import { CarTypeDto } from '../../util/api'
 import { Links } from '../../routes/router'
@@ -12,7 +12,7 @@ export default function NewCar() {
   const toast = useToast()
   const { loading, executeAddCar } = useAddCar()
 
-  function handleSubmit(data: NewCarFormDto, carTypes: CarTypeDto[]) {
+  function handleSubmit(data: CarSchemaType, carTypes: CarTypeDto[]) {
     const [carType] = carTypes.filter(carType => carType.name === data.typeName)
     const { name, fuelType, horsepower, licensePlate, info } = data
     executeAddCar({

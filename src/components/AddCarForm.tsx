@@ -2,11 +2,11 @@
 import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
-import { AddCarFormProps } from '../util/types'
 import AddCarButtons from './UI/AddCarButtons'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CarTypeDto } from '../util/api'
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
 const fuelTypes = ['petrol', 'diesel', 'electric']
@@ -29,7 +29,12 @@ const CarSchema = z.object({
   info: z.string(),
 })
 
-type CarSchemaType = z.infer<typeof CarSchema>
+export type CarSchemaType = z.infer<typeof CarSchema>
+
+interface AddCarFormProps {
+  handleSubmit: (data: CarSchemaType, carTypes: CarTypeDto[]) => void
+}
+
 export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
   const {
     register,
@@ -39,6 +44,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
     mode: 'onChange',
     resolver: zodResolver(CarSchema),
   })
+
   const [{ loading, error, data: carTypes }] = useCarTypes()
 
   if (loading) return <Spinner />
