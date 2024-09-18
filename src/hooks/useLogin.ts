@@ -9,7 +9,7 @@ export default function useLogin() {
   const [loading, setLoading] = useState(false)
 
   async function login(username: string, password: string) {
-    if (!username.length || !password) {
+    if (!username.trim().length || !password) {
       throw 'All fields are required'
     }
     setLoading(true)

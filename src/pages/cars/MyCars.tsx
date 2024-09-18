@@ -21,17 +21,6 @@ export default function MyCars() {
     }
   }, [cars])
 
-  function getCarType(carTypeId: number) {
-    const carType = carTypes?.find(type => type.id === carTypeId)
-    if (!carType) throw new Error('Car type not found')
-    return carType
-  }
-
-  function handleDeleteCar(carId: number) {
-    const text = 'Do you really want to delete this car?'
-    if (confirm(text)) setDeleteId(carId)
-  }
-
   useEffect(() => {
     if (deleteId === null) return
 
@@ -52,13 +41,24 @@ export default function MyCars() {
     }
   }, [deleteId])
 
-  if (carsLoading || carTypeLoading) return <Spinner />
+  function getCarType(carTypeId: number) {
+    const carType = carTypes?.find(type => type.id === carTypeId)
+    if (!carType) throw new Error('Car type not found')
+    return carType
+  }
 
-  if (carsError || carTypeError) throw new Error('Could not fetch cars')
+  function handleDeleteCar(carId: number) {
+    const text = 'Do you really want to delete this car?'
+    if (confirm(text)) setDeleteId(carId)
+  }
 
   if (!loggedUser) throw new Error('You must login first')
 
-  if (!myCars?.length || !carTypes?.length) return <CarsNotFound />
+  if (carsLoading || carTypeLoading) return <Spinner />
+
+  if (carsError || carTypeError || !myCars || !carTypes) throw new Error('Could not fetch cars')
+
+  if (!myCars.length || !carTypes.length) return <CarsNotFound />
 
   return (
     <main className="px-4">

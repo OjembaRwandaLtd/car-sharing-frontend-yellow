@@ -68,7 +68,7 @@ export default function LoginForm() {
         behavior={ButtonBehavior.BUTTON}
         customStyles={ButtonStyles.PRIMARY}
       >
-        {loading ? <Spinner className="h-5 w-5" /> : 'Log in'}
+        {loading ? <Spinner className="h-5 min-h-0 w-5" /> : 'Log in'}
       </Button>
     </form>
   )
