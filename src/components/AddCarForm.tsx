@@ -2,21 +2,42 @@
 import Input, { InputBehavior } from '../components/UI/Input'
 import { useCarTypes } from '../hooks'
 import Spinner from '../assets/Spinner'
-import { AddCarFormProps, NewCarFormDto } from '../util/types'
+import { AddCarFormProps } from '../util/types'
 import AddCarButtons from './UI/AddCarButtons'
 import { useForm } from 'react-hook-form'
-
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
 const fuelTypes = ['petrol', 'diesel', 'electric']
 
+const CarSchema = z.object({
+  name: z.string().min(3, { message: 'Car name must be at least 3 letters' }),
+  typeName: z.string({ message: 'Car type is required' }),
+  licensePlate: z
+    .string()
+    .min(1, { message: 'License plate is required' })
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z0-9 -]*$/, {
+      message: 'License plate must be letters and numbers',
+    }),
+  horsepower: z
+    .number({
+      invalid_type_error: 'Horse power is required and must be a number',
+    })
+    .min(1, { message: 'Horse power must be greater than zero' }),
+  fuelType: z.string({ message: 'Fuel type is required' }),
+  info: z.string(),
+})
+
+type CarSchemaType = z.infer<typeof CarSchema>
 export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
   const {
     register,
     handleSubmit: handleFormSubmit,
     formState: { errors },
-  } = useForm<NewCarFormDto>({
-    mode: 'onTouched',
+  } = useForm<CarSchemaType>({
+    mode: 'onChange',
+    resolver: zodResolver(CarSchema),
   })
   const [{ loading, error, data: carTypes }] = useCarTypes()
 
@@ -33,9 +54,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       <div className={inputWrapperStyles}>
         <label className={labelStyles}>Name</label>
         <Input
-          {...register('name', {
-            required: 'name is required',
-          })}
+          {...register('name')}
           behavior={InputBehavior.INPUT}
           placeholder="e.g. My Nice Moni Car"
         ></Input>
@@ -47,9 +66,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         <Input
           behavior={InputBehavior.DROPDOWN}
           options={carTypes.map(carType => carType.name)}
-          {...register('typeName', {
-            required: 'Car type is required',
-          })}
+          {...register('typeName')}
         ></Input>
         {errors.typeName && <p className="text-red-400">typeName is required</p>}
       </div>
@@ -58,9 +75,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         <div className={inputWrapperStyles}>
           <label className={labelStyles}>License Plate</label>
           <Input
-            {...register('licensePlate', {
-              required: 'licensePlate is required',
-            })}
+            {...register('licensePlate')}
             behavior={InputBehavior.INPUT}
             placeholder="e.g. M-XY 123"
           ></Input>
@@ -70,7 +85,6 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
           <label className={labelStyles}>Horse Power</label>
           <Input
             {...register('horsepower', {
-              required: 'horsepower is required',
               valueAsNumber: true,
             })}
             behavior={InputBehavior.INPUT}
@@ -83,9 +97,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       <div className={inputWrapperStyles}>
         <label className={labelStyles}>Fuel type</label>
         <Input
-          {...register('fuelType', {
-            required: 'Fuel type is missing',
-          })}
+          {...register('fuelType')}
           behavior={InputBehavior.DROPDOWN}
           options={['e.g electric', ...fuelTypes]}
           disableOption={true}
@@ -96,9 +108,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
       <div className={inputWrapperStyles}>
         <label className={labelStyles}>Additional Information</label>
         <Input
-          {...register('info', {
-            required: 'info is required',
-          })}
+          {...register('info')}
           behavior={InputBehavior.INPUT}
           placeholder="e.g. No smoking"
         ></Input>
