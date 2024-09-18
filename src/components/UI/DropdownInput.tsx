@@ -14,6 +14,7 @@ const styles =
 
 export default function DropdownInput(props: DropdownInputProps) {
   const [selected, setSelected] = useState(props.options[0])
+
   function handleChange(value: string) {
     setSelected(value)
     if (props.onChange) {
@@ -27,6 +28,7 @@ export default function DropdownInput(props: DropdownInputProps) {
       props.onChange(event)
     }
   }
+
   return (
     <Listbox
       name={props.name}
