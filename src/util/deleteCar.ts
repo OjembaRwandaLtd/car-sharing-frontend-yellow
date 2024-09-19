@@ -12,14 +12,14 @@ export async function deleteCar(signal: AbortSignal, deleteId: number): Promise<
     })
 
     if (response.status === 204) {
-      alert('Successfully deleted car!')
+      // alert('Successfully deleted car!')
       return true
     } else {
-      alert("Couldn't delete car")
+      // alert("Couldn't delete car")
       return false
     }
   } catch (error) {
-    alert("Couldn't delete car")
+    // alert("Couldn't delete car")
     return false
   }
 }

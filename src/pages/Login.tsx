@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom'
-import LoginForm from '../../components/LoginComponents/LoginForm'
-import { getAuthToken } from '../../util/auth'
+import LoginForm from '../components/LoginComponents/LoginForm'
+import { getAuthToken } from '../util/auth'
 import { useEffect } from 'react'
-import { Links } from '../../routes/router'
+import { Links } from '../routes/router'
 
 export default function Login() {
   const navigate = useNavigate()
