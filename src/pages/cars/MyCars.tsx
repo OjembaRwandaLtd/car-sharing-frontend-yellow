@@ -15,15 +15,8 @@ export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }, refetch] = useCars()
   const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
-  const [myCars, setMyCars] = useState(cars || [])
   const loggedUser = useUserContext()
   const toast = useToast()
-
-  useEffect(() => {
-    if (cars && loggedUser) {
-      setMyCars(cars.filter(car => car.ownerId === loggedUser.id))
-    }
-  }, [cars])
 
   useEffect(() => {
     if (deleteId === null) return
@@ -63,9 +56,11 @@ export default function MyCars() {
 
   if (carsLoading || carTypeLoading) return <Spinner />
 
-  if (carsError || carTypeError || !myCars || !carTypes) throw new Error('Could not fetch cars')
+  if (carsError || carTypeError || !cars || !carTypes) throw new Error('Could not fetch cars')
 
-  if (!myCars.length || !carTypes.length) return <CarsNotFound />
+  if (!cars.length || !carTypes.length) return <CarsNotFound />
+
+  const myCars = cars.filter(car => car.ownerId === loggedUser.id)
 
   return (
     <main className="px-4">
