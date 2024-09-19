@@ -4,7 +4,7 @@ import useAxios from 'axios-hooks'
 import { AddNewCarDto } from '../util/types'
 
 export default function useAddCar() {
-  const [{ data, loading, error }, execute] = useAxios(
+  return useAxios<AddNewCarDto>(
     {
       method: 'POST',
       headers: { Authorization: `Bearer ${getAuthToken()}` },
@@ -12,10 +12,4 @@ export default function useAddCar() {
     },
     { manual: true },
   )
-  return {
-    data,
-    loading,
-    error,
-    executeAddCar: (carData: AddNewCarDto) => execute({ data: carData }),
-  }
 }

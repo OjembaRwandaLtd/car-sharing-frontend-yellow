@@ -9,18 +9,20 @@ import { Links } from '../../routes/router'
 export default function NewCar() {
   const navigate = useNavigate()
   const toast = useToast()
-  const { loading, executeAddCar } = useAddCar()
+  const [{ loading }, execute] = useAddCar()
 
   function handleSubmit(data: CarSchemaType, carTypes: CarTypeDto[]) {
     const [carType] = carTypes.filter(carType => carType.name === data.typeName)
     const { name, fuelType, horsepower, licensePlate, info } = data
-    executeAddCar({
-      name,
-      fuelType,
-      horsepower: Number(horsepower),
-      licensePlate,
-      info,
-      carTypeId: Number(carType.id),
+    execute({
+      data: {
+        name,
+        fuelType,
+        horsepower: Number(horsepower),
+        licensePlate,
+        info,
+        carTypeId: Number(carType.id),
+      },
     })
       .then(() => {
         toast({
