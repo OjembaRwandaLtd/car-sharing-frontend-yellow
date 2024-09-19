@@ -1,5 +1,5 @@
 import { apiUrl } from '../../../util/apiUrl'
-import { APIUser, LoginDto } from '../../../util/types'
+import { APIUser, LoginDto } from '../../../util/api'
 import axios from 'axios'
 
 export async function getUser({ username, password }: LoginDto) {
