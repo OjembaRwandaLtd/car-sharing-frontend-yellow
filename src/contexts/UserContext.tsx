@@ -1,9 +1,8 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
-import { CarDto } from '../util/api'
+import { CarDto, UserContextType } from '../util/api'
 import useLoggedUser from '../hooks/useLoggedUser'
 import { useCars } from '../hooks'
 import Spinner from '../assets/Spinner'
-import { UserContextType } from '../util/types'
 
 export const UserContext = createContext<UserContextType | null>(null)
 
