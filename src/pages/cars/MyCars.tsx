@@ -7,11 +7,12 @@ import { useEffect, useState } from 'react'
 import CarsNotFound from '../../components/CarsNotFound'
 import { deleteCar } from '../../util/deleteCar'
 import { useUserContext } from '../../contexts/UserContext'
+import { deleteCarAsync, getCarType, handleDeleteCar } from './helpers'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }] = useCars()
-  const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
+  const [{ loading: carTypesLoading, error: carTypesError, data: carTypes }] = useCarTypes()
   const [myCars, setMyCars] = useState(cars || [])
   const loggedUser = useUserContext()
 
@@ -27,36 +28,18 @@ export default function MyCars() {
     const controller = new AbortController()
     const signal = controller.signal
 
-    const deleteCarAsync = async () => {
-      const isCarDeleted = await deleteCar(signal, deleteId)
-      if (isCarDeleted) {
-        setMyCars(prevCars => prevCars.filter(car => car.id !== deleteId))
-      }
-    }
-
-    deleteCarAsync()
+    deleteCarAsync(deleteCar, setMyCars, deleteId, signal)
 
     return () => {
       controller.abort()
     }
   }, [deleteId])
 
-  function getCarType(carTypeId: number) {
-    const carType = carTypes?.find(type => type.id === carTypeId)
-    if (!carType) throw new Error('Car type not found')
-    return carType
-  }
-
-  function handleDeleteCar(carId: number) {
-    const text = 'Do you really want to delete this car?'
-    if (confirm(text)) setDeleteId(carId)
-  }
-
   if (!loggedUser) throw new Error('You must login first')
 
-  if (carsLoading || carTypeLoading) return <Spinner />
+  if (carsLoading || carTypesLoading) return <Spinner />
 
-  if (carsError || carTypeError || !myCars || !carTypes) throw new Error('Could not fetch cars')
+  if (carsError || carTypesError || !myCars || !carTypes) throw new Error('Could not fetch cars')
 
   if (!myCars.length || !carTypes.length) return <CarsNotFound />
 
@@ -67,10 +50,15 @@ export default function MyCars() {
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
         {myCars.map(car => (
-          <CarCard key={car.id} car={car} user={loggedUser} carType={getCarType(car.carTypeId)}>
+          <CarCard
+            key={car.id}
+            car={car}
+            user={loggedUser}
+            carType={getCarType(car.carTypeId, carTypes)}
+          >
             <Button
               behavior={ButtonBehavior.BUTTON}
-              onClick={() => handleDeleteCar(car.id)}
+              onClick={() => handleDeleteCar(car.id, setDeleteId)}
               customStyles={ButtonStyles.DELETE}
             >
               Delete Car
