@@ -14,7 +14,7 @@ import { useToast } from '@chakra-ui/react'
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }, refetch] = useCars()
-  const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
+  const [{ loading: carTypesLoading, error: carTypesError, data: carTypes }] = useCarTypes()
   const loggedUser = useUserContext()
   const toast = useToast()
 
@@ -54,9 +54,9 @@ export default function MyCars() {
 
   if (!loggedUser) throw new Error('You must login first')
 
-  if (carsLoading || carTypeLoading) return <Spinner />
+  if (carsLoading || carTypesLoading) return <Spinner />
 
-  if (carsError || carTypeError || !cars || !carTypes) throw new Error('Could not fetch cars')
+  if (carsError || carTypesError || !cars || !carTypes) throw new Error('Could not fetch cars')
 
   if (!cars.length || !carTypes.length) return <CarsNotFound />
 

@@ -1,8 +1,9 @@
+import { Dispatch, SetStateAction } from 'react'
 import { CarTypeDto } from '../../util/api'
 
 export function handleDeleteCar(
   carId: number,
-  setDeleteId: React.Dispatch<React.SetStateAction<number | null>>,
+  setDeleteId: Dispatch<SetStateAction<number | null>>,
 ) {
   const text = 'Do you really want to delete this car?'
   if (confirm(text)) setDeleteId(carId)
