@@ -15,16 +15,16 @@ export function getCarType(carTypeId: number, carTypes: CarTypeDto[]) {
   return carType
 }
 
-export const deleteCarAsync = async (
+export async function deleteCarAsync(
   deleteCar: (signal: AbortSignal, deleteId: number) => Promise<boolean>,
-  setMyCars: React.Dispatch<React.SetStateAction<CarDto[]>>,
   deleteId: number,
   signal: AbortSignal,
   toast: (options: UseToastOptions) => void,
-) => {
+  setUserCars: React.Dispatch<React.SetStateAction<CarDto[]>>,
+) {
   const isCarDeleted = await deleteCar(signal, deleteId)
   if (isCarDeleted) {
-    setMyCars(prevCars => prevCars.filter(car => car.id !== deleteId))
+    setUserCars(prev => prev.filter(car => car.id !== deleteId))
     toast({
       title: 'Car Was Deleted',
       description: 'Car Was Deleted',
