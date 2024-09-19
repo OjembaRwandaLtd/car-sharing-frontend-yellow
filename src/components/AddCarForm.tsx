@@ -39,7 +39,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
 
   return (
     <form
-      className="flex flex-col gap-4"
+      className="flex flex-col gap-4 md:gap-10 lg:gap-4"
       method="post"
       onSubmit={handleFormSubmit(formData => handleSubmit(formData, carTypes))}
     >
@@ -108,7 +108,7 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
         {errors.info && <p className="text-red-400">{errors.info.message}</p>}
       </div>
 
-      <menu className="mt-28 flex gap-3">
+      <menu className="mt-24 flex gap-3 md:mt-7 md:place-items-start md:justify-between md:gap-20">
         <Button
           type="reset"
           onClick={() => reset()}

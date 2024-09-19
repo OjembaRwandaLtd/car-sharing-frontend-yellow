@@ -1,7 +1,7 @@
 import ProfileIcon from '../assets/ProfileIcon'
 import { CarDto, CarTypeDto, UserDto } from '../util/api'
 import { Link } from 'react-router-dom'
-import { Links } from '../routes/router'
+// import { Links } from '../routes/router'
 import CarIcon from '../assets/CarIcon'
 
 interface CarCardProps {
@@ -32,7 +32,7 @@ export default function CarCard({ car, carType, user, children }: CarCardProps) 
           </dl>
 
           <Link
-            to={`${Links.CARS}/${car.id}`}
+            to={`${car.id}`}
             className="pt-8 font-inter text-sm font-semibold text-moni-mustard-100 md:text-lg"
           >
             Show details
