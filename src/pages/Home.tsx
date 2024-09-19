@@ -4,7 +4,7 @@ import { useUserContext } from '../contexts/UserContext'
 import { Links } from '../routes/router'
 
 export default function Home() {
-  const { loggedUser } = useUserContext()
+  const loggedUser = useUserContext()
   const buttonItems = [
     {
       name: 'See My Cars',
