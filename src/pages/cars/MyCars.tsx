@@ -2,20 +2,28 @@ import Spinner from '../../assets/Spinner'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { Links } from '../../routes/router'
 import CarCard from '../../components/CarCard'
-import { useCarTypes } from '../../hooks'
+import { useCars, useCarTypes } from '../../hooks'
 import { useEffect, useState } from 'react'
 import CarsNotFound from '../../components/CarsNotFound'
 import { deleteCar } from '../../util/deleteCar'
 import { useUserContext } from '../../contexts/UserContext'
-import { deleteCarAsync, getCarType } from './helpers'
 import DeleteButton from './DeleteButton'
+import { getCarType } from './helpers'
 import { useToast } from '@chakra-ui/react'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
-  const [{ loading: carTypesLoading, error: carTypesError, data: carTypes }] = useCarTypes()
-  const { loggedUser, userCars, setUserCars } = useUserContext()
+  const [{ loading: carsLoading, error: carsError, data: cars }, refetch] = useCars()
+  const [{ loading: carTypeLoading, error: carTypeError, data: carTypes }] = useCarTypes()
+  const [myCars, setMyCars] = useState(cars || [])
+  const loggedUser = useUserContext()
   const toast = useToast()
+
+  useEffect(() => {
+    if (cars && loggedUser) {
+      setMyCars(cars.filter(car => car.ownerId === loggedUser.id))
+    }
+  }, [cars])
 
   useEffect(() => {
     if (deleteId === null) return
@@ -23,8 +31,29 @@ export default function MyCars() {
     const controller = new AbortController()
     const signal = controller.signal
 
-    deleteCarAsync(deleteCar, deleteId, signal, toast, setUserCars)
+    const deleteCarAsync = async () => {
+      try {
+        await deleteCar(signal, deleteId)
+        toast({
+          title: 'Car Was Deleted',
+          description: 'Car Was Deleted',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        refetch()
+      } catch (error) {
+        toast({
+          title: 'Car Was Not Deleted',
+          description: 'Car Was Not Deleted',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      }
+    }
 
+    deleteCarAsync()
     return () => {
       controller.abort()
     }
@@ -32,11 +61,11 @@ export default function MyCars() {
 
   if (!loggedUser) throw new Error('You must login first')
 
-  if (carTypesLoading) return <Spinner />
+  if (carsLoading || carTypeLoading) return <Spinner />
 
-  if (carTypesError || !carTypes) throw new Error('Could not fetch cars')
+  if (carsError || carTypeError || !myCars || !carTypes) throw new Error('Could not fetch cars')
 
-  if (!carTypes.length) return <CarsNotFound />
+  if (!myCars.length || !carTypes.length) return <CarsNotFound />
 
   return (
     <main className="px-4">
@@ -44,7 +73,7 @@ export default function MyCars() {
         MY CARS
       </h1>
       <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
-        {userCars.map(car => (
+        {myCars.map(car => (
           <CarCard
             key={car.id}
             car={car}
