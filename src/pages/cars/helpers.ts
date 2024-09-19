@@ -1,3 +1,4 @@
+import { UseToastOptions } from '@chakra-ui/react'
 import { CarDto, CarTypeDto } from '../../util/api'
 
 export function handleDeleteCar(
@@ -19,9 +20,17 @@ export const deleteCarAsync = async (
   setMyCars: React.Dispatch<React.SetStateAction<CarDto[]>>,
   deleteId: number,
   signal: AbortSignal,
+  toast: (options: UseToastOptions) => void,
 ) => {
   const isCarDeleted = await deleteCar(signal, deleteId)
   if (isCarDeleted) {
     setMyCars(prevCars => prevCars.filter(car => car.id !== deleteId))
+    toast({
+      title: 'Car Was Deleted',
+      description: 'Car Was Deleted',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    })
   }
 }

@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react'
 import CarsNotFound from '../../components/CarsNotFound'
 import { deleteCar } from '../../util/deleteCar'
 import { useUserContext } from '../../contexts/UserContext'
-import { deleteCarAsync, getCarType, handleDeleteCar } from './helpers'
+import { deleteCarAsync, getCarType } from './helpers'
+import DeleteButton from './DeleteButton'
+import { useToast } from '@chakra-ui/react'
 
 export default function MyCars() {
   const [deleteId, setDeleteId] = useState<number | null>(null)
@@ -15,6 +17,7 @@ export default function MyCars() {
   const [{ loading: carTypesLoading, error: carTypesError, data: carTypes }] = useCarTypes()
   const [myCars, setMyCars] = useState(cars || [])
   const loggedUser = useUserContext()
+  const toast = useToast()
 
   useEffect(() => {
     if (cars) {
@@ -28,7 +31,7 @@ export default function MyCars() {
     const controller = new AbortController()
     const signal = controller.signal
 
-    deleteCarAsync(deleteCar, setMyCars, deleteId, signal)
+    deleteCarAsync(deleteCar, setMyCars, deleteId, signal, toast)
 
     return () => {
       controller.abort()
@@ -56,13 +59,7 @@ export default function MyCars() {
             user={loggedUser}
             carType={getCarType(car.carTypeId, carTypes)}
           >
-            <Button
-              behavior={ButtonBehavior.BUTTON}
-              onClick={() => handleDeleteCar(car.id, setDeleteId)}
-              customStyles={ButtonStyles.DELETE}
-            >
-              Delete Car
-            </Button>
+            <DeleteButton setDeleteId={setDeleteId} carId={car.id} />
           </CarCard>
         ))}
       </div>
