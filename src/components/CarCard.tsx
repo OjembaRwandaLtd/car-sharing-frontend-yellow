@@ -1,7 +1,6 @@
 import ProfileIcon from '../assets/ProfileIcon'
 import { CarDto, CarTypeDto, UserDto } from '../util/api'
 import { Link } from 'react-router-dom'
-// import { Links } from '../routes/router'
 import CarIcon from '../assets/CarIcon'
 
 interface CarCardProps {
