@@ -1,6 +1,14 @@
-export default function Spinner() {
+import classNames from 'classnames'
+
+export default function Spinner({ className }: { className?: string }) {
   return (
-    <div role="status" className="flex min-h-screen items-center justify-center">
+    <div
+      role="status"
+      className={classNames(
+        `flex items-center justify-center ${className ? 'min-h-0' : 'min-h-screen'}`,
+        className,
+      )}
+    >
       <svg
         aria-hidden="true"
         className="inline h-20 w-20 animate-spin fill-moni-gray-200 text-moni-indigo-400 dark:text-gray-600"

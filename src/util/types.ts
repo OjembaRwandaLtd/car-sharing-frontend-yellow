@@ -1,13 +1,4 @@
-export interface LoginErrors {
-  username: string | null
-  password: string | null
-}
-
-export interface LoginActionData {
-  inputErrors?: LoginErrors
-  authError?: string
-  user?: APIUser
-}
+import { UserDto } from './api'
 
 export interface APIUser {
   userId: number
@@ -19,11 +10,15 @@ export interface LoginDto {
   password: string
 }
 
-export interface AddNewCarType {
+export interface AddNewCarDto {
   carTypeId: number
   name: string
   fuelType: string
   horsepower: number
   licensePlate: string
   info: string
+}
+
+export interface UserContextType {
+  loggedUser: UserDto
 }

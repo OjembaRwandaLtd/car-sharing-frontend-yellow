@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react'
+
 interface UserDto {
   id: number
   name: string
@@ -78,6 +80,25 @@ interface ChangeBookingStateDto {
   state: BookingState
 }
 
+interface APIUser {
+  userId: number
+  token: string
+}
+
+interface LoginDto {
+  username: string
+  password: string
+}
+
+interface AddNewCarDto {
+  carTypeId: number
+  name: string
+  fuelType: string
+  horsepower: number
+  licensePlate: string
+  info: string
+}
+
 export type {
   CarDto,
   NewCarDto,
@@ -87,5 +108,14 @@ export type {
   NewBookingDto,
   ChangeBookingStateDto,
   ChangeCarStateDto,
+  APIUser,
+  LoginDto,
+  AddNewCarDto,
 }
 export { BookingState, CarState }
+
+export interface UserContextType {
+  loggedUser: UserDto
+  userCars: CarDto[]
+  setUserCars: Dispatch<SetStateAction<CarDto[]>>
+}
