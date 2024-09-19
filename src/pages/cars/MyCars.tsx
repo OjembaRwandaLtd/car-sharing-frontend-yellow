@@ -19,6 +19,15 @@ export default function MyCars() {
   const toast = useToast()
 
   useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    refetch({ signal })
+    return () => {
+      controller.abort()
+    }
+  }, [])
+
+  useEffect(() => {
     if (deleteId === null) return
 
     const controller = new AbortController()
