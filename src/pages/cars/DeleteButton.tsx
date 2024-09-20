@@ -8,31 +8,58 @@ import {
   ModalFooter,
   useDisclosure,
   Text,
+  useToast,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
+import { deleteCar } from '../../util/deleteCar'
+import { CarDto } from '../../util/api'
+import { RefetchFunction } from 'axios-hooks'
 
 interface DeleteButtonProps {
-  setDeleteId: React.Dispatch<React.SetStateAction<number | null>>
+  refetch: RefetchFunction<unknown, CarDto[]>
   carId: number
 }
 
-export default function DeleteButton({ setDeleteId, carId }: DeleteButtonProps) {
+export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [message, setMessage] = useState('')
+  const toast = useToast()
+  const controller = new AbortController()
+  const signal = controller.signal
+
+  const deleteCarAsync = async () => {
+    try {
+      await deleteCar(signal, carId)
+      toast({
+        title: 'Car Was Deleted',
+        description: 'Car Was Deleted',
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      })
+      refetch()
+    } catch (error) {
+      toast({
+        title: 'Car Was Not Deleted',
+        description: 'Car Was Not Deleted',
+        status: 'error',
+        duration: 2000,
+        isClosable: true,
+      })
+    }
+  }
 
   const handleOpen = (msg: string) => {
     setMessage(msg)
     onOpen()
   }
-
   const handleOk = () => {
-    setDeleteId(carId)
+    deleteCarAsync()
     onClose()
   }
 
   const handleCancel = () => {
-    setDeleteId(null)
     onClose()
   }
 
