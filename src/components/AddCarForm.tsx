@@ -26,7 +26,7 @@ interface AddCarFormProps {
 export default function AddCarForm({ execute }: AddCarFormProps) {
   const {
     register,
-    handleSubmit: handleFormSubmit,
+    handleSubmit,
     formState: { errors },
     reset,
   } = useForm<CarSchemaType>({
@@ -38,7 +38,7 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
 
   const [{ loading, error, data: carTypes }] = useCarTypes()
 
-  function handleSubmit(data: CarSchemaType, carTypes: CarTypeDto[]) {
+  function createCar(data: CarSchemaType, carTypes: CarTypeDto[]) {
     const [carType] = carTypes.filter(carType => carType.name === data.typeName)
     const { name, fuelType, horsepower, licensePlate, info } = data
 
@@ -82,7 +82,7 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
     <form
       className="flex flex-col gap-4 md:gap-10 lg:gap-4"
       method="post"
-      onSubmit={handleFormSubmit(formData => handleSubmit(formData, carTypes))}
+      onSubmit={handleSubmit(formData => createCar(formData, carTypes))}
     >
       <div className={inputWrapperStyles}>
         <label className={labelStyles}>Name</label>
