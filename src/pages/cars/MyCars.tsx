@@ -3,20 +3,16 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { Links } from '../../routes/router'
 import CarCard from '../../components/CarCard'
 import { useCars, useCarTypes } from '../../hooks'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import CarsNotFound from '../../components/CarsNotFound'
-import { deleteCar } from '../../util/deleteCar'
 import { useUserContext } from '../../contexts/UserContext'
 import DeleteButton from './DeleteButton'
 import { getCarType } from './helpers'
-import { useToast } from '@chakra-ui/react'
 
 export default function MyCars() {
-  const [deleteId, setDeleteId] = useState<number | null>(null)
   const [{ loading: carsLoading, error: carsError, data: cars }, refetch] = useCars()
   const [{ loading: carTypesLoading, error: carTypesError, data: carTypes }] = useCarTypes()
   const loggedUser = useUserContext()
-  const toast = useToast()
 
   useEffect(() => {
     const controller = new AbortController()
@@ -26,40 +22,6 @@ export default function MyCars() {
       controller.abort()
     }
   }, [])
-
-  useEffect(() => {
-    if (deleteId === null) return
-
-    const controller = new AbortController()
-    const signal = controller.signal
-
-    const deleteCarAsync = async () => {
-      try {
-        await deleteCar(signal, deleteId)
-        toast({
-          title: 'Car Was Deleted',
-          description: 'Car Was Deleted',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        })
-        refetch()
-      } catch (error) {
-        toast({
-          title: 'Car Was Not Deleted',
-          description: 'Car Was Not Deleted',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-        })
-      }
-    }
-
-    deleteCarAsync()
-    return () => {
-      controller.abort()
-    }
-  }, [deleteId])
 
   if (!loggedUser) throw new Error('You must login first')
 
@@ -84,7 +46,7 @@ export default function MyCars() {
             user={loggedUser}
             carType={getCarType(car.carTypeId, carTypes)}
           >
-            <DeleteButton setDeleteId={setDeleteId} carId={car.id} />
+            <DeleteButton refetch={refetch} carId={car.id} />
           </CarCard>
         ))}
       </div>
