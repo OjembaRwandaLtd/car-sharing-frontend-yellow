@@ -28,7 +28,7 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
       >
         <Logo className="pb-2" />
       </NavLink>
-      {ProfileIcon && <NavLink to="/">{ProfileIcon}</NavLink>}
+      {ProfileIcon && <NavLink to="/home">{ProfileIcon}</NavLink>}
     </header>
   )
 }
