@@ -26,7 +26,7 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
   const controller = new AbortController()
   const signal = controller.signal
 
-  const deleteCarAsync = async () => {
+  const handleDeleteCar = async () => {
     try {
       await deleteCar(signal, carId)
       toast({
@@ -45,12 +45,9 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
         duration: 2000,
         isClosable: true,
       })
+    } finally {
+      onClose()
     }
-  }
-
-  const handleOk = () => {
-    deleteCarAsync()
-    onClose()
   }
 
   return (
@@ -67,7 +64,7 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
             <Text>Are you sure you want delete this car?</Text>
           </ModalBody>
           <ModalFooter>
-            <ChakraButton colorScheme="blue" mr={3} onClick={handleOk}>
+            <ChakraButton colorScheme="blue" mr={3} onClick={handleDeleteCar}>
               OK
             </ChakraButton>
             <ChakraButton variant="outline" onClick={onClose}>
