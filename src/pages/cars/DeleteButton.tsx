@@ -10,7 +10,6 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react'
-import { useState } from 'react'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { deleteCar } from '../../util/deleteCar'
 import { CarDto } from '../../util/api'
@@ -23,7 +22,6 @@ interface DeleteButtonProps {
 
 export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const [message, setMessage] = useState('')
   const toast = useToast()
   const controller = new AbortController()
   const signal = controller.signal
@@ -50,41 +48,29 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
     }
   }
 
-  const handleOpen = (msg: string) => {
-    setMessage(msg)
-    onOpen()
-  }
   const handleOk = () => {
     deleteCarAsync()
     onClose()
   }
 
-  const handleCancel = () => {
-    onClose()
-  }
-
   return (
     <div>
-      <Button
-        behavior={ButtonBehavior.BUTTON}
-        customStyles={ButtonStyles.DELETE}
-        onClick={() => handleOpen('Are you sure you want delete this car?')}
-      >
+      <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.DELETE} onClick={onOpen}>
         Delete Car
       </Button>
 
-      <Modal isOpen={isOpen} onClose={handleCancel}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Delete a Car</ModalHeader>
           <ModalBody>
-            <Text>{message}</Text>
+            <Text>Are you sure you want delete this car?</Text>
           </ModalBody>
           <ModalFooter>
             <ChakraButton colorScheme="blue" mr={3} onClick={handleOk}>
               OK
             </ChakraButton>
-            <ChakraButton variant="outline" onClick={handleCancel}>
+            <ChakraButton variant="outline" onClick={onClose}>
               Cancel
             </ChakraButton>
           </ModalFooter>
