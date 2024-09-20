@@ -99,6 +99,12 @@ interface AddNewCarDto {
   info: string
 }
 
+interface UserContextType {
+  loggedUser: UserDto
+  userCars: CarDto[]
+  setUserCars: Dispatch<SetStateAction<CarDto[]>>
+}
+
 export type {
   CarDto,
   NewCarDto,
@@ -111,11 +117,6 @@ export type {
   APIUser,
   LoginDto,
   AddNewCarDto,
+  UserContextType,
 }
 export { BookingState, CarState }
-
-export interface UserContextType {
-  loggedUser: UserDto
-  userCars: CarDto[]
-  setUserCars: Dispatch<SetStateAction<CarDto[]>>
-}

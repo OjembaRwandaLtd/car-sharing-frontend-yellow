@@ -8,7 +8,7 @@ export async function deleteCar(signal: AbortSignal, deleteId: number): Promise<
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
-      signal: signal,
+      signal,
     })
 
     return response.status === 204
