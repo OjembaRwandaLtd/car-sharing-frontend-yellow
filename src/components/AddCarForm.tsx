@@ -5,9 +5,13 @@ import Spinner from '../assets/Spinner'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CarTypeDto } from '../util/api'
+import { AddNewCarDto, CarTypeDto } from '../util/api'
 import Button, { ButtonBehavior, ButtonStyles } from './UI/Button'
 import CarSchema from '../util/carFormSchema'
+import { RefetchFunction } from 'axios-hooks'
+import { useToast } from '@chakra-ui/react'
+import { useNavigate } from 'react-router-dom'
+import { Links } from '../routes/router'
 
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
@@ -16,10 +20,10 @@ const fuelTypes = ['petrol', 'diesel', 'electric']
 export type CarSchemaType = z.infer<typeof CarSchema>
 
 interface AddCarFormProps {
-  handleSubmit: (data: CarSchemaType, carTypes: CarTypeDto[]) => void
+  execute: RefetchFunction<unknown, AddNewCarDto>
 }
 
-export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
+export default function AddCarForm({ execute }: AddCarFormProps) {
   const {
     register,
     handleSubmit: handleFormSubmit,
@@ -29,8 +33,45 @@ export default function AddCarForm({ handleSubmit }: AddCarFormProps) {
     mode: 'onChange',
     resolver: zodResolver(CarSchema),
   })
+  const navigate = useNavigate()
+  const toast = useToast()
 
   const [{ loading, error, data: carTypes }] = useCarTypes()
+
+  function handleSubmit(data: CarSchemaType, carTypes: CarTypeDto[]) {
+    const [carType] = carTypes.filter(carType => carType.name === data.typeName)
+    const { name, fuelType, horsepower, licensePlate, info } = data
+
+    execute({
+      data: {
+        name,
+        fuelType,
+        horsepower: Number(horsepower),
+        licensePlate,
+        info,
+        carTypeId: Number(carType.id),
+      },
+    })
+      .then(() => {
+        toast({
+          title: 'New Car Was Added',
+          description: 'New Car Was Added',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        navigate(Links.MY_CARS)
+      })
+      .catch(() => {
+        toast({
+          title: 'Failed to add car',
+          description: 'Something went wrong',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      })
+  }
 
   if (loading) return <Spinner />
   if (error) throw new Error("Couldn't fetch car types")
