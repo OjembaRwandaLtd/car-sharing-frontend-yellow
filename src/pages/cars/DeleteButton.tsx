@@ -1,5 +1,4 @@
 import {
-  Button as ChakraButton,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -33,16 +32,16 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
         title: 'Car Was Deleted',
         description: 'Car Was Deleted',
         status: 'success',
-        duration: 2000,
+        duration: 5000,
         isClosable: true,
       })
       refetch()
     } catch (error) {
       toast({
-        title: 'Car Was Not Deleted',
+        title: 'Failed To Delete Car',
         description: 'Car Was Not Deleted',
         status: 'error',
-        duration: 2000,
+        duration: 5000,
         isClosable: true,
       })
     } finally {
@@ -56,20 +55,28 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
         Delete Car
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Delete a Car</ModalHeader>
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay bg="blackAlpha.600" backdropFilter="blur(2px)" />
+        <ModalContent maxW={{ base: '90%', md: '400px' }}>
+          <ModalHeader>Confirm Car Deletion</ModalHeader>
           <ModalBody>
-            <Text>Are you sure you want delete this car?</Text>
+            <Text fontSize="lg">Are you sure you want delete this car?</Text>
           </ModalBody>
-          <ModalFooter>
-            <ChakraButton colorScheme="blue" mr={3} onClick={handleDeleteCar}>
-              OK
-            </ChakraButton>
-            <ChakraButton variant="outline" onClick={onClose}>
+          <ModalFooter justifyContent="space-between" gap={5}>
+            <Button
+              behavior={ButtonBehavior.BUTTON}
+              customStyles={ButtonStyles.DELETE}
+              onClick={handleDeleteCar}
+            >
+              Confirm
+            </Button>
+            <Button
+              behavior={ButtonBehavior.BUTTON}
+              customStyles={ButtonStyles.PRIMARY}
+              onClick={onClose}
+            >
               Cancel
-            </ChakraButton>
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
