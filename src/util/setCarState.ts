@@ -1,6 +1,6 @@
-import { CarState, ChangeCarStateDto } from './api'
+import { CarState, ChangeCarStateDto } from '../types/apiTypes'
 
-import { apiUrl } from './apiUrl'
+import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from './auth'
 
 export const setCarState = async (id: number, newState: CarState): Promise<void> => {

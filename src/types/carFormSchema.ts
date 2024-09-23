@@ -6,8 +6,8 @@ const CarSchema = z.object({
   licensePlate: z
     .string()
     .min(1, { message: 'License plate is required' })
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[a-zA-Z0-9 -]*$/, {
-      message: 'License plate must be letters and numbers',
+    .regex(/^[A-Z]{2,3}-?\d{1,4}-?[A-Z]{1,3}$/, {
+      message: 'Invalid license plate',
     }),
   horsepower: z
     .number({

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { apiUrl } from '../util/apiUrl'
-import { APIUser } from '../util/api'
+import { apiUrl } from '../constants/apiUrl'
+import { APIUser } from '../types/apiTypes'
 import { useNavigate } from 'react-router-dom'
 
 export default function useLogin() {
