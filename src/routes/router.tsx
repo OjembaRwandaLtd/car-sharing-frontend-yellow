@@ -17,7 +17,8 @@ import ProtectedRoute from '../layouts/ProtectedRoute'
 import UserContextProvider from '../contexts/UserContext'
 
 export enum Links {
-  HOME = '/',
+  LANDING_PAGE = '/',
+  HOME = '/home',
   LOGIN = '/login',
   CARS = '/cars',
   MY_CARS = '/cars/mycars',
@@ -31,9 +32,10 @@ export enum Links {
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
+    element: <ProtectedRoute />,
     children: [
       {
-        path: Links.HOME,
+        path: Links.LANDING_PAGE,
         element: <GuestLayout />,
         children: [
           {
@@ -48,11 +50,9 @@ const router = createBrowserRouter([
       },
       {
         element: (
-          <ProtectedRoute>
-            <UserContextProvider>
-              <AppLayout />
-            </UserContextProvider>
-          </ProtectedRoute>
+          <UserContextProvider>
+            <AppLayout />
+          </UserContextProvider>
         ),
         children: [
           {

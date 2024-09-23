@@ -6,7 +6,7 @@ export default function useLogout() {
 
   function logout() {
     localStorage.removeItem('token')
-    navigate(Links.HOME, { replace: true })
+    navigate(Links.LANDING_PAGE, { replace: true })
   }
 
   return { logout }
