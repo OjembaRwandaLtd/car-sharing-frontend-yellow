@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { deleteCar } from '../../util/deleteCar'
-import { CarDto } from '../../util/api'
+import { CarDto } from '../../types/apiTypes'
 import { RefetchFunction } from 'axios-hooks'
 
 interface DeleteButtonProps {

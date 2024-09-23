@@ -4,7 +4,7 @@ import { useCarTypes, useUsers } from '../../hooks'
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
-import { CarDto } from '../../util/api'
+import { CarDto } from '../../types/apiTypes'
 
 export default function AllCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()

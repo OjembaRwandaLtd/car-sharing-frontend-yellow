@@ -1,5 +1,5 @@
 import { createContext, PropsWithChildren, useContext } from 'react'
-import { UserDto } from '../util/api'
+import { UserDto } from '../types/apiTypes'
 import useLoggedUser from '../hooks/useLoggedUser'
 import useLogout from '../hooks/useLogout'
 
