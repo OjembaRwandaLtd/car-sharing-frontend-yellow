@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import useLocalStorageMonitor from '../hooks/useLocalStorageMonitor'
 import { getAuthToken } from '../util/auth'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Links } from '../routes/router'
 
 export default function ProtectedRoute() {
   useLocalStorageMonitor()
@@ -14,10 +15,10 @@ export default function ProtectedRoute() {
 
   useEffect(() => {
     if (!token && !isSplash) {
-      navigate('/login', { replace: true })
+      navigate(Links.LOGIN, { replace: true })
     }
     if (token && (isSplash || isLogin)) {
-      navigate('/home', { replace: true })
+      navigate(Links.HOME, { replace: true })
     }
   }, [token, navigate])
 
