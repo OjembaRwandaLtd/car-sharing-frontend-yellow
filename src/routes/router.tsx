@@ -31,6 +31,7 @@ export enum Links {
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
+    element: <ProtectedRoute />,
     children: [
       {
         path: Links.HOME,
@@ -48,11 +49,9 @@ const router = createBrowserRouter([
       },
       {
         element: (
-          <ProtectedRoute>
-            <UserContextProvider>
-              <AppLayout />
-            </UserContextProvider>
-          </ProtectedRoute>
+          <UserContextProvider>
+            <AppLayout />
+          </UserContextProvider>
         ),
         children: [
           {
