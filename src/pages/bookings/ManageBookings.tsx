@@ -5,39 +5,24 @@ import BookCarDetails from '../../components/UI/BookCarDetails'
 import Spinner from '../../assets/Spinner'
 import useDateTime from '../../hooks/useDateTime'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
-import { Links } from '../../routes/router'
 import useBookingState from '../../hooks/useBookingState'
+import NoBookings from './NoBookings'
 
 export default function ManageBookings() {
-  const { data: bookingData, error: bookingError, loading: bookingLoading } = useBookingData()
+  const {
+    data: bookingData,
+    error: bookingError,
+    loading: bookingLoading,
+    refetch,
+  } = useBookingData()
   const { getDate, getTime } = useDateTime()
-  const { changeBookingState } = useBookingState()
+  const { handleDeclined, handleAccept } = useBookingState()
 
-  if (bookingLoading) {
-    return <Spinner />
-  }
-  if (bookingError) {
-    throw new Error('Could not find booking details')
-  }
+  if (bookingLoading) return <Spinner />
 
-  if (bookingData?.length === 0) {
-    return (
-      <div className="mx-8 my-24 flex flex-col gap-9 py-4 text-center text-xl">
-        <p className=" italic text-moni-gray-100">You {"don't"} have any bookings yet</p>
-        <Button
-          behavior={ButtonBehavior.LINK}
-          customStyles={ButtonStyles.PRIMARY}
-          path={Links.MY_CARS}
-        >
-          See My Cars
-        </Button>
-      </div>
-    )
-  }
+  if (bookingError) throw new Error('Could not find booking details')
 
-  async function handleDeclined(id: string | number) {
-    return await changeBookingState(id)
-  }
+  if (bookingData?.length === 0) return <NoBookings />
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -70,13 +55,17 @@ export default function ManageBookings() {
                 <BookCarDetails {...bookingDetails}>
                   {data.state === 'PENDING' ? (
                     <menu className="flex flex-col gap-2">
-                      <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
+                      <Button
+                        behavior={ButtonBehavior.BUTTON}
+                        customStyles={ButtonStyles.PRIMARY}
+                        onClick={() => handleAccept(data.id, refetch)}
+                      >
                         Accept
                       </Button>
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
-                        onClick={() => handleDeclined(data.id)}
+                        onClick={() => handleDeclined(data.id, refetch)}
                       >
                         Decline
                       </Button>
