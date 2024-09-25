@@ -4,6 +4,8 @@ import useBookingData from '../../hooks/useBookings'
 import BookCarDetails from '../../components/UI/BookCarDetails'
 import Spinner from '../../assets/Spinner'
 import useDateTime from '../../hooks/useDateTime'
+import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
+import { Links } from '../../routes/router'
 
 export default function ManageBookings() {
   const { data: bookingData, error: bookingError, loading: bookingLoading } = useBookingData()
@@ -17,12 +19,23 @@ export default function ManageBookings() {
   }
 
   if (bookingData?.length === 0) {
-    return <p>No bookings yet</p>
+    return (
+      <div className="mx-8 my-24 flex flex-col gap-9 py-4 text-center text-xl">
+        <p className=" italic text-moni-gray-100">You {"don't"} have any bookings yet</p>
+        <Button
+          behavior={ButtonBehavior.LINK}
+          customStyles={ButtonStyles.PRIMARY}
+          path={Links.MY_CARS}
+        >
+          See My Cars
+        </Button>
+      </div>
+    )
   }
 
   return (
     <main className="flex flex-col items-center justify-center">
-      <div className="my-8 flex w-full items-center justify-start px-6">
+      <div className="flex w-full items-center justify-start px-6 py-8">
         <Link to=".." relative="path">
           <ChevronBackIcon className="text-moni-mustard-100" />
         </Link>
@@ -30,8 +43,8 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      <div>
-        {bookingData?.map(data => {
+      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 lg:grid-cols-3">
+        {bookingData?.map((data, index) => {
           const bookingDetails = {
             carTypeId: data.car.carTypeId,
             carName: data.car.name,
@@ -42,7 +55,28 @@ export default function ManageBookings() {
             startTime: getTime(data.startDate.toString()),
             endTime: getTime(data.endDate.toString()),
           }
-          return <BookCarDetails key={data.id} {...bookingDetails} />
+
+          const isLast = index === bookingData.length - 1
+
+          return (
+            <div key={data.id}>
+              <BookCarDetails {...bookingDetails}>
+                {data.state === 'PENDING' ? (
+                  <menu className="flex flex-col gap-2">
+                    <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
+                      Accept
+                    </Button>
+                    <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
+                      Decline
+                    </Button>
+                  </menu>
+                ) : (
+                  <p className="mb-8 ml-12 text-sm text-moni-mustard-200">Booking Accepted</p>
+                )}
+              </BookCarDetails>
+              {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
+            </div>
+          )
         })}
       </div>
     </main>

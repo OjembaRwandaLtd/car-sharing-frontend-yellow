@@ -1,8 +1,9 @@
+import { PropsWithChildren } from 'react'
 import CalendarIcon from '../../assets/CalendarIcon'
 import TimeIcon from '../../assets/TimeIcon'
 import useCarType from '../../hooks/useCarType'
 
-interface BookCarDetailsProps {
+interface BookCarDetailsProps extends PropsWithChildren {
   carTypeId: number | string
   carName: string
   user: string
@@ -22,6 +23,7 @@ export default function BookCarDetails({
   endDate,
   startTime,
   endTime,
+  children,
 }: BookCarDetailsProps) {
   const [{ data: carType, error: carTypeError, loading: carTypeLoading }] = useCarType(id)
 
@@ -37,8 +39,8 @@ export default function BookCarDetails({
   }
 
   return (
-    <>
-      <figure className="flex flex-col items-center gap-8 px-12 py-8 text-moni-gray-100">
+    <div className="w-full items-center px-12 py-8 text-moni-gray-100 sm:bg-moni-light-black">
+      <figure>
         <img src={carType.imageUrl} alt="carImage" />
         <figcaption className="flex w-full flex-col gap-8">
           <div>
@@ -78,6 +80,8 @@ export default function BookCarDetails({
           </div>
         </figcaption>
       </figure>
-    </>
+
+      <div className="mt-8">{children}</div>
+    </div>
   )
 }
