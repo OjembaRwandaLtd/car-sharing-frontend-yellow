@@ -6,10 +6,12 @@ import Spinner from '../../assets/Spinner'
 import useDateTime from '../../hooks/useDateTime'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { Links } from '../../routes/router'
+import useBookingState from '../../hooks/useBookingState'
 
 export default function ManageBookings() {
   const { data: bookingData, error: bookingError, loading: bookingLoading } = useBookingData()
   const { getDate, getTime } = useDateTime()
+  const { changeBookingState } = useBookingState()
 
   if (bookingLoading) {
     return <Spinner />
@@ -33,6 +35,11 @@ export default function ManageBookings() {
     )
   }
 
+  function handleDeclined(id: string | number) {
+    const da = changeBookingState(id)
+    console.log(da)
+  }
+
   return (
     <main className="flex flex-col items-center justify-center">
       <div className="flex w-full items-center justify-start px-6 py-8">
@@ -49,7 +56,7 @@ export default function ManageBookings() {
             carTypeId: data.car.carTypeId,
             carName: data.car.name,
             user: data.car.owner.name,
-            isOwner: true,
+            isOwner: false,
             startDate: getDate(data.startDate.toString()),
             endDate: getDate(data.endDate.toString()),
             startTime: getTime(data.startDate.toString()),
@@ -60,20 +67,26 @@ export default function ManageBookings() {
 
           return (
             <div key={data.id}>
-              <BookCarDetails {...bookingDetails}>
-                {data.state === 'PENDING' ? (
-                  <menu className="flex flex-col gap-2">
-                    <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
-                      Accept
-                    </Button>
-                    <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
-                      Decline
-                    </Button>
-                  </menu>
-                ) : (
-                  <p className="mb-8 ml-12 text-sm text-moni-mustard-200">Booking Accepted</p>
-                )}
-              </BookCarDetails>
+              {data.state !== 'DECLINED' && (
+                <BookCarDetails {...bookingDetails}>
+                  {data.state === 'PENDING' ? (
+                    <menu className="flex flex-col gap-2">
+                      <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
+                        Accept
+                      </Button>
+                      <Button
+                        behavior={ButtonBehavior.BUTTON}
+                        customStyles={ButtonStyles.SECONDARY}
+                        onClick={() => handleDeclined(data.id)}
+                      >
+                        Decline
+                      </Button>
+                    </menu>
+                  ) : (
+                    <p className="mb-8 ml-12 text-sm text-moni-mustard-200">Booking Accepted</p>
+                  )}
+                </BookCarDetails>
+              )}
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
             </div>
           )
