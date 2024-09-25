@@ -1,15 +1,51 @@
-import carImage from '../../assets/Homepage-car.avif'
 import CalendarIcon from '../../assets/CalendarIcon'
 import TimeIcon from '../../assets/TimeIcon'
-export default function BookCarDetails() {
+import useCarType from '../../hooks/useCarType'
+
+interface BookCarDetailsProps {
+  carTypeId: number | string
+  carName: string
+  user: string
+  isOwner: boolean
+  startDate: string
+  endDate: string
+  startTime: string
+  endTime: string
+}
+
+export default function BookCarDetails({
+  carTypeId: id,
+  carName,
+  user,
+  isOwner,
+  startDate,
+  endDate,
+  startTime,
+  endTime,
+}: BookCarDetailsProps) {
+  const [{ data: carType, error: carTypeError, loading: carTypeLoading }] = useCarType(id)
+
+  if (carTypeLoading) {
+    return
+  }
+
+  if (carTypeError) {
+    throw new Error('Could not get car type')
+  }
+  if (!carType) {
+    return <p>No car yet</p>
+  }
+
   return (
     <>
       <figure className="flex flex-col items-center gap-8 px-12 py-8 text-moni-gray-100">
-        <img src={carImage} alt="carImage" />
+        <img src={carType.imageUrl} alt="carImage" />
         <figcaption className="flex w-full flex-col gap-8">
           <div>
-            <h3 className="font-lora text-xl font-medium">Tini Titan</h3>
-            <p className="font-inter text-sm">Requested by Manuela</p>
+            <h3 className="font-lora text-xl font-medium">{carName}</h3>
+            <p className="font-inter text-sm">
+              {isOwner ? 'Owned by' : 'Requested by'} {user}
+            </p>
           </div>
           <div className="flex w-full justify-between">
             <div className="flex flex-col gap-2">
@@ -17,11 +53,11 @@ export default function BookCarDetails() {
               <ul className="flex flex-col gap-2">
                 <li className="flex items-center gap-1">
                   <CalendarIcon />
-                  <span>07 Jun 2024</span>
+                  <span>{startDate}</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <TimeIcon />
-                  <span>13:09</span>
+                  <span>{startTime}</span>
                 </li>
               </ul>
             </div>
@@ -31,11 +67,11 @@ export default function BookCarDetails() {
               <ul className="flex flex-col gap-2">
                 <li className="flex items-center gap-1">
                   <CalendarIcon />
-                  <span>07 Jun 2024</span>
+                  <span>{endDate}</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <TimeIcon />
-                  <span>14:09</span>
+                  <span>{endTime}</span>
                 </li>
               </ul>
             </div>
