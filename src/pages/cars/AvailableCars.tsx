@@ -1,17 +1,34 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
 import { useBookings, useCarTypes, useUsers } from '../../hooks'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
 import { BookingState, CarDto } from '../../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
+import { createBooking } from '../../util/createBooking'
+import { useEffect, useState } from 'react'
+import { Links } from '../../routes/router'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: allCars, loading: allCarsLoading, error: allCarsError }] = useCars()
   const { data: allBookings, loading: allBookingsLoading, error: allBookingsError } = useBookings()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
+
+  const navigate = useNavigate()
+  const [carId, setCarId] = useState<number | null>(null)
+
+  useEffect(() => {
+    if (!carId) return
+    createBooking({
+      carId,
+      startDate: new Date('06/07/2023 01:07'),
+      endDate: new Date('06/07/2023 02:07'),
+    }).then(() => {
+      navigate(Links.MY_BOOKINGS, { replace: true })
+    })
+  }, [carId])
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
@@ -32,12 +49,15 @@ export default function AvailableCars() {
     const bookedCar = allBookings?.find(booking => booking.carId === car.id)
     return !bookedCar || bookedCar.bookingState === BookingState.RETURNED
   })
-  //  console.log(availableCars.length, allCars.length)
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)
     if (!carType || !user) throw new Error('Car type or user not found')
     return { user, carType }
+  }
+
+  function onBookClick(carId: number) {
+    setCarId(carId)
   }
 
   return (
@@ -55,7 +75,11 @@ export default function AvailableCars() {
           const { carType, user } = getCarDetails(car)
           return (
             <CarCard key={car.id} car={car} carType={carType} user={user}>
-              <Button customStyles={ButtonStyles.PRIMARY} behavior={ButtonBehavior.BUTTON}>
+              <Button
+                customStyles={ButtonStyles.PRIMARY}
+                behavior={ButtonBehavior.BUTTON}
+                onClick={() => onBookClick(car.id)}
+              >
                 Book Car
               </Button>
             </CarCard>

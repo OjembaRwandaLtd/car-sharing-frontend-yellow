@@ -1,19 +1,23 @@
 import axios from 'axios'
 import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from './auth'
-import { NewBookingDto } from '../types/apiTypes'
+import { AddBookingDto } from '../types/apiTypes'
 
-export async function createBooking(signal: AbortSignal, booking: NewBookingDto): Promise<unknown> {
+export async function createBooking(booking: AddBookingDto) {
+  const endDate = booking.endDate.toISOString()
+  const startDate = booking.startDate.toISOString()
   try {
-    const response = await axios.post(`${apiUrl}/bookings`, {
-      headers: {
-        Authorization: `Bearer ${getAuthToken()}`,
+    await axios.post<AddBookingDto>(
+      `${apiUrl}/bookings`,
+      { carId: booking.carId, startDate, endDate },
+      {
+        headers: {
+          Authorization: `Bearer ${getAuthToken()}`,
+          'Content-Type': 'application/json',
+        },
       },
-      signal,
-      body: booking,
-    })
-
-    return response.data
+    )
+    return true
   } catch (error) {
     return false
   }
