@@ -35,9 +35,8 @@ export default function ManageBookings() {
     )
   }
 
-  function handleDeclined(id: string | number) {
-    const da = changeBookingState(id)
-    console.log(da)
+  async function handleDeclined(id: string | number) {
+    return await changeBookingState(id)
   }
 
   return (
