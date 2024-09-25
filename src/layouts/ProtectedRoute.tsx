@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import useLocalStorageMonitor from '../hooks/useLocalStorageMonitor'
 import { getAuthToken } from '../util/auth'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Links } from '../routes/router'
 
-export default function ProtectedRoute() {
+export default function ProtectedRoute({ children }: PropsWithChildren) {
   useLocalStorageMonitor()
   const navigate = useNavigate()
   const token = getAuthToken()
@@ -22,5 +22,5 @@ export default function ProtectedRoute() {
     }
   }, [token, navigate])
 
-  return <Outlet />
+  return children
 }
