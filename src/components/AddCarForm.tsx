@@ -5,9 +5,9 @@ import Spinner from '../assets/Spinner'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AddNewCarDto, CarTypeDto } from '../util/api'
+import { AddNewCarDto, CarTypeDto } from '../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from './UI/Button'
-import CarSchema from '../util/carFormSchema'
+import CarSchema from '../types/carFormSchema'
 import { RefetchFunction } from 'axios-hooks'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
@@ -28,7 +28,6 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<CarSchemaType>({
     mode: 'onChange',
     resolver: zodResolver(CarSchema),
@@ -110,7 +109,7 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
           <Input
             {...register('licensePlate')}
             behavior={InputBehavior.INPUT}
-            placeholder="e.g. M-XY 123"
+            placeholder="e.g. AB-123-C"
           ></Input>
           {errors.licensePlate && <p className="text-red-400">{errors.licensePlate.message}</p>}
         </div>
@@ -152,8 +151,8 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
       <menu className="mt-24 flex gap-3 md:mt-7 md:place-items-start md:justify-between md:gap-20">
         <Button
           type="reset"
-          onClick={() => reset()}
-          behavior={ButtonBehavior.BUTTON}
+          path={Links.MY_CARS}
+          behavior={ButtonBehavior.LINK}
           customStyles={ButtonStyles.SECONDARY}
         >
           Cancel

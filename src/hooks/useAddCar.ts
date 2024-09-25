@@ -1,7 +1,7 @@
-import { apiUrl } from '../util/apiUrl'
+import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from '../util/auth'
 import useAxios from 'axios-hooks'
-import { AddNewCarDto } from '../util/api'
+import { AddNewCarDto } from '../types/apiTypes'
 
 export default function useAddCar() {
   return useAxios<AddNewCarDto>(

@@ -1,5 +1,5 @@
 import ProfileIcon from '../assets/ProfileIcon'
-import { CarDto, CarTypeDto, UserDto } from '../util/api'
+import { CarDto, CarTypeDto, UserDto } from '../types/apiTypes'
 import { Link } from 'react-router-dom'
 import CarIcon from '../assets/CarIcon'
 

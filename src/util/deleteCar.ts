@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { apiUrl } from './apiUrl'
+import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from './auth'
 
 export async function deleteCar(signal: AbortSignal, deleteId: number): Promise<boolean> {

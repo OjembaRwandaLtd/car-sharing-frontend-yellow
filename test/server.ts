@@ -1,6 +1,6 @@
-import { BookingState, CarState } from '../src/util/api'
+import { BookingState, CarState } from '../src/types/apiTypes'
 
-import { apiUrl } from '../src/util/apiUrl'
+import { apiUrl } from '../src/constants/apiUrl'
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 

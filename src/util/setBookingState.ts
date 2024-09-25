@@ -1,6 +1,6 @@
-import { BookingState, ChangeBookingStateDto } from './api'
+import { BookingState, ChangeBookingStateDto } from '../types/apiTypes'
 
-import { apiUrl } from './apiUrl'
+import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from './auth'
 
 export const setBookingState = async (id: number, newState: BookingState): Promise<void> => {

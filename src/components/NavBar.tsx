@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import Logo from '../assets/Logo'
 import { NavLink } from 'react-router-dom'
 import { getAuthToken } from '../util/auth'
+import { Links } from '../routes/router'
 
 interface NavBarProps {
   className?: string
@@ -23,12 +24,12 @@ export default function NavBar({ className = '', MenuList, ProfileIcon }: Readon
     <header className={navClassname}>
       {MenuList}
       <NavLink
-        to={token ? '/home' : '/'}
+        to={token ? Links.HOME : Links.LANDING_PAGE}
         className="absolute left-1/2 -translate-x-1/2 rounded-b-full bg-moni-gray-800 px-4 pb-3 shadow-lg"
       >
         <Logo className="pb-2" />
       </NavLink>
-      {ProfileIcon && <NavLink to="/home">{ProfileIcon}</NavLink>}
+      {ProfileIcon && <NavLink to={Links.HOME}>{ProfileIcon}</NavLink>}
     </header>
   )
 }
