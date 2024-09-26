@@ -14,6 +14,7 @@ import Login from '../pages/Login'
 import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
 import UserContextProvider from '../contexts/UserContext'
+import AvailableCars from '../pages/cars/AvailableCars'
 
 export enum Links {
   LANDING_PAGE = '/',
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <NewBooking />,
+                element: <AvailableCars />,
               },
               {
                 path: 'mycars',
