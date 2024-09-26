@@ -40,7 +40,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 md:grid-cols-3">
+      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
         {myBookings
           .filter(data => data.state !== 'DECLINED')
           .filter(data => {
