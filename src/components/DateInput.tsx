@@ -30,14 +30,16 @@ export default function DateInput({ placeholder, name }: DateInputProps) {
         onClick={() => setOpen(true)}
       />
       {open && (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <StaticDateTimePicker
-            defaultValue={dayjs('2022-04-17T15:30')}
-            onChange={handleChange}
-            onClose={() => setOpen(false)}
-            onAccept={() => setOpen(false)}
-          />
-        </LocalizationProvider>
+        <div className="absolute inset-x-4 top-20 max-h-screen overflow-hidden">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <StaticDateTimePicker
+              defaultValue={dayjs('2022-04-17T15:30')}
+              onChange={handleChange}
+              onClose={() => setOpen(false)}
+              onAccept={() => setOpen(false)}
+            />
+          </LocalizationProvider>
+        </div>
       )}
     </>
   )
