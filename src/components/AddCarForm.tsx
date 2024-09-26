@@ -7,11 +7,12 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AddNewCarDto, CarTypeDto } from '../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from './UI/Button'
-import CarSchema from '../types/carFormSchema'
+import CarSchema from '../types/schema'
 import { RefetchFunction } from 'axios-hooks'
 import { useToast } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { Links } from '../routes/router'
+import { carAdded, carNotAdded } from '../chakra/toastMessages'
 
 const inputWrapperStyles = 'flex flex-col gap-2'
 const labelStyles = 'pl-2 font-inter text-sm text-moni-gray-100'
@@ -38,7 +39,7 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
   const [{ loading, error, data: carTypes }] = useCarTypes()
 
   function createCar(data: CarSchemaType, carTypes: CarTypeDto[]) {
-    const [carType] = carTypes.filter(carType => carType.name === data.typeName)
+    const carType = carTypes.filter(carType => carType.name === data.typeName)[0]
     const { name, fuelType, horsepower, licensePlate, info } = data
 
     execute({
@@ -52,23 +53,11 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
       },
     })
       .then(() => {
-        toast({
-          title: 'New Car Was Added',
-          description: 'New Car Was Added',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(carAdded)
         navigate(Links.MY_CARS)
       })
       .catch(() => {
-        toast({
-          title: 'Failed to add car',
-          description: 'Something went wrong',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(carNotAdded)
       })
   }
 
@@ -109,7 +98,7 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
           <Input
             {...register('licensePlate')}
             behavior={InputBehavior.INPUT}
-            placeholder="e.g. AB-123-C"
+            placeholder="e.g. AB 123 C"
           ></Input>
           {errors.licensePlate && <p className="text-red-400">{errors.licensePlate.message}</p>}
         </div>

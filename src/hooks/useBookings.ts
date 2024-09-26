@@ -11,9 +11,11 @@ function useBookingData() {
   const [error, setError] = useState<unknown>(null)
   const token = getAuthToken()
 
-  const [{ data: bookingsData, loading: bookingsLoading, error: bookingsError }] = useAxios<
-    BookingDto[]
-  >({ url: `${apiUrl}/bookings`, headers: { Authorization: `Bearer ${token}` } })
+  const [{ data: bookingsData, loading: bookingsLoading, error: bookingsError }, refetch] =
+    useAxios<BookingDto[]>({
+      url: `${apiUrl}/bookings`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
 
   useEffect(() => {
     if (bookingsData) {
@@ -72,7 +74,7 @@ function useBookingData() {
 
   const isLoading = bookingsLoading || loading
 
-  return { data, loading: isLoading, error }
+  return { data, loading: isLoading, error, refetch }
 }
 
 export default useBookingData

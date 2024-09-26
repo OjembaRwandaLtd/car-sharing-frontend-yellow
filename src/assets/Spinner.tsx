@@ -5,7 +5,9 @@ export default function Spinner({ className }: { className?: string }) {
     <div
       role="status"
       className={classNames(
-        `flex items-center justify-center ${className ? 'min-h-0' : 'min-h-screen'}`,
+        'flex items-center justify-center',
+        { 'min-h-0': className },
+        { 'min-h-screen': !className },
         className,
       )}
     >

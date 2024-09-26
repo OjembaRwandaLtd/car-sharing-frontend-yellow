@@ -31,11 +31,14 @@ export enum Links {
 const router = createBrowserRouter([
   {
     errorElement: <ErrorPage />,
-    element: <ProtectedRoute />,
     children: [
       {
         path: Links.LANDING_PAGE,
-        element: <GuestLayout />,
+        element: (
+          <ProtectedRoute>
+            <GuestLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
@@ -49,9 +52,11 @@ const router = createBrowserRouter([
       },
       {
         element: (
-          <UserContextProvider>
-            <AppLayout />
-          </UserContextProvider>
+          <ProtectedRoute>
+            <UserContextProvider>
+              <AppLayout />
+            </UserContextProvider>
+          </ProtectedRoute>
         ),
         children: [
           {
