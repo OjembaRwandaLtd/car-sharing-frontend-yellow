@@ -4,20 +4,21 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { StaticDateTimePicker } from '@mui/x-date-pickers/StaticDateTimePicker'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import Input, { InputBehavior } from './UI/Input'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 interface DateInputProps {
   placeholder: string
   name: string
+  value?: Dayjs | null
+  setValue: Dispatch<SetStateAction<dayjs.Dayjs | null>>
 }
 
-export default function DateInput({ placeholder, name }: DateInputProps) {
+export default function DateInput({ placeholder, name, setValue, value }: DateInputProps) {
   const [open, setOpen] = useState(false)
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs('2022-04-17T15:30'))
 
   function handleChange(date: Dayjs | null) {
     if (date) {
-      setSelectedDate(date)
+      setValue(date)
     }
   }
   return (
@@ -27,18 +28,20 @@ export default function DateInput({ placeholder, name }: DateInputProps) {
         placeholder={placeholder}
         behavior={InputBehavior.INPUT}
         name={name}
-        value={selectedDate.format('MM/DD/YYYY hh:mm A')}
+        value={value?.format('MM/DD/YYYY hh:mm A')}
         onClick={() => setOpen(true)}
       />
       {open && (
-        <div className="absolute inset-x-4 top-20 max-h-screen overflow-hidden">
+        <div className="md: absolute inset-x-4 top-20 max-h-screen overflow-hidden md:mx-auto md:h-5/6 md:w-1/3 md:overflow-auto">
           <ThemeProvider theme={createTheme()}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
-                defaultValue={dayjs('2022-04-17T15:30')}
+                defaultValue={dayjs(Date.now())}
                 onChange={handleChange}
                 onClose={() => setOpen(false)}
                 onAccept={() => setOpen(false)}
+                disablePast
+                sx={{ color: 'black' }}
               />
             </LocalizationProvider>
           </ThemeProvider>
