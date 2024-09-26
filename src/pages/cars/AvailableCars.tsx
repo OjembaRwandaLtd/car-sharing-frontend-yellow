@@ -9,29 +9,30 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { Links } from '../../routes/router'
 import useAddBooking from '../../hooks/useAddBooking'
 import { useToast } from '@chakra-ui/react'
+import { useState } from 'react'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: allCars, loading: allCarsLoading, error: allCarsError }] = useCars()
-  const { data: allBookings, loading: allBookingsLoading, error: allBookingsError } = useBookings()
+  const {
+    data: allBookings,
+    loading: allBookingsLoading,
+    error: allBookingsError,
+    refetch,
+  } = useBookings()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
   const [{ loading: addBookingLoading }, execute] = useAddBooking()
-  const startDate = new Date('06/07/2024 03:07')
-  const endDate = new Date('06/07/2024 04:07')
   const navigate = useNavigate()
   const toast = useToast()
+  const [bookedCarId, setBookedCarId] = useState<number | null>(null)
+  const startDate = new Date('06/07/2024 03:07')
+  const endDate = new Date('06/07/2024 04:07')
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
   }
 
-  if (
-    allCarsLoading ||
-    carTypesLoading ||
-    usersLoading ||
-    allBookingsLoading ||
-    addBookingLoading
-  ) {
+  if (allCarsLoading || carTypesLoading || usersLoading || allBookingsLoading) {
     return <Spinner />
   }
 
@@ -54,7 +55,7 @@ export default function AvailableCars() {
   }
 
   function onBookClick(carId: number) {
-    // setCarId(carId)
+    setBookedCarId(carId)
     execute({ data: { carId, startDate, endDate } })
       .then(() => {
         toast({
@@ -64,6 +65,7 @@ export default function AvailableCars() {
           duration: 2000,
           isClosable: true,
         })
+        refetch()
         navigate(Links.MY_BOOKINGS, { replace: true })
       })
       .catch(() => {
@@ -90,6 +92,7 @@ export default function AvailableCars() {
       <div className="mx-4 grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
         {availableCars.map(car => {
           const { carType, user } = getCarDetails(car)
+          const isBooking = addBookingLoading && bookedCarId === car.id
           return (
             <CarCard key={car.id} car={car} carType={carType} user={user}>
               <Button
@@ -97,7 +100,7 @@ export default function AvailableCars() {
                 behavior={ButtonBehavior.BUTTON}
                 onClick={() => onBookClick(car.id)}
               >
-                Book Car
+                {isBooking ? <Spinner className="h-5 w-5" /> : 'Book Car'}
               </Button>
             </CarCard>
           )
