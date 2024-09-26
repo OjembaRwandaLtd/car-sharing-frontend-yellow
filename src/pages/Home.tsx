@@ -1,9 +1,10 @@
 import carPicture from '../assets/Homepage-car.avif'
 import Button, { ButtonStyles, ButtonBehavior } from '../components/UI/Button'
+import { useUserContext } from '../contexts/UserContext'
 import { Links } from '../routes/router'
 
 export default function Home() {
-  const users = [{ username: 'Manuela' }, { username: 'Alexa' }]
+  const loggedUser = useUserContext()
   const buttonItems = [
     {
       name: 'See My Cars',
@@ -30,8 +31,7 @@ export default function Home() {
             CAR <span className="font-medium italic">sharing</span>
           </h1>
           <p className="mx-auto my-12 flex flex-col text-center font-lora text-xl font-medium text-moni-gray-100 lg:gap-4 lg:text-2xl">
-            Hello {users[0].username}!!
-            <span>What are you up to today?</span>
+            Hello {loggedUser.name}!<span>What are you up to today?</span>
           </p>
         </div>
         <div className="flex">

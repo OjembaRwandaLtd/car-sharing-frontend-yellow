@@ -11,14 +11,14 @@ import Home from '../pages/Home'
 import CarDetails from '../pages/cars/CarDetails'
 import NewCar from '../pages/cars/NewCar'
 import NewBooking from '../pages/bookings/NewBooking'
-import Login from '../pages/login/Login'
+import Login from '../pages/Login'
 import Splash from '../pages/Splash'
 import ProtectedRoute from '../layouts/ProtectedRoute'
-import { loginAction } from '../actions/loginAction'
-import { addCarAction } from '../actions/newCarAction'
+import UserContextProvider from '../contexts/UserContext'
 
 export enum Links {
-  HOME = '/',
+  LANDING_PAGE = '/',
+  HOME = '/home',
   LOGIN = '/login',
   CARS = '/cars',
   MY_CARS = '/cars/mycars',
@@ -34,8 +34,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: Links.HOME,
-        element: <GuestLayout />,
+        path: Links.LANDING_PAGE,
+        element: (
+          <ProtectedRoute>
+            <GuestLayout />
+          </ProtectedRoute>
+        ),
         children: [
           {
             index: true,
@@ -44,14 +48,15 @@ const router = createBrowserRouter([
           {
             path: Links.LOGIN,
             element: <Login />,
-            action: loginAction,
           },
         ],
       },
       {
         element: (
           <ProtectedRoute>
-            <AppLayout />
+            <UserContextProvider>
+              <AppLayout />
+            </UserContextProvider>
           </ProtectedRoute>
         ),
         children: [
@@ -71,9 +76,12 @@ const router = createBrowserRouter([
                 element: <MyCars />,
               },
               {
+                path: 'mycars/:carId',
+                element: <CarDetails />,
+              },
+              {
                 path: 'new',
                 element: <NewCar />,
-                action: addCarAction,
               },
               {
                 path: ':carId',

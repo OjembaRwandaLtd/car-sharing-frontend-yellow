@@ -4,7 +4,7 @@ import FuelIcon from '../assets/FuelIcon'
 import HorseIcon from '../assets/HorseIcon'
 import LicensePlateIcon from '../assets/LicensePlateIcon'
 import ProfileIcon from '../assets/ProfileIcon'
-import { CarDto } from '../util/api'
+import { CarDto } from '../types/apiTypes'
 
 interface CarDetailItemProps {
   carData: CarDto

@@ -1,20 +1,18 @@
 import axios from 'axios'
-import { apiUrl } from './apiUrl'
+import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from './auth'
 
-export async function deleteCar(signal: AbortSignal, deleteId: number) {
+export async function deleteCar(signal: AbortSignal, deleteId: number): Promise<boolean> {
   try {
-    const response = await axios.delete(`${apiUrl}cars/${deleteId}`, {
+    const response = await axios.delete(`${apiUrl}/cars/${deleteId}`, {
       headers: {
         Authorization: `Bearer ${getAuthToken()}`,
       },
-      signal: signal,
+      signal,
     })
-    if (response.status === 204) {
-      alert('Successfully deleted car!')
-      window.location.reload()
-    } else alert("Couldn't delete car")
+
+    return response.status === 204
   } catch (error) {
-    alert("Couldn't delete car")
+    return false
   }
 }

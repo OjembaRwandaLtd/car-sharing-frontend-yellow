@@ -7,10 +7,11 @@ import CarsIcon from '../assets/CarsIcon'
 import CarPlusIcon from '../assets/CarPlusIcon'
 import LogoutIcon from '../assets/LogoutIcon'
 import { Links } from '../routes/router'
-import { useAuth } from '../contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import useLogout from '../hooks/useLogout'
 
 export default function MenuList() {
+  const { logout } = useLogout()
+
   const generalDetails = [
     {
       icon: <CarIcon />,
@@ -47,15 +48,6 @@ export default function MenuList() {
     <MenuListItem key={myCarsDetail.title} {...myCarsDetail} />
   ))
 
-  const auth = useAuth()
-  const navigate = useNavigate()
-
-  function handleLogout() {
-    auth.setToken(null)
-    localStorage.removeItem('token')
-    navigate('/', { replace: true })
-  }
-
   return (
     <Menu>
       <MenuButton className="bg-moni-gray-800 text-moni-gray-100">
@@ -73,7 +65,7 @@ export default function MenuList() {
         </div>
         <HUIButton
           className="flex items-center gap-3 rounded-md p-1 font-inter text-moni-gray-100 hover:bg-blue-100/50 focus:bg-blue-100/50"
-          onClick={handleLogout}
+          onClick={logout}
         >
           <LogoutIcon />
           <span>Log Out</span>
