@@ -60,7 +60,7 @@ interface BookingDto {
   startDate: Date
   endDate: Date
   carId: number
-  bookingState: BookingState
+  state: BookingState
   renterId: number
 }
 
@@ -75,7 +75,7 @@ interface NewBookingDto {
   carId: number
   renterId: number
 }
-
+type AddBookingDto = Omit<NewBookingDto, 'renterId'>
 interface ChangeBookingStateDto {
   state: BookingState
 }
@@ -118,5 +118,6 @@ export type {
   LoginDto,
   AddNewCarDto,
   UserContextType,
+  AddBookingDto,
 }
 export { BookingState, CarState }
