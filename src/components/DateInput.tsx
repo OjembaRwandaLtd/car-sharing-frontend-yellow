@@ -15,12 +15,10 @@ interface DateInputProps {
 
 export default function DateInput({ placeholder, name, setValue, value }: DateInputProps) {
   const [open, setOpen] = useState(false)
-  // const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs('2024-04-17T15:30'))
 
   function handleChange(date: Dayjs | null) {
     if (date) {
       setValue(date)
-      // setSelectedDate(date)
     }
   }
   return (
@@ -34,7 +32,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
         onClick={() => setOpen(true)}
       />
       {open && (
-        <div className="absolute inset-x-4 top-20 max-h-screen overflow-hidden">
+        <div className="md: absolute inset-x-4 top-20 max-h-screen overflow-hidden md:mx-auto md:h-5/6 md:w-1/3 md:overflow-auto">
           <ThemeProvider theme={createTheme()}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
@@ -43,6 +41,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
                 onClose={() => setOpen(false)}
                 onAccept={() => setOpen(false)}
                 disablePast
+                sx={{ color: 'black' }}
               />
             </LocalizationProvider>
           </ThemeProvider>
