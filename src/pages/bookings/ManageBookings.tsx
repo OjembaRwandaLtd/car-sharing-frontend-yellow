@@ -28,7 +28,14 @@ export default function ManageBookings() {
 
   if (!bookingData) return
 
-  const myBookings = bookingData.filter(booking => booking.car.owner.id === user.id)
+  const myBookings = bookingData
+    .filter(booking => booking.car.owner.id === user.id)
+    .filter(data => data.state !== 'DECLINED')
+    .filter(data => {
+      const currentDate = new Date()
+      const expiredDate = new Date(data.endDate)
+      return currentDate < expiredDate
+    })
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -41,57 +48,52 @@ export default function ManageBookings() {
         </h1>
       </div>
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
-        {myBookings
-          .filter(data => data.state !== 'DECLINED')
-          .filter(data => {
-            const currentDate = new Date()
-            const expiredDate = new Date(data.endDate)
-            return currentDate < expiredDate
-          })
-          .map((data, index) => {
-            const bookingDetails = {
-              carTypeId: data.car.carTypeId,
-              carName: data.car.name,
-              user: data.renter.name,
-              isOwner: false,
-              startDate: getDate(data.startDate.toString()),
-              endDate: getDate(data.endDate.toString()),
-              startTime: getTime(data.startDate.toString()),
-              endTime: getTime(data.endDate.toString()),
-            }
+        {myBookings.map((data, index) => {
+          const bookingDetails = {
+            carTypeId: data.car.carTypeId,
+            carName: data.car.name,
+            user: data.renter.name,
+            isOwner: false,
+            startDate: getDate(data.startDate.toString()),
+            endDate: getDate(data.endDate.toString()),
+            startTime: getTime(data.startDate.toString()),
+            endTime: getTime(data.endDate.toString()),
+          }
 
-            const isLast = index === bookingData.length - 1
+          const isLast = index === bookingData.length - 1
 
-            return (
-              <div key={data.id}>
-                <BookCarDetails {...bookingDetails}>
-                  {data.state === 'PENDING' ? (
-                    <menu className="flex flex-col gap-2">
-                      <Button
-                        behavior={ButtonBehavior.BUTTON}
-                        customStyles={ButtonStyles.PRIMARY}
-                        onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
-                        disabled={acceptLoading}
-                      >
-                        {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
-                      </Button>
-                      <Button
-                        behavior={ButtonBehavior.BUTTON}
-                        customStyles={ButtonStyles.SECONDARY}
-                        onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
-                        disabled={declineLoading}
-                      >
-                        {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
-                      </Button>
-                    </menu>
-                  ) : (
-                    <p className="mb-8 text-sm text-moni-mustard-200">Booking Accepted</p>
-                  )}
-                </BookCarDetails>
-                {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
-              </div>
-            )
-          })}
+          return (
+            <div key={data.id}>
+              <BookCarDetails {...bookingDetails}>
+                {data.state === 'PENDING' && (
+                  <menu className="flex flex-col gap-2">
+                    <Button
+                      behavior={ButtonBehavior.BUTTON}
+                      customStyles={ButtonStyles.PRIMARY}
+                      onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
+                      disabled={acceptLoading}
+                    >
+                      {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
+                    </Button>
+                    <Button
+                      behavior={ButtonBehavior.BUTTON}
+                      customStyles={ButtonStyles.SECONDARY}
+                      onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
+                      disabled={declineLoading}
+                    >
+                      {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
+                    </Button>
+                  </menu>
+                )}
+
+                {data.state !== 'PENDING' && (
+                  <p className="mb-8 text-sm text-moni-mustard-200">Booking Accepted</p>
+                )}
+              </BookCarDetails>
+              {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
+            </div>
+          )
+        })}
       </div>
     </main>
   )
