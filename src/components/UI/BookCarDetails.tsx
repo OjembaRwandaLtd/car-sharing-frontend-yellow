@@ -39,7 +39,7 @@ export default function BookCarDetails({
   }
 
   return (
-    <div className="w-full items-center px-12 py-8 text-moni-gray-100 sm:bg-moni-light-black">
+    <div className="h-full w-full items-center px-12 py-8 text-moni-gray-100 sm:bg-moni-light-black">
       <figure>
         <img src={carType.imageUrl} alt="carImage" />
         <figcaption className="flex w-full flex-col gap-8">

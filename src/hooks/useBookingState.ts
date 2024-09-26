@@ -3,9 +3,12 @@ import { apiUrl } from '../constants/apiUrl'
 import { BookingState } from '../types/apiTypes'
 import { getAuthToken } from '../util/auth'
 import axios from 'axios'
+import { useState } from 'react'
 
 export default function useBookingState() {
   const toast = useToast()
+  const [declineLoading, setDeclineLoading] = useState(false)
+  const [acceptLoading, setAcceptLoading] = useState(false)
 
   async function changeBookingState(id: number | string, newState: BookingState) {
     try {
@@ -25,6 +28,7 @@ export default function useBookingState() {
   }
 
   async function handleDeclined(id: string | number, refetch: () => void) {
+    setDeclineLoading(true)
     const stateStatus = await changeBookingState(id, BookingState.DECLINED)
     if (stateStatus === 200) {
       toast({
@@ -44,9 +48,11 @@ export default function useBookingState() {
         isClosable: true,
       })
     }
+    setDeclineLoading(false)
   }
 
   async function handleAccept(id: string | number, refetch: () => void) {
+    setAcceptLoading(true)
     const stateStatus = await changeBookingState(id, BookingState.ACCEPTED)
     if (stateStatus === 200) {
       toast({
@@ -66,7 +72,8 @@ export default function useBookingState() {
         isClosable: true,
       })
     }
+    setAcceptLoading(false)
   }
 
-  return { changeBookingState, handleDeclined, handleAccept }
+  return { handleDeclined, handleAccept, acceptLoading, declineLoading }
 }
