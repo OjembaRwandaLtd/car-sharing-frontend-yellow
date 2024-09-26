@@ -4,37 +4,34 @@ import { useBookings, useCarTypes, useUsers } from '../../hooks'
 import { Link, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
-import { BookingState, CarDto } from '../../types/apiTypes'
+import { CarDto } from '../../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
-import { createBooking } from '../../util/createBooking'
-import { useEffect, useState } from 'react'
 import { Links } from '../../routes/router'
+import useAddBooking from '../../hooks/useAddBooking'
+import { useToast } from '@chakra-ui/react'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
   const [{ data: allCars, loading: allCarsLoading, error: allCarsError }] = useCars()
   const { data: allBookings, loading: allBookingsLoading, error: allBookingsError } = useBookings()
   const [{ data: users, loading: usersLoading, error: usersError }] = useUsers()
-
+  const [{ loading: addBookingLoading }, execute] = useAddBooking()
+  const startDate = new Date('06/07/2024 03:07')
+  const endDate = new Date('06/07/2024 04:07')
   const navigate = useNavigate()
-  const [carId, setCarId] = useState<number | null>(null)
-
-  useEffect(() => {
-    if (!carId) return
-    createBooking({
-      carId,
-      startDate: new Date('06/07/2023 01:07'),
-      endDate: new Date('06/07/2023 02:07'),
-    }).then(() => {
-      navigate(Links.MY_BOOKINGS, { replace: true })
-    })
-  }, [carId])
+  const toast = useToast()
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
   }
 
-  if (allCarsLoading || carTypesLoading || usersLoading || allBookingsLoading) {
+  if (
+    allCarsLoading ||
+    carTypesLoading ||
+    usersLoading ||
+    allBookingsLoading ||
+    addBookingLoading
+  ) {
     return <Spinner />
   }
 
@@ -47,7 +44,7 @@ export default function AvailableCars() {
   }
   const availableCars = allCars.filter(car => {
     const bookedCar = allBookings?.find(booking => booking.carId === car.id)
-    return !bookedCar || bookedCar.bookingState === BookingState.RETURNED
+    return !bookedCar
   })
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
@@ -57,7 +54,27 @@ export default function AvailableCars() {
   }
 
   function onBookClick(carId: number) {
-    setCarId(carId)
+    // setCarId(carId)
+    execute({ data: { carId, startDate, endDate } })
+      .then(() => {
+        toast({
+          title: 'Booking request sent',
+          description: 'New Car Was Added',
+          status: 'success',
+          duration: 2000,
+          isClosable: true,
+        })
+        navigate(Links.MY_BOOKINGS, { replace: true })
+      })
+      .catch(() => {
+        toast({
+          title: 'Failed to book car',
+          description: 'Something went wrong',
+          status: 'error',
+          duration: 2000,
+          isClosable: true,
+        })
+      })
   }
 
   return (
