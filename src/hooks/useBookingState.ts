@@ -4,7 +4,12 @@ import { BookingState } from '../types/apiTypes'
 import { getAuthToken } from '../util/auth'
 import axios from 'axios'
 import { useState } from 'react'
-import { requestDeclined, requestNotDeclined } from '../chakra/toastMessages'
+import {
+  requestAccepted,
+  requestDeclined,
+  requestNotAccepted,
+  requestNotDeclined,
+} from '../chakra/toastMessages'
 
 export default function useBookingState() {
   const toast = useToast()
@@ -28,41 +33,33 @@ export default function useBookingState() {
     }
   }
 
-  async function handleDeclined(id: string | number, refetch: () => void) {
-    setDeclineLoading(true)
-    const stateStatus = await changeBookingState(id, BookingState.DECLINED)
-    if (stateStatus === 200) {
-      toast(requestDeclined)
-      refetch()
+  async function handleChangeBookingState(
+    id: number | string,
+    action: 'ACCEPT' | 'DECLINE',
+    refetch: () => void,
+  ) {
+    if (action === 'DECLINE') {
+      setDeclineLoading(true)
+      const stateStatus = await changeBookingState(id, BookingState.DECLINED)
+      if (stateStatus === 200) {
+        toast(requestDeclined)
+        refetch()
+      } else {
+        toast(requestNotDeclined)
+      }
+      setDeclineLoading(false)
     } else {
-      toast(requestNotDeclined)
+      setAcceptLoading(true)
+      const stateStatus = await changeBookingState(id, BookingState.ACCEPTED)
+      if (stateStatus === 200) {
+        toast(requestAccepted)
+        refetch()
+      } else {
+        toast(requestNotAccepted)
+      }
+      setAcceptLoading(false)
     }
-    setDeclineLoading(false)
   }
 
-  async function handleAccept(id: string | number, refetch: () => void) {
-    setAcceptLoading(true)
-    const stateStatus = await changeBookingState(id, BookingState.ACCEPTED)
-    if (stateStatus === 200) {
-      toast({
-        title: 'Booking State Updated',
-        description: 'Booking Status Updated',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      })
-      refetch()
-    } else {
-      toast({
-        title: 'State Not Updated',
-        description: 'Could Not Accept The Request',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
-    }
-    setAcceptLoading(false)
-  }
-
-  return { handleDeclined, handleAccept, acceptLoading, declineLoading }
+  return { handleChangeBookingState, acceptLoading, declineLoading }
 }

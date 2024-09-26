@@ -3,7 +3,7 @@ import { Links } from '../../routes/router'
 
 export default function NoBookings() {
   return (
-    <div className="mx-8 my-24 flex flex-col gap-9 py-4 text-center text-xl">
+    <main className="mx-8 my-24 flex flex-col gap-9 py-4 text-center text-xl">
       <p className=" italic text-moni-gray-100">You {"don't"} have any bookings yet</p>
       <Button
         behavior={ButtonBehavior.LINK}
@@ -12,6 +12,6 @@ export default function NoBookings() {
       >
         See My Cars
       </Button>
-    </div>
+    </main>
   )
 }

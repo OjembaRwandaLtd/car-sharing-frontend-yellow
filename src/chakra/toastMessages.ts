@@ -47,3 +47,19 @@ export const requestNotDeclined: UseToastOptions = {
   duration: 5000,
   isClosable: true,
 }
+
+export const requestAccepted: UseToastOptions = {
+  title: 'Booking State Updated',
+  description: 'Booking Status Updated',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const requestNotAccepted: UseToastOptions = {
+  title: 'State Not Updated',
+  description: 'Could Not Accept The Request',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}

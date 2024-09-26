@@ -17,7 +17,7 @@ export default function ManageBookings() {
     refetch,
   } = useBookingData()
   const { getDate, getTime } = useDateTime()
-  const { handleDeclined, handleAccept, acceptLoading, declineLoading } = useBookingState()
+  const { handleChangeBookingState, acceptLoading, declineLoading } = useBookingState()
   const user = useUserContext()
 
   if (bookingLoading) return <Spinner />
@@ -40,7 +40,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 md:grid-cols-3">
+      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
         {myBookings
           .filter(data => data.state !== 'DECLINED')
           .filter(data => {
@@ -70,7 +70,7 @@ export default function ManageBookings() {
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.PRIMARY}
-                        onClick={() => handleAccept(data.id, refetch)}
+                        onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
                         disabled={acceptLoading}
                       >
                         {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
@@ -78,7 +78,7 @@ export default function ManageBookings() {
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
-                        onClick={() => handleDeclined(data.id, refetch)}
+                        onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
                         disabled={declineLoading}
                       >
                         {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
