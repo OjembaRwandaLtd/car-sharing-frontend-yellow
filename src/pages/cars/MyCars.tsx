@@ -5,9 +5,11 @@ import CarCard from '../../components/CarCard'
 import { useCars, useCarTypes } from '../../hooks'
 import { useEffect } from 'react'
 import CarsNotFound from '../../components/CarsNotFound'
-import { useUserContext } from '../../contexts/UserContext'
+import UserContextProvider, { useUserContext } from '../../contexts/UserContext'
 import DeleteButton from './DeleteButton'
 import { getCarType } from './helpers'
+import { ChakraProvider } from '@chakra-ui/react'
+import customTheme from '../../chakra/theme'
 
 export default function MyCars() {
   const [{ loading: carsLoading, error: carsError, data: cars }, refetch] = useCars()
@@ -34,31 +36,35 @@ export default function MyCars() {
   const myCars = cars.filter(car => car.ownerId === loggedUser.id)
 
   return (
-    <main className="px-4">
-      <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
-        MY CARS
-      </h1>
-      <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
-        {myCars.map(car => (
-          <CarCard
-            key={car.id}
-            car={car}
-            user={loggedUser}
-            carType={getCarType(car.carTypeId, carTypes)}
-          >
-            <DeleteButton refetch={refetch} carId={car.id} />
-          </CarCard>
-        ))}
-      </div>
-      <div className="flex py-8 md:mx-auto md:w-1/2">
-        <Button
-          path={Links.NEW_CAR}
-          behavior={ButtonBehavior.LINK}
-          customStyles={ButtonStyles.PRIMARY}
-        >
-          Add Car
-        </Button>
-      </div>
-    </main>
+    <ChakraProvider theme={customTheme}>
+      <UserContextProvider>
+        <main className="px-4">
+          <h1 className="my-8 w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
+            MY CARS
+          </h1>
+          <div className="grid grid-cols-1 gap-4 md:mx-0 md:w-full md:gap-8 md:px-20 lg:grid-cols-2">
+            {myCars.map(car => (
+              <CarCard
+                key={car.id}
+                car={car}
+                user={loggedUser}
+                carType={getCarType(car.carTypeId, carTypes)}
+              >
+                <DeleteButton refetch={refetch} carId={car.id} />
+              </CarCard>
+            ))}
+          </div>
+          <div className="flex py-8 md:mx-auto md:w-1/2">
+            <Button
+              path={Links.NEW_CAR}
+              behavior={ButtonBehavior.LINK}
+              customStyles={ButtonStyles.PRIMARY}
+            >
+              Add Car
+            </Button>
+          </div>
+        </main>
+      </UserContextProvider>
+    </ChakraProvider>
   )
 }

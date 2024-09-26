@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import GuestLayout from '../layouts/GuestLayout'
 import AppLayout from '../layouts/AppLayout'
 import MyBookings from '../pages/bookings/MyBookings'
-import AllCars from '../pages/cars/AllCars'
 import MyCars from '../pages/cars/MyCars'
 import ManageBookings from '../pages/bookings/ManageBookings'
 import ErrorPage from '../pages/ErrorPage'
@@ -64,7 +63,7 @@ const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <AllCars />,
+                element: <NewBooking />,
               },
               {
                 path: 'mycars',
