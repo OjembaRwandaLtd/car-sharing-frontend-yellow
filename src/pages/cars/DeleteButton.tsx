@@ -13,6 +13,7 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { deleteCar } from '../../util/deleteCar'
 import { CarDto } from '../../types/apiTypes'
 import { RefetchFunction } from 'axios-hooks'
+import { carDeleted, carNotDeleted } from '../../chakra/toastMessages'
 
 interface DeleteButtonProps {
   refetch: RefetchFunction<unknown, CarDto[]>
@@ -28,22 +29,10 @@ export default function DeleteButton({ refetch, carId }: DeleteButtonProps) {
   const handleDeleteCar = async () => {
     try {
       await deleteCar(signal, carId)
-      toast({
-        title: 'Car Was Deleted',
-        description: 'Car Was Deleted',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      })
+      toast(carDeleted)
       refetch()
     } catch (error) {
-      toast({
-        title: 'Failed To Delete Car',
-        description: 'Car Was Not Deleted',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
+      toast(carNotDeleted)
     } finally {
       onClose()
     }
