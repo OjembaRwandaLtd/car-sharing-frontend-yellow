@@ -4,6 +4,7 @@ import { BookingState } from '../types/apiTypes'
 import { getAuthToken } from '../util/auth'
 import axios from 'axios'
 import { useState } from 'react'
+import { requestDeclined, requestNotDeclined } from '../chakra/toastMessages'
 
 export default function useBookingState() {
   const toast = useToast()
@@ -31,22 +32,10 @@ export default function useBookingState() {
     setDeclineLoading(true)
     const stateStatus = await changeBookingState(id, BookingState.DECLINED)
     if (stateStatus === 200) {
-      toast({
-        title: 'Booking State Updated',
-        description: 'Booking Status Updated',
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
-      })
+      toast(requestDeclined)
       refetch()
     } else {
-      toast({
-        title: 'State Not Updated',
-        description: 'Could Not Decline The Request',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
+      toast(requestNotDeclined)
     }
     setDeclineLoading(false)
   }
