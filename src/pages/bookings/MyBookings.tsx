@@ -19,13 +19,13 @@ export default function MyBookings() {
 
   if (bookingData.length === 0) return <NoBookings />
 
-  const myBookingsData = bookingData
-    .filter(booking => booking.renter.id === user.id)
-    .filter(booking => {
-      const currentDate = new Date()
-      const expiredDate = new Date(booking.endDate)
-      return currentDate < expiredDate
-    })
+  const myBookingsData = bookingData.filter(booking => {
+    const ownBookings = booking.renter.id === user.id
+    const currentDate = new Date()
+    const expiredDate = new Date(booking.endDate)
+    const isNotExpired = currentDate < expiredDate
+    return ownBookings && isNotExpired
+  })
 
   return (
     <main className="flex flex-col items-center justify-center">
