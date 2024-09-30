@@ -9,7 +9,7 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { Links } from '../../routes/router'
 import useAddBooking from '../../hooks/useAddBooking'
 import { useToast } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { bookingAdded, bookingNotAdded } from '../../chakra/toastMessages'
 
 export default function AvailableCars() {
@@ -29,6 +29,15 @@ export default function AvailableCars() {
   const location = useLocation()
   const startDate = location.state.startDate
   const endDate = location.state.endDate
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    refetch({ signal })
+    return () => {
+      controller.abort()
+    }
+  }, [])
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')

@@ -36,7 +36,7 @@ export default function Home() {
         </div>
         <div className="flex">
           <Button
-            path={Links.CARS}
+            path={Links.NEW_BOOKING}
             customStyles={ButtonStyles.PRIMARY}
             behavior={ButtonBehavior.LINK}
           >
