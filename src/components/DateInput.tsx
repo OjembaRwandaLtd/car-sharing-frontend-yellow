@@ -21,6 +21,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
       setValue(date)
     }
   }
+
   return (
     <>
       <Input
@@ -36,7 +37,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
           <ThemeProvider theme={createTheme()}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
-                defaultValue={dayjs(Date.now())}
+                defaultValue={dayjs()}
                 onChange={handleChange}
                 onClose={() => setOpen(false)}
                 onAccept={() => setOpen(false)}
