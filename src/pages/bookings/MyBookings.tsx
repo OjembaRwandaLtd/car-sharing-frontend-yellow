@@ -7,7 +7,12 @@ import BookingStatusDetails from './BookingStatusDetails'
 import NoBookings from './NoBookings'
 
 export default function MyBookings() {
-  const { data: bookingData, error: bookingError, loading: bookingLoading } = useBookingData()
+  const {
+    data: bookingData,
+    error: bookingError,
+    loading: bookingLoading,
+    refetch,
+  } = useBookingData()
   const user = useUserContext()
   const { getDate, getTime } = useDateTime()
 
@@ -40,9 +45,11 @@ export default function MyBookings() {
             carName: booking.car.name,
             user: booking.car.owner.name,
             isOwner: true,
+            // startDate: '30 Sep 2024',
             startDate: getDate(booking.startDate.toString()),
-            endDate: getDate(booking.endDate.toString()),
             startTime: getTime(booking.startDate.toString()),
+            // startTime: '15:10',
+            endDate: getDate(booking.endDate.toString()),
             endTime: getTime(booking.endDate.toString()),
           }
 
@@ -53,7 +60,13 @@ export default function MyBookings() {
           return (
             <div key={booking.id}>
               <BookCarDetails {...bookingDetails}>
-                <BookingStatusDetails state={customState} />
+                <BookingStatusDetails
+                  state={customState}
+                  startTime={bookingDetails.startTime}
+                  startDate={bookingDetails.startDate}
+                  bookingId={booking.id}
+                  refetch={refetch}
+                />
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
             </div>

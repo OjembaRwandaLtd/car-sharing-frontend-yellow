@@ -5,6 +5,8 @@ import { getAuthToken } from '../util/auth'
 import axios from 'axios'
 import { useState } from 'react'
 import {
+  carNotPickedUp,
+  carPickedUp,
   requestAccepted,
   requestDeclined,
   requestNotAccepted,
@@ -15,6 +17,7 @@ export default function useBookingState() {
   const toast = useToast()
   const [declineLoading, setDeclineLoading] = useState(false)
   const [acceptLoading, setAcceptLoading] = useState(false)
+  const [pickupLoading, setPickupLoading] = useState(false)
 
   async function changeBookingState(id: number | string, newState: BookingState) {
     try {
@@ -35,7 +38,7 @@ export default function useBookingState() {
 
   async function handleChangeBookingState(
     id: number | string,
-    action: 'ACCEPT' | 'DECLINE',
+    action: 'ACCEPT' | 'DECLINE' | 'PICK_UP',
     refetch: () => void,
   ) {
     if (action === 'DECLINE') {
@@ -48,7 +51,7 @@ export default function useBookingState() {
         toast(requestNotDeclined)
       }
       setDeclineLoading(false)
-    } else {
+    } else if (action === 'ACCEPT') {
       setAcceptLoading(true)
       const stateStatus = await changeBookingState(id, BookingState.ACCEPTED)
       if (stateStatus === 200) {
@@ -58,8 +61,18 @@ export default function useBookingState() {
         toast(requestNotAccepted)
       }
       setAcceptLoading(false)
+    } else {
+      setPickupLoading(true)
+      const stateStatus = await changeBookingState(id, BookingState.PICKED_UP)
+      if (stateStatus === 200) {
+        toast(carPickedUp)
+        refetch()
+      } else {
+        toast(carNotPickedUp)
+      }
+      setPickupLoading(false)
     }
   }
 
-  return { handleChangeBookingState, acceptLoading, declineLoading }
+  return { handleChangeBookingState, acceptLoading, declineLoading, pickupLoading }
 }
