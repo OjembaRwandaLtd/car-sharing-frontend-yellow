@@ -1,41 +1,18 @@
+import dayjs from 'dayjs'
+
 export default function useDateTime() {
   function getDate(timestamp: string) {
-    const date = new Date(timestamp)
+    const date = dayjs(timestamp)
+    const normalDate = date.format('DD MMM YYYY')
 
-    const day = date.getUTCDate()
-    const monthNames = [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ]
-
-    const month = monthNames[date.getUTCMonth()]
-    const year = date.getUTCFullYear()
-
-    const formattedDate = `${day} ${month} ${year}`
-    return formattedDate
+    return normalDate
   }
 
   function getTime(timestamp: string) {
-    const date = new Date(timestamp)
+    const date = dayjs(timestamp)
+    const normalTime = date.format('HH:mm')
 
-    const hours = date.getUTCHours()
-    const minutes = date.getUTCMinutes()
-
-    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes
-      .toString()
-      .padStart(2, '0')}`
-
-    return formattedTime
+    return normalTime
   }
 
   return { getDate, getTime }
