@@ -10,6 +10,7 @@ import { Links } from '../../routes/router'
 import useAddBooking from '../../hooks/useAddBooking'
 import { useToast } from '@chakra-ui/react'
 import { useState } from 'react'
+import { bookingAdded, bookingNotAdded } from '../../chakra/toastMessages'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -58,24 +59,12 @@ export default function AvailableCars() {
     setBookedCarId(carId)
     execute({ data: { carId, startDate, endDate } })
       .then(() => {
-        toast({
-          title: 'Booking request sent',
-          description: 'New Car Was Added',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(bookingAdded)
         refetch()
         navigate(Links.MY_BOOKINGS, { replace: true })
       })
       .catch(() => {
-        toast({
-          title: 'Failed to book car',
-          description: 'Something went wrong',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(bookingNotAdded)
       })
   }
 
