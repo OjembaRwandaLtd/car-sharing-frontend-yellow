@@ -29,7 +29,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
         placeholder={placeholder}
         behavior={InputBehavior.INPUT}
         name={name}
-        value={value?.format('MM/DD/YYYY hh:mm A')}
+        value={value ? value.format('MM/DD/YYYY hh:mm A') : ''}
         onClick={() => setOpen(true)}
       />
       {open && (
