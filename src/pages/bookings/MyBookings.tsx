@@ -45,10 +45,8 @@ export default function MyBookings() {
             carName: booking.car.name,
             user: booking.car.owner.name,
             isOwner: true,
-            // startDate: '30 Sep 2024',
             startDate: getDate(booking.startDate.toString()),
             startTime: getTime(booking.startDate.toString()),
-            // startTime: '15:10',
             endDate: getDate(booking.endDate.toString()),
             endTime: getTime(booking.endDate.toString()),
           }

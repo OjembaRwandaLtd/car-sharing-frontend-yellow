@@ -1,10 +1,12 @@
+import { useState } from 'react'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import useBookingState from '../../hooks/useBookingState'
-import { BookingState, BookingStatusDetailsProps } from '../../types/apiTypes'
+import { BookingState, BookingStatusDetailsProps, CarState } from '../../types/apiTypes'
 
 const containerStyles = 'flex flex-col gap-6 mt-8'
 const moniMustardColor = 'text-moni-mustard-200'
 const moniLachsColor = 'text-moni-lachs-200'
+// eslint-disable-next-line max-lines-per-function
 export default function BookingStatusDetails({
   state,
   startTime,
@@ -13,6 +15,8 @@ export default function BookingStatusDetails({
   refetch,
 }: BookingStatusDetailsProps) {
   const { handleChangeBookingState, returnLoading, pickupLoading } = useBookingState()
+  const [isCarUsed, setIsCarUsed] = useState(false)
+  const [carState, setCarState] = useState(CarState.LOCKED)
   const currentDate = Date.now()
 
   const combinedStartDateTime = new Date(`${startDate} ${startTime}`).getTime()
@@ -58,13 +62,43 @@ export default function BookingStatusDetails({
     case BookingState.PICKED_UP:
       return (
         <div className={containerStyles}>
-          <p className={moniMustardColor}>Car was picked up.</p>
+          {!isCarUsed && <p className={moniMustardColor}>Car was picked up.</p>}
           <menu className="flex flex-col gap-4">
-            <li>
-              <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.PRIMARY}>
-                Use Car
-              </Button>
-            </li>
+            {isCarUsed && (
+              <>
+                <li>
+                  <Button
+                    behavior={ButtonBehavior.BUTTON}
+                    customStyles={ButtonStyles.PRIMARY}
+                    onClick={() => setCarState(CarState.UNLOCKED)}
+                    disabled={carState === CarState.UNLOCKED}
+                  >
+                    Unlock
+                  </Button>
+                </li>
+                <li>
+                  <Button
+                    behavior={ButtonBehavior.BUTTON}
+                    customStyles={ButtonStyles.PRIMARY}
+                    onClick={() => setCarState(CarState.LOCKED)}
+                    disabled={carState === CarState.LOCKED}
+                  >
+                    Lock
+                  </Button>
+                </li>
+              </>
+            )}
+            {!isCarUsed && (
+              <li>
+                <Button
+                  behavior={ButtonBehavior.BUTTON}
+                  customStyles={ButtonStyles.PRIMARY}
+                  onClick={() => setIsCarUsed(true)}
+                >
+                  Use Car
+                </Button>
+              </li>
+            )}
             <li>
               <Button
                 behavior={ButtonBehavior.BUTTON}
