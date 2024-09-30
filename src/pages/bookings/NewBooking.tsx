@@ -23,10 +23,10 @@ export default function NewBooking() {
       return
     }
 
-    const startDateIso = startDate.toISOString()
-    const endDateIso = endDate.toISOString()
-
-    navigate(Links.CARS, { state: { startDate: startDateIso, endDate: endDateIso } })
+    const startDateISO = startDate.toISOString()
+    const endDateISO = endDate.toISOString()
+    localStorage.setItem('timeSlot', JSON.stringify({ startDateISO, endDateISO }))
+    navigate(Links.CARS)
   }
 
   return (

@@ -1,13 +1,12 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
-import { useBookings, useCarTypes, useUsers } from '../../hooks'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useBookings, useCarTypes, useUsers, useAddBooking } from '../../hooks'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
 import { CarDto } from '../../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { Links } from '../../routes/router'
-import useAddBooking from '../../hooks/useAddBooking'
 import { useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { bookingAdded, bookingNotAdded } from '../../chakra/toastMessages'
@@ -26,9 +25,6 @@ export default function AvailableCars() {
   const navigate = useNavigate()
   const toast = useToast()
   const [bookedCarId, setBookedCarId] = useState<number | null>(null)
-  const location = useLocation()
-  const startDate = location.state.startDate
-  const endDate = location.state.endDate
 
   useEffect(() => {
     const controller = new AbortController()
@@ -38,6 +34,11 @@ export default function AvailableCars() {
       controller.abort()
     }
   }, [])
+
+  const timeSlot = localStorage.getItem('timeSlot')
+  if (!timeSlot) return <Navigate to={Links.NEW_BOOKING} replace={true} />
+
+  const { startDateISO: startDate, endDateISO: endDate } = JSON.parse(timeSlot)
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
@@ -72,6 +73,7 @@ export default function AvailableCars() {
       .then(() => {
         toast(bookingAdded)
         refetch()
+        localStorage.removeItem('timeSlot')
         navigate(Links.MY_BOOKINGS, { replace: true })
       })
       .catch(() => {
