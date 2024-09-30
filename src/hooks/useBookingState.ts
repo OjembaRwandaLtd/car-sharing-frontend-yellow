@@ -6,7 +6,9 @@ import axios from 'axios'
 import { useState } from 'react'
 import {
   carNotPickedUp,
+  carNotReturned,
   carPickedUp,
+  carReturned,
   requestAccepted,
   requestDeclined,
   requestNotAccepted,
@@ -18,6 +20,7 @@ export default function useBookingState() {
   const [declineLoading, setDeclineLoading] = useState(false)
   const [acceptLoading, setAcceptLoading] = useState(false)
   const [pickupLoading, setPickupLoading] = useState(false)
+  const [returnLoading, setReturnLoading] = useState(false)
 
   async function changeBookingState(id: number | string, newState: BookingState) {
     try {
@@ -38,7 +41,7 @@ export default function useBookingState() {
 
   async function handleChangeBookingState(
     id: number | string,
-    action: 'ACCEPT' | 'DECLINE' | 'PICK_UP',
+    action: 'ACCEPT' | 'DECLINE' | 'PICK_UP' | 'RETURN',
     refetch: () => void,
   ) {
     if (action === 'DECLINE') {
@@ -61,7 +64,7 @@ export default function useBookingState() {
         toast(requestNotAccepted)
       }
       setAcceptLoading(false)
-    } else {
+    } else if (action === 'PICK_UP') {
       setPickupLoading(true)
       const stateStatus = await changeBookingState(id, BookingState.PICKED_UP)
       if (stateStatus === 200) {
@@ -71,8 +74,18 @@ export default function useBookingState() {
         toast(carNotPickedUp)
       }
       setPickupLoading(false)
+    } else {
+      setReturnLoading(true)
+      const stateStatus = await changeBookingState(id, BookingState.RETURNED)
+      if (stateStatus === 200) {
+        toast(carReturned)
+        refetch()
+      } else {
+        toast(carNotReturned)
+      }
+      setReturnLoading(false)
     }
   }
 
-  return { handleChangeBookingState, acceptLoading, declineLoading, pickupLoading }
+  return { handleChangeBookingState, acceptLoading, declineLoading, pickupLoading, returnLoading }
 }

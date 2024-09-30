@@ -79,3 +79,19 @@ export const carNotPickedUp: UseToastOptions = {
   duration: 5000,
   isClosable: true,
 }
+
+export const carReturned: UseToastOptions = {
+  title: 'State Was Updated',
+  description: 'Car Was Returned',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carNotReturned: UseToastOptions = {
+  title: 'State Not Updated',
+  description: 'Car Was Not Returned',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}

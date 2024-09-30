@@ -12,7 +12,7 @@ export default function BookingStatusDetails({
   bookingId,
   refetch,
 }: BookingStatusDetailsProps) {
-  const { handleChangeBookingState } = useBookingState()
+  const { handleChangeBookingState, returnLoading, pickupLoading } = useBookingState()
   const currentDate = Date.now()
 
   const combinedStartDateTime = new Date(`${startDate} ${startTime}`).getTime()
@@ -30,6 +30,7 @@ export default function BookingStatusDetails({
               behavior={ButtonBehavior.BUTTON}
               customStyles={ButtonStyles.PRIMARY}
               onClick={() => handleChangeBookingState(bookingId, 'PICK_UP', refetch)}
+              disabled={pickupLoading}
             >
               Pick Up
             </Button>
@@ -65,7 +66,12 @@ export default function BookingStatusDetails({
               </Button>
             </li>
             <li>
-              <Button behavior={ButtonBehavior.BUTTON} customStyles={ButtonStyles.SECONDARY}>
+              <Button
+                behavior={ButtonBehavior.BUTTON}
+                customStyles={ButtonStyles.SECONDARY}
+                onClick={() => handleChangeBookingState(bookingId, 'RETURN', refetch)}
+                disabled={returnLoading}
+              >
                 Return
               </Button>
             </li>
