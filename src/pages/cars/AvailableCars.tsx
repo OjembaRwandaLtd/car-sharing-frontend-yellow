@@ -89,7 +89,7 @@ export default function AvailableCars() {
                 behavior={ButtonBehavior.BUTTON}
                 onClick={() => onBookClick(car.id)}
               >
-                {isBooking ? <Spinner className="size-5" /> : 'Book Car'}
+                {isBooking ? <Spinner className="h-5 w-5" /> : 'Book Car'}
               </Button>
             </CarCard>
           )
