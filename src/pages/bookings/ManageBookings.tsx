@@ -93,8 +93,11 @@ export default function ManageBookings() {
                   </menu>
                 )}
 
-                {data.state !== 'PENDING' && (
+                {data.state === 'ACCEPTED' && (
                   <p className="my-8 text-sm text-moni-mustard-200">Booking Accepted</p>
+                )}
+                {data.state === 'RETURNED' && (
+                  <p className="my-8 text-sm text-moni-mustard-200">Car was returned</p>
                 )}
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
