@@ -10,6 +10,7 @@ export default function NewBooking() {
   const [startDate, setStartDate] = useState<Dayjs | null>(null)
   const [endDate, setEndDate] = useState<Dayjs | null>(null)
   const [error, setError] = useState<string | null>(null)
+
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!startDate || !endDate) {
@@ -29,7 +30,7 @@ export default function NewBooking() {
   }
 
   return (
-    <main className="mx-auto my-8 px-4 text-moni-gray-100 md:w-1/3">
+    <main className="mx-auto px-4 py-8 text-moni-gray-100 md:w-1/3">
       <h1 className="mb-20 text-center font-lora text-3xl font-medium text-moni-gray-100">
         BOOK CAR
       </h1>
