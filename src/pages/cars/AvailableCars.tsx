@@ -1,7 +1,7 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
 import { useBookings, useCarTypes, useUsers } from '../../hooks'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
 import { CarDto } from '../../types/apiTypes'
@@ -26,8 +26,9 @@ export default function AvailableCars() {
   const navigate = useNavigate()
   const toast = useToast()
   const [bookedCarId, setBookedCarId] = useState<number | null>(null)
-  const startDate = new Date('06/07/2024 03:07')
-  const endDate = new Date('06/07/2024 04:07')
+  const location = useLocation()
+  const startDate = location.state.startDate
+  const endDate = location.state.endDate
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
@@ -44,10 +45,11 @@ export default function AvailableCars() {
   if (allCars.length === 0 || carTypes.length === 0 || users.length === 0) {
     return <div className="p-5 text-3xl text-moni-gray-100">No cars found</div>
   }
-  const availableCars = allCars.filter(car => {
-    const bookedCar = allBookings?.find(booking => booking.carId === car.id)
-    return !bookedCar
-  })
+
+  const bookedCarIds = allBookings
+    ?.filter(booking => booking.endDate > startDate)
+    .map(booking => booking.carId)
+  const availableCars = allCars.filter(car => !bookedCarIds?.includes(car.id))
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)

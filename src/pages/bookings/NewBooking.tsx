@@ -16,10 +16,16 @@ export default function NewBooking() {
       setError('Please select start and end date')
       return
     }
-    if (startDate.toISOString() > endDate.toISOString()) {
-      setError('Start date cannot be greater than end date')
+
+    if (startDate >= endDate) {
+      setError('Start date should be less than end date')
+      return
     }
-    navigate(Links.CARS, { state: { startDate, endDate } })
+
+    const startDateIso = startDate.toISOString()
+    const endDateIso = endDate.toISOString()
+
+    navigate(Links.CARS, { state: { startDate: startDateIso, endDate: endDateIso } })
   }
 
   return (
