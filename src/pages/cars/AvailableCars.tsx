@@ -82,7 +82,7 @@ export default function AvailableCars() {
   return (
     <main className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
-        <Link to=".." relative="path">
+        <Link to={Links.NEW_BOOKING} relative="path">
           <ChevronBackIcon className="text-moni-mustard-100" />
         </Link>
         <h1 className="w-full text-center font-lora text-3xl font-medium text-moni-gray-100">
