@@ -81,7 +81,7 @@ export default function BookCarDetails({
         </figcaption>
       </figure>
 
-      <div className="mt-8">{children}</div>
+      {children}
     </div>
   )
 }

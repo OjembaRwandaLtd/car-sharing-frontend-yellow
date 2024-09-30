@@ -28,14 +28,17 @@ export default function ManageBookings() {
 
   if (!bookingData) return
 
-  const myBookings = bookingData
-    .filter(booking => booking.car.owner.id === user.id)
-    .filter(data => data.state !== 'DECLINED')
-    .filter(data => {
-      const currentDate = new Date()
-      const expiredDate = new Date(data.endDate)
-      return currentDate < expiredDate
-    })
+  const myBookings = bookingData.filter(booking => {
+    const ownBookings = booking.car.owner.id === user.id
+    const isNotDeclined = booking.state !== 'DECLINED'
+
+    const currentDate = new Date()
+    const expiredDate = new Date(booking.endDate)
+
+    const isNotExpired = currentDate < expiredDate
+
+    return ownBookings && isNotDeclined && isNotExpired
+  })
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -66,28 +69,32 @@ export default function ManageBookings() {
             <div key={data.id}>
               <BookCarDetails {...bookingDetails}>
                 {data.state === 'PENDING' && (
-                  <menu className="flex flex-col gap-2">
-                    <Button
-                      behavior={ButtonBehavior.BUTTON}
-                      customStyles={ButtonStyles.PRIMARY}
-                      onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
-                      disabled={acceptLoading}
-                    >
-                      {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
-                    </Button>
-                    <Button
-                      behavior={ButtonBehavior.BUTTON}
-                      customStyles={ButtonStyles.SECONDARY}
-                      onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
-                      disabled={declineLoading}
-                    >
-                      {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
-                    </Button>
+                  <menu className="mt-8 flex flex-col gap-2">
+                    <li>
+                      <Button
+                        behavior={ButtonBehavior.BUTTON}
+                        customStyles={ButtonStyles.PRIMARY}
+                        onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
+                        disabled={acceptLoading}
+                      >
+                        {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
+                      </Button>
+                    </li>
+                    <li>
+                      <Button
+                        behavior={ButtonBehavior.BUTTON}
+                        customStyles={ButtonStyles.SECONDARY}
+                        onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
+                        disabled={declineLoading}
+                      >
+                        {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
+                      </Button>
+                    </li>
                   </menu>
                 )}
 
                 {data.state !== 'PENDING' && (
-                  <p className="mb-8 text-sm text-moni-mustard-200">Booking Accepted</p>
+                  <p className="my-8 text-sm text-moni-mustard-200">Booking Accepted</p>
                 )}
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}
