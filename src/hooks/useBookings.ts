@@ -22,24 +22,12 @@ function useBookingData() {
       setLoading(true)
       setError(null)
 
-      const fetchCarAndUser = async (booking: BookingDto) => {
-        const renterResponse = await axios<UserDto>({
-          url: `${apiUrl}/users/${booking.renterId}`,
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        const renterData = renterResponse.data
+      const filterCarAndUser = async (booking: BookingDto, users: UserDto[], cars: CarDto[]) => {
+        const renterData = users.find(user => user.id === booking.renterId)
 
-        const carResponse = await axios<CarDto>({
-          url: `${apiUrl}/cars/${booking.carId}`,
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        const carData = carResponse.data
+        const carData = cars.find(car => car.id === booking.carId)
 
-        const userResponse = await axios<UserDto>({
-          url: `${apiUrl}/users/${carData.ownerId}`,
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        const userData = userResponse.data
+        const userData = users.find(user => user.id === carData?.ownerId)
 
         const bookingWithDetails = {
           ...booking,
@@ -55,18 +43,31 @@ function useBookingData() {
 
       const fetchAllData = async () => {
         try {
-          const bookingPromises = bookingsData.map(fetchCarAndUser)
+          const [users, cars] = await Promise.all([
+            axios<UserDto[]>({
+              url: `${apiUrl}/users`,
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios<CarDto[]>({
+              url: `${apiUrl}/cars`,
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+          ])
+          const bookingPromises = bookingsData.map((booking: BookingDto) =>
+            filterCarAndUser(booking, users.data, cars.data),
+          )
           const bookingDetails = await Promise.all(bookingPromises)
-          setData(bookingDetails)
+          setData(bookingDetails as BookingWithReferences[])
           setLoading(false)
         } catch (err) {
+          console.error('Error fetching booking data:', err)
           setError(err)
           setLoading(false)
         }
       }
-
       fetchAllData()
     } else if (bookingsError) {
+      console.error('Error fetching bookings:', bookingsError)
       setError(bookingsError)
       setLoading(false)
     }
