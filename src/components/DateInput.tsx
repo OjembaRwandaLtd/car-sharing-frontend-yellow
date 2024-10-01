@@ -21,6 +21,7 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
       setValue(date)
     }
   }
+
   return (
     <>
       <Input
@@ -28,15 +29,17 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
         placeholder={placeholder}
         behavior={InputBehavior.INPUT}
         name={name}
-        value={value?.format('MM/DD/YYYY hh:mm A')}
+        value={value ? value.format('MM/DD/YYYY hh:mm A') : ''}
+        onChange={() => null}
         onClick={() => setOpen(true)}
+        autoComplete="off"
       />
       {open && (
         <div className="md: absolute inset-x-4 top-20 max-h-screen overflow-hidden md:mx-auto md:h-5/6 md:w-1/3 md:overflow-auto">
           <ThemeProvider theme={createTheme()}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <StaticDateTimePicker
-                defaultValue={dayjs(Date.now())}
+                defaultValue={dayjs()}
                 onChange={handleChange}
                 onClose={() => setOpen(false)}
                 onAccept={() => setOpen(false)}

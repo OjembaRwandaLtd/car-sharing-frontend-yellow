@@ -1,15 +1,15 @@
 import CarCard from '../../components/CarCard'
 import useCars from '../../hooks/useCars'
-import { useBookings, useCarTypes, useUsers } from '../../hooks'
-import { Link, useNavigate } from 'react-router-dom'
+import { useBookings, useCarTypes, useUsers, useAddBooking } from '../../hooks'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
 import { CarDto } from '../../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { Links } from '../../routes/router'
-import useAddBooking from '../../hooks/useAddBooking'
 import { useToast } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { bookingAdded, bookingNotAdded } from '../../chakra/toastMessages'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -25,8 +25,20 @@ export default function AvailableCars() {
   const navigate = useNavigate()
   const toast = useToast()
   const [bookedCarId, setBookedCarId] = useState<number | null>(null)
-  const startDate = new Date('06/07/2024 03:07')
-  const endDate = new Date('06/07/2024 04:07')
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    refetch({ signal })
+    return () => {
+      controller.abort()
+    }
+  }, [])
+
+  const timeSlot = localStorage.getItem('timeSlot')
+  if (!timeSlot) return <Navigate to={Links.NEW_BOOKING} replace={true} />
+
+  const { startDateISO: startDate, endDateISO: endDate } = JSON.parse(timeSlot)
 
   if (allCarsError || carTypesError || usersError || allBookingsError) {
     throw Error('Could not fetch cars')
@@ -43,10 +55,11 @@ export default function AvailableCars() {
   if (allCars.length === 0 || carTypes.length === 0 || users.length === 0) {
     return <div className="p-5 text-3xl text-moni-gray-100">No cars found</div>
   }
-  const availableCars = allCars.filter(car => {
-    const bookedCar = allBookings?.find(booking => booking.carId === car.id)
-    return !bookedCar
-  })
+
+  const bookedCarIds = allBookings
+    ?.filter(booking => booking.endDate > startDate)
+    .map(booking => booking.carId)
+  const availableCars = allCars.filter(car => !bookedCarIds?.includes(car.id))
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)
@@ -58,31 +71,20 @@ export default function AvailableCars() {
     setBookedCarId(carId)
     execute({ data: { carId, startDate, endDate } })
       .then(() => {
-        toast({
-          title: 'Booking request sent',
-          description: 'New Car Was Added',
-          status: 'success',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(bookingAdded)
         refetch()
+        localStorage.removeItem('timeSlot')
         navigate(Links.MY_BOOKINGS, { replace: true })
       })
       .catch(() => {
-        toast({
-          title: 'Failed to book car',
-          description: 'Something went wrong',
-          status: 'error',
-          duration: 2000,
-          isClosable: true,
-        })
+        toast(bookingNotAdded)
       })
   }
 
   return (
     <main className="flex flex-col items-center justify-center">
       <div className="my-8 flex w-full items-center justify-start px-6">
-        <Link to=".." relative="path">
+        <Link to={Links.NEW_BOOKING} relative="path">
           <ChevronBackIcon className="text-moni-mustard-100" />
         </Link>
         <h1 className="w-full text-center font-lora text-3xl font-medium text-moni-gray-100">

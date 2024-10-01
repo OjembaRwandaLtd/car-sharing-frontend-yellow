@@ -64,6 +64,22 @@ export const requestNotAccepted: UseToastOptions = {
   isClosable: true,
 }
 
+export const bookingAdded: UseToastOptions = {
+  title: 'Booking request sent',
+  description: 'New Car Was Added',
+  status: 'success',
+  duration: 2000,
+  isClosable: true,
+}
+
+export const bookingNotAdded: UseToastOptions = {
+  title: 'Failed to book car',
+  description: 'Something went wrong',
+  status: 'error',
+  duration: 2000,
+  isClosable: true,
+}
+
 export const carPickedUp: UseToastOptions = {
   title: 'Booking State Updated',
   description: 'Car Was Picked Up',
