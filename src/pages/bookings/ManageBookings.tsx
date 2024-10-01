@@ -50,7 +50,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
+      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
           const bookingDetails = {
             carTypeId: data.car.carTypeId,
@@ -93,8 +93,11 @@ export default function ManageBookings() {
                   </menu>
                 )}
 
-                {data.state !== 'PENDING' && (
+                {data.state === 'ACCEPTED' && (
                   <p className="my-8 text-sm text-moni-mustard-200">Booking Accepted</p>
+                )}
+                {data.state === 'RETURNED' && (
+                  <p className="my-8 text-sm text-moni-mustard-200">Car was returned</p>
                 )}
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}

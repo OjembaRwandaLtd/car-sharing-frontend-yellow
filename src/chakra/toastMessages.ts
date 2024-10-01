@@ -79,3 +79,35 @@ export const bookingNotAdded: UseToastOptions = {
   duration: 2000,
   isClosable: true,
 }
+
+export const carPickedUp: UseToastOptions = {
+  title: 'Booking State Updated',
+  description: 'Car Was Picked Up',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carNotPickedUp: UseToastOptions = {
+  title: 'State Not Updated',
+  description: 'Car Was Not Picked Up',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carReturned: UseToastOptions = {
+  title: 'State Was Updated',
+  description: 'Car Was Returned',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carNotReturned: UseToastOptions = {
+  title: 'State Not Updated',
+  description: 'Car Was Not Returned',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
