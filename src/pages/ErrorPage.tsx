@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar'
 import MenuList from '../components/MenuList'
 import ProfileIcon from '../assets/ProfileIcon'
 import { useRouteError } from 'react-router-dom'
+import { Links } from '../routes/router'
 
 export default function ErrorPage() {
   const error = useRouteError()
@@ -40,7 +41,11 @@ export default function ErrorPage() {
           We will solve your issue soon.
         </p>
 
-        <Button behavior={ButtonBehavior.LINK} customStyles={ButtonStyles.PRIMARY} path="/">
+        <Button
+          behavior={ButtonBehavior.LINK}
+          customStyles={ButtonStyles.PRIMARY}
+          path={Links.HOME}
+        >
           Go back
         </Button>
       </div>
