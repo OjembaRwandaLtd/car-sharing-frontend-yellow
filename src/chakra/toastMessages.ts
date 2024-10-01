@@ -111,3 +111,51 @@ export const carNotReturned: UseToastOptions = {
   duration: 5000,
   isClosable: true,
 }
+
+export const carLocked: UseToastOptions = {
+  title: 'Car was locked.',
+  description: 'Car was locked successfully.',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carNotLocked: UseToastOptions = {
+  title: 'Failed to lock the car.',
+  description: 'Could not lock a car.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carLockError: UseToastOptions = {
+  title: 'Internal Server Error.',
+  description: 'Could not lock a car.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carUnlocked: UseToastOptions = {
+  title: 'Car unlocked.',
+  description: 'You can now use the car.',
+  status: 'success',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carNotUnlocked: UseToastOptions = {
+  title: 'Failed to unlock the car.',
+  description: 'Could not unlock a car.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
+
+export const carUnlockError: UseToastOptions = {
+  title: 'Internal Server Error.',
+  description: 'Could not unlock a car.',
+  status: 'error',
+  duration: 5000,
+  isClosable: true,
+}
