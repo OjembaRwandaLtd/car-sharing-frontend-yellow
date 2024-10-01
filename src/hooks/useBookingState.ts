@@ -1,8 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { apiUrl } from '../constants/apiUrl'
 import { BookingState } from '../types/apiTypes'
-import { getAuthToken } from '../util/auth'
-import axios from 'axios'
 import { useState } from 'react'
 import {
   carNotPickedUp,
@@ -14,6 +11,7 @@ import {
   requestNotAccepted,
   requestNotDeclined,
 } from '../chakra/toastMessages'
+import changeBookingState from '../util/changeBookingState'
 
 export default function useBookingState() {
   const toast = useToast()
@@ -21,23 +19,6 @@ export default function useBookingState() {
   const [acceptLoading, setAcceptLoading] = useState(false)
   const [pickupLoading, setPickupLoading] = useState(false)
   const [returnLoading, setReturnLoading] = useState(false)
-
-  async function changeBookingState(id: number | string, newState: BookingState) {
-    try {
-      const response = await axios.patch(
-        `${apiUrl}/bookings/${id}`,
-        {
-          state: newState,
-        },
-        {
-          headers: { Authorization: `Bearer ${getAuthToken()}` },
-        },
-      )
-      return response.status
-    } catch (error) {
-      return error
-    }
-  }
 
   async function handleChangeBookingState(
     id: number | string,
