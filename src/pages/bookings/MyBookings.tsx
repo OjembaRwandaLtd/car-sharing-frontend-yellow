@@ -39,21 +39,21 @@ export default function MyBookings() {
 
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
         {myBookingsData.map((booking, index) => {
-          const { normalDate: normalStartDate, normalTime: normalStartTime } = getDateAndTime(
-            booking.startDate,
-          )
-          const { normalDate: normalEndDate, normalTime: normalEndTime } = getDateAndTime(
-            booking.endDate,
-          )
+          const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
+            getDateAndTime(booking.startDate)
+
+          const { formattedDate: formattedEndDate, formattedTime: formattedEndTime } =
+            getDateAndTime(booking.endDate)
+
           const bookingDetails = {
             carTypeId: booking.car.carTypeId,
             carName: booking.car.name,
             user: booking.car.owner.name,
             isOwner: true,
-            startDate: normalStartDate,
-            startTime: normalStartTime,
-            endDate: normalEndDate,
-            endTime: normalEndTime,
+            startDate: formattedStartDate,
+            startTime: formattedStartTime,
+            endDate: formattedEndDate,
+            endTime: formattedEndTime,
           }
 
           const isLast = index === bookingData.length - 1
