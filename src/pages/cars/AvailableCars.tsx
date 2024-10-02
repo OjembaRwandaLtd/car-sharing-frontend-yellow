@@ -1,6 +1,6 @@
+/* eslint-disable max-lines-per-function */
 import CarCard from '../../components/CarCard'
-import useCars from '../../hooks/useCars'
-import { useBookings, useCarTypes, useUsers, useAddBooking } from '../../hooks'
+import { useBookings, useCarTypes, useUsers, useAddBooking, useCars } from '../../hooks'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
@@ -9,7 +9,8 @@ import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button
 import { Links } from '../../routes/router'
 import { useToast } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
-import { bookingAdded, bookingNotAdded } from '../../chakra/toastMessages'
+import { bookingAdded, bookingNotAdded, timeSlotInvalid } from '../../chakra/toastMessages'
+import dayjs from 'dayjs'
 
 export default function AvailableCars() {
   const [{ data: carTypes, loading: carTypesLoading, error: carTypesError }] = useCarTypes()
@@ -68,6 +69,11 @@ export default function AvailableCars() {
   }
 
   function onBookClick(carId: number) {
+    if (dayjs(startDate) < dayjs()) {
+      toast(timeSlotInvalid)
+      navigate(Links.NEW_BOOKING, { replace: true })
+      return
+    }
     setBookedCarId(carId)
     execute({ data: { carId, startDate, endDate } })
       .then(() => {

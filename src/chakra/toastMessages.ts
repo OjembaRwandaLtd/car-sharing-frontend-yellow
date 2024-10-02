@@ -112,6 +112,14 @@ export const carNotReturned: UseToastOptions = {
   isClosable: true,
 }
 
+export const timeSlotInvalid: UseToastOptions = {
+  title: 'Failed to book car',
+  description: 'Selected time slot has passed',
+  status: 'error',
+  duration: 2000,
+  isClosable: true,
+}
+
 export const carLocked: UseToastOptions = {
   title: 'Car was locked.',
   description: 'Car was locked successfully.',
