@@ -14,11 +14,13 @@ export default function BookingStatusDetails({
   bookingId,
   refetch,
   carId,
+  carState,
 }: BookingStatusDetailsProps) {
   const { handleChangeBookingState, returnLoading, pickupLoading } = useBookingState()
   const currentDate = Date.now()
 
-  const { carState, setIsCarUsed, isCarUsed, handleLockCar, handleUnlockCar } = useChangeCarState()
+  const { initialCarState, setIsCarUsed, isCarUsed, handleLockCar, handleUnlockCar } =
+    useChangeCarState({ carState })
 
   const combinedStartDateTime = new Date(`${startDate} ${startTime}`).getTime()
 
@@ -73,7 +75,7 @@ export default function BookingStatusDetails({
                     behavior={ButtonBehavior.BUTTON}
                     customStyles={ButtonStyles.PRIMARY}
                     onClick={() => handleUnlockCar(carId)}
-                    disabled={carState === CarState.UNLOCKED}
+                    disabled={initialCarState === CarState.UNLOCKED}
                   >
                     Unlock
                   </Button>
@@ -83,7 +85,7 @@ export default function BookingStatusDetails({
                     behavior={ButtonBehavior.BUTTON}
                     customStyles={ButtonStyles.PRIMARY}
                     onClick={() => handleLockCar(carId)}
-                    disabled={carState === CarState.LOCKED}
+                    disabled={initialCarState === CarState.LOCKED}
                   >
                     Lock
                   </Button>

@@ -112,6 +112,7 @@ interface BookingStatusDetailsProps {
   bookingId: number | string
   refetch: () => void
   carId: number
+  carState: CarState
 }
 
 export type {
