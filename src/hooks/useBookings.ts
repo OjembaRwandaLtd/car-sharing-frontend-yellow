@@ -5,7 +5,7 @@ import { BookingDto, BookingWithReferences, CarDto, UserDto } from '../types/api
 import { apiUrl } from '../constants/apiUrl'
 import { getAuthToken } from '../util/auth'
 
-function useBookingData() {
+export default function useBookingData() {
   const [data, setData] = useState<BookingWithReferences[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<unknown>(null)
@@ -22,25 +22,6 @@ function useBookingData() {
       setLoading(true)
       setError(null)
 
-      const filterCarAndUser = async (booking: BookingDto, users: UserDto[], cars: CarDto[]) => {
-        const renterData = users.find(user => user.id === booking.renterId)
-
-        const carData = cars.find(car => car.id === booking.carId)
-
-        const userData = users.find(user => user.id === carData?.ownerId)
-
-        const bookingWithDetails = {
-          ...booking,
-          car: {
-            ...carData,
-            owner: userData,
-          },
-          renter: renterData,
-        }
-
-        return bookingWithDetails
-      }
-
       const fetchAllData = async () => {
         try {
           const [users, cars] = await Promise.all([
@@ -54,7 +35,7 @@ function useBookingData() {
             }),
           ])
           const bookingPromises = bookingsData.map((booking: BookingDto) =>
-            filterCarAndUser(booking, users.data, cars.data),
+            addCarAndUser(booking, users.data, cars.data),
           )
           const bookingDetails = await Promise.all(bookingPromises)
           setData(bookingDetails as BookingWithReferences[])
@@ -67,7 +48,6 @@ function useBookingData() {
       }
       fetchAllData()
     } else if (bookingsError) {
-      console.error('Error fetching bookings:', bookingsError)
       setError(bookingsError)
       setLoading(false)
     }
@@ -78,4 +58,21 @@ function useBookingData() {
   return { data, loading: isLoading, error, refetch }
 }
 
-export default useBookingData
+const addCarAndUser = async (booking: BookingDto, users: UserDto[], cars: CarDto[]) => {
+  const renterData = users.find(user => user.id === booking.renterId)
+
+  const carData = cars.find(car => car.id === booking.carId)
+
+  const userData = users.find(user => user.id === carData?.ownerId)
+
+  const bookingWithDetails = {
+    ...booking,
+    car: {
+      ...carData,
+      owner: userData,
+    },
+    renter: renterData,
+  }
+
+  return bookingWithDetails
+}
