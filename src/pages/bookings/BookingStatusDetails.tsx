@@ -35,7 +35,7 @@ export default function BookingStatusDetails({
             <Button
               behavior={ButtonBehavior.BUTTON}
               customStyles={ButtonStyles.PRIMARY}
-              onClick={() => handleChangeBookingState(bookingId, 'PICK_UP', refetch)}
+              onClick={() => handleChangeBookingState(bookingId, 'PICKED_UP', refetch)}
               disabled={pickupLoading}
             >
               Pick Up
@@ -105,7 +105,7 @@ export default function BookingStatusDetails({
               <Button
                 behavior={ButtonBehavior.BUTTON}
                 customStyles={ButtonStyles.SECONDARY}
-                onClick={() => handleChangeBookingState(bookingId, 'RETURN', refetch)}
+                onClick={() => handleChangeBookingState(bookingId, 'RETURNED', refetch)}
                 disabled={returnLoading}
               >
                 Return
