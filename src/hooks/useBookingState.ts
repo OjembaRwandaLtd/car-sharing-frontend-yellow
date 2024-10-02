@@ -22,49 +22,64 @@ export default function useBookingState() {
 
   async function handleChangeBookingState(
     id: number | string,
-    action: 'ACCEPT' | 'DECLINE' | 'PICK_UP' | 'RETURN',
+    action: Exclude<keyof typeof BookingState, 'PENDING'>,
     refetch: () => void,
   ) {
-    if (action === 'DECLINE') {
-      setDeclineLoading(true)
-      const stateStatus = await changeBookingState(id, BookingState.DECLINED)
-      if (stateStatus === 200) {
-        toast(requestDeclined)
-        refetch()
-      } else {
-        toast(requestNotDeclined)
+    switch (action) {
+      case 'DECLINED': {
+        setDeclineLoading(true)
+        const declineStatus = await changeBookingState(id, BookingState.DECLINED)
+        if (declineStatus === 200) {
+          toast(requestDeclined)
+          refetch()
+        } else {
+          toast(requestNotDeclined)
+        }
+        setDeclineLoading(false)
+        break
       }
-      setDeclineLoading(false)
-    } else if (action === 'ACCEPT') {
-      setAcceptLoading(true)
-      const stateStatus = await changeBookingState(id, BookingState.ACCEPTED)
-      if (stateStatus === 200) {
-        toast(requestAccepted)
-        refetch()
-      } else {
-        toast(requestNotAccepted)
+
+      case 'ACCEPTED': {
+        setAcceptLoading(true)
+        const acceptStatus = await changeBookingState(id, BookingState.ACCEPTED)
+        if (acceptStatus === 200) {
+          toast(requestAccepted)
+          refetch()
+        } else {
+          toast(requestNotAccepted)
+        }
+        setAcceptLoading(false)
+        break
       }
-      setAcceptLoading(false)
-    } else if (action === 'PICK_UP') {
-      setPickupLoading(true)
-      const stateStatus = await changeBookingState(id, BookingState.PICKED_UP)
-      if (stateStatus === 200) {
-        toast(carPickedUp)
-        refetch()
-      } else {
-        toast(carNotPickedUp)
+
+      case 'PICKED_UP': {
+        setPickupLoading(true)
+        const pickupStatus = await changeBookingState(id, BookingState.PICKED_UP)
+        if (pickupStatus === 200) {
+          toast(carPickedUp)
+          refetch()
+        } else {
+          toast(carNotPickedUp)
+        }
+        setPickupLoading(false)
+        break
       }
-      setPickupLoading(false)
-    } else {
-      setReturnLoading(true)
-      const stateStatus = await changeBookingState(id, BookingState.RETURNED)
-      if (stateStatus === 200) {
-        toast(carReturned)
-        refetch()
-      } else {
-        toast(carNotReturned)
+
+      case 'RETURNED': {
+        setReturnLoading(true)
+        const returnStatus = await changeBookingState(id, BookingState.RETURNED)
+        if (returnStatus === 200) {
+          toast(carReturned)
+          refetch()
+        } else {
+          toast(carNotReturned)
+        }
+        setReturnLoading(false)
+        break
       }
-      setReturnLoading(false)
+
+      default:
+        break
     }
   }
 

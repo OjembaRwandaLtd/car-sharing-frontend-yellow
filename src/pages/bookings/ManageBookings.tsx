@@ -1,13 +1,14 @@
+/* eslint-disable max-lines-per-function */
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import useBookingData from '../../hooks/useBookings'
 import BookCarDetails from '../../components/UI/BookCarDetails'
 import Spinner from '../../assets/Spinner'
-import useDateTime from '../../hooks/useDateTime'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import useBookingState from '../../hooks/useBookingState'
 import NoBookings from './NoBookings'
 import { useUserContext } from '../../contexts/UserContext'
+import { getDateAndTime } from '../../util/functions'
 
 export default function ManageBookings() {
   const {
@@ -16,7 +17,6 @@ export default function ManageBookings() {
     loading: bookingLoading,
     refetch,
   } = useBookingData()
-  const { getDate, getTime } = useDateTime()
   const { handleChangeBookingState, acceptLoading, declineLoading } = useBookingState()
   const user = useUserContext()
 
@@ -52,15 +52,21 @@ export default function ManageBookings() {
       </div>
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
+          const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
+            getDateAndTime(data.startDate)
+
+          const { formattedDate: formattedEndDate, formattedTime: formattedEndTime } =
+            getDateAndTime(data.endDate)
+
           const bookingDetails = {
             carTypeId: data.car.carTypeId,
             carName: data.car.name,
             user: data.renter.name,
             isOwner: false,
-            startDate: getDate(data.startDate.toString()),
-            endDate: getDate(data.endDate.toString()),
-            startTime: getTime(data.startDate.toString()),
-            endTime: getTime(data.endDate.toString()),
+            startDate: formattedStartDate,
+            startTime: formattedStartTime,
+            endDate: formattedEndDate,
+            endTime: formattedEndTime,
           }
 
           const isLast = index === bookingData.length - 1
@@ -74,7 +80,7 @@ export default function ManageBookings() {
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.PRIMARY}
-                        onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
+                        onClick={() => handleChangeBookingState(data.id, 'ACCEPTED', refetch)}
                         disabled={acceptLoading}
                       >
                         {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
@@ -84,7 +90,7 @@ export default function ManageBookings() {
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
-                        onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
+                        onClick={() => handleChangeBookingState(data.id, 'DECLINED', refetch)}
                         disabled={declineLoading}
                       >
                         {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}

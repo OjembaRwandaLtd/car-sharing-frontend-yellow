@@ -2,7 +2,7 @@ import Spinner from '../../assets/Spinner'
 import BookCarDetails from '../../components/UI/BookCarDetails'
 import { useUserContext } from '../../contexts/UserContext'
 import useBookingData from '../../hooks/useBookings'
-import useDateTime from '../../hooks/useDateTime'
+import { getDateAndTime } from '../../util/functions'
 import BookingStatusDetails from './BookingStatusDetails'
 import NoBookings from './NoBookings'
 
@@ -14,7 +14,6 @@ export default function MyBookings() {
     refetch,
   } = useBookingData()
   const user = useUserContext()
-  const { getDate, getTime } = useDateTime()
 
   if (bookingLoading) return <Spinner />
 
@@ -40,15 +39,21 @@ export default function MyBookings() {
 
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
         {myBookingsData.map((booking, index) => {
+          const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
+            getDateAndTime(booking.startDate)
+
+          const { formattedDate: formattedEndDate, formattedTime: formattedEndTime } =
+            getDateAndTime(booking.endDate)
+
           const bookingDetails = {
             carTypeId: booking.car.carTypeId,
             carName: booking.car.name,
             user: booking.car.owner.name,
             isOwner: true,
-            startDate: getDate(booking.startDate.toString()),
-            startTime: getTime(booking.startDate.toString()),
-            endDate: getDate(booking.endDate.toString()),
-            endTime: getTime(booking.endDate.toString()),
+            startDate: formattedStartDate,
+            startTime: formattedStartTime,
+            endDate: formattedEndDate,
+            endTime: formattedEndTime,
           }
 
           const isLast = index === bookingData.length - 1
@@ -64,6 +69,7 @@ export default function MyBookings() {
                   startDate={bookingDetails.startDate}
                   bookingId={booking.id}
                   refetch={refetch}
+                  carId={booking.car.id}
                 />
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}

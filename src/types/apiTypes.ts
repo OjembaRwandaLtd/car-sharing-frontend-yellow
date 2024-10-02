@@ -111,6 +111,7 @@ interface BookingStatusDetailsProps {
   startDate: string
   bookingId: number | string
   refetch: () => void
+  carId: number
 }
 
 export type {

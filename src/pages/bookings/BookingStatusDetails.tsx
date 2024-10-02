@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import useBookingState from '../../hooks/useBookingState'
 import { BookingState, BookingStatusDetailsProps, CarState } from '../../types/apiTypes'
+import useChangeCarState from '../../hooks/useChangeCarState'
 
 const containerStyles = 'flex flex-col gap-6 mt-8'
 const moniMustardColor = 'text-moni-mustard-200'
@@ -13,15 +13,17 @@ export default function BookingStatusDetails({
   startDate,
   bookingId,
   refetch,
+  carId,
 }: BookingStatusDetailsProps) {
   const { handleChangeBookingState, returnLoading, pickupLoading } = useBookingState()
-  const [isCarUsed, setIsCarUsed] = useState(false)
-  const [carState, setCarState] = useState(CarState.LOCKED)
   const currentDate = Date.now()
+
+  const { carState, setIsCarUsed, isCarUsed, handleLockCar, handleUnlockCar } = useChangeCarState()
 
   const combinedStartDateTime = new Date(`${startDate} ${startTime}`).getTime()
 
   const isTimeReached = currentDate >= combinedStartDateTime
+
   switch (state) {
     case BookingState.ACCEPTED:
       return (
@@ -33,7 +35,7 @@ export default function BookingStatusDetails({
             <Button
               behavior={ButtonBehavior.BUTTON}
               customStyles={ButtonStyles.PRIMARY}
-              onClick={() => handleChangeBookingState(bookingId, 'PICK_UP', refetch)}
+              onClick={() => handleChangeBookingState(bookingId, 'PICKED_UP', refetch)}
               disabled={pickupLoading}
             >
               Pick Up
@@ -70,7 +72,7 @@ export default function BookingStatusDetails({
                   <Button
                     behavior={ButtonBehavior.BUTTON}
                     customStyles={ButtonStyles.PRIMARY}
-                    onClick={() => setCarState(CarState.UNLOCKED)}
+                    onClick={() => handleUnlockCar(carId)}
                     disabled={carState === CarState.UNLOCKED}
                   >
                     Unlock
@@ -80,7 +82,7 @@ export default function BookingStatusDetails({
                   <Button
                     behavior={ButtonBehavior.BUTTON}
                     customStyles={ButtonStyles.PRIMARY}
-                    onClick={() => setCarState(CarState.LOCKED)}
+                    onClick={() => handleLockCar(carId)}
                     disabled={carState === CarState.LOCKED}
                   >
                     Lock
@@ -103,7 +105,7 @@ export default function BookingStatusDetails({
               <Button
                 behavior={ButtonBehavior.BUTTON}
                 customStyles={ButtonStyles.SECONDARY}
-                onClick={() => handleChangeBookingState(bookingId, 'RETURN', refetch)}
+                onClick={() => handleChangeBookingState(bookingId, 'RETURNED', refetch)}
                 disabled={returnLoading}
               >
                 Return
