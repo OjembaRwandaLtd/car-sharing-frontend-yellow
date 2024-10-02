@@ -39,7 +39,7 @@ export default function NewBooking() {
         <div className="flex flex-col gap-2">
           <label>Start date</label>
           <DateInput
-            placeholder={dayjs().format('MM/DD/YYYY hh:mm A')}
+            placeholder={dayjs().format('DD/MM/YYYY hh:mm A')}
             name="start-date"
             value={startDate}
             setValue={setStartDate}
@@ -48,7 +48,7 @@ export default function NewBooking() {
         <div className="mb-20 flex flex-col gap-2">
           <label>End date</label>
           <DateInput
-            placeholder={dayjs().add(1, 'hour').format('MM/DD/YYYY hh:mm A')}
+            placeholder={dayjs().add(1, 'hour').format('DD/MM/YYYY hh:mm A')}
             name="end-date"
             value={endDate}
             setValue={setEndDate}
