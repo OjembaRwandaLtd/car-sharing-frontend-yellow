@@ -17,7 +17,8 @@ export default function ManageBookings() {
     loading: bookingLoading,
     refetch,
   } = useBookingData()
-  const { handleChangeBookingState, acceptLoading, declineLoading } = useBookingState()
+  const { handleChangeBookingState, acceptLoading, declineLoading, acceptedCarId, declinedCarId } =
+    useBookingState()
   const user = useUserContext()
 
   if (bookingLoading) return <Spinner />
@@ -71,6 +72,9 @@ export default function ManageBookings() {
 
           const isLast = index === bookingData.length - 1
 
+          const isAcceptLoading = acceptLoading && acceptedCarId === data.id
+          const isDeclineLoading = declineLoading && declinedCarId === data.id
+
           return (
             <div key={data.id}>
               <BookCarDetails {...bookingDetails}>
@@ -81,9 +85,9 @@ export default function ManageBookings() {
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.PRIMARY}
                         onClick={() => handleChangeBookingState(data.id, 'ACCEPTED', refetch)}
-                        disabled={acceptLoading}
+                        disabled={isAcceptLoading}
                       >
-                        {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
+                        {isAcceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
                       </Button>
                     </li>
                     <li>
@@ -91,9 +95,9 @@ export default function ManageBookings() {
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
                         onClick={() => handleChangeBookingState(data.id, 'DECLINED', refetch)}
-                        disabled={declineLoading}
+                        disabled={isDeclineLoading}
                       >
-                        {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
+                        {isDeclineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
                       </Button>
                     </li>
                   </menu>

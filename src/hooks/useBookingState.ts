@@ -19,15 +19,18 @@ export default function useBookingState() {
   const [acceptLoading, setAcceptLoading] = useState(false)
   const [pickupLoading, setPickupLoading] = useState(false)
   const [returnLoading, setReturnLoading] = useState(false)
+  const [acceptedCarId, setAcceptedCarId] = useState<number | null>(null)
+  const [declinedCarId, setDeclinedCarId] = useState<number | null>(null)
 
   async function handleChangeBookingState(
-    id: number | string,
+    id: number,
     action: Exclude<keyof typeof BookingState, 'PENDING'>,
     refetch: () => void,
   ) {
     switch (action) {
       case 'DECLINED': {
         setDeclineLoading(true)
+        setDeclinedCarId(id)
         const declineStatus = await changeBookingState(id, BookingState.DECLINED)
         if (declineStatus === 200) {
           toast(requestDeclined)
@@ -41,6 +44,7 @@ export default function useBookingState() {
 
       case 'ACCEPTED': {
         setAcceptLoading(true)
+        setAcceptedCarId(id)
         const acceptStatus = await changeBookingState(id, BookingState.ACCEPTED)
         if (acceptStatus === 200) {
           toast(requestAccepted)
@@ -83,5 +87,13 @@ export default function useBookingState() {
     }
   }
 
-  return { handleChangeBookingState, acceptLoading, declineLoading, pickupLoading, returnLoading }
+  return {
+    handleChangeBookingState,
+    acceptLoading,
+    declineLoading,
+    pickupLoading,
+    returnLoading,
+    acceptedCarId,
+    declinedCarId,
+  }
 }
