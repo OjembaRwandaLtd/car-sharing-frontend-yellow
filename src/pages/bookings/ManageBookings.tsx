@@ -32,18 +32,16 @@ export default function ManageBookings() {
 
   if (!bookingData) return
 
-  // const myBookings = bookingData.filter(booking => {
-  //   const ownBookings = booking.car.owner.id === user.id
-  //   const isNotDeclined = booking.state !== 'DECLINED'
+  const myBookings = bookingData.filter(booking => {
+    const ownBookings = booking.car.owner.id === user.id
+    const isNotDeclined = booking.state !== 'DECLINED'
 
-  //   const currentDate = new Date()
-  //   const expiredDate = new Date(booking.endDate)
+    const currentDate = new Date()
+    const expiredDate = new Date(booking.endDate)
 
-  //   const isNotExpired = currentDate < expiredDate
-
-  //   return []
-  // })
-  const myBookings = [] as BookingWithReferences[]
+    const isNotExpired = currentDate < expiredDate
+    return ownBookings && isNotDeclined && isNotExpired
+  })
 
   return (
     <main className="flex flex-col items-center justify-center">
