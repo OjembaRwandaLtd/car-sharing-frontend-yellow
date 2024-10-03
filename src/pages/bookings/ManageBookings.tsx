@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-lines-per-function */
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
@@ -9,6 +10,8 @@ import useBookingState from '../../hooks/useBookingState'
 import NoBookings from './NoBookings'
 import { useUserContext } from '../../contexts/UserContext'
 import { getDateAndTime } from '../../util/functions'
+import { BookingWithReferences } from '../../types/apiTypes'
+import { Links } from '../../routes/router'
 
 export default function ManageBookings() {
   const {
@@ -29,17 +32,18 @@ export default function ManageBookings() {
 
   if (!bookingData) return
 
-  const myBookings = bookingData.filter(booking => {
-    const ownBookings = booking.car.owner.id === user.id
-    const isNotDeclined = booking.state !== 'DECLINED'
+  // const myBookings = bookingData.filter(booking => {
+  //   const ownBookings = booking.car.owner.id === user.id
+  //   const isNotDeclined = booking.state !== 'DECLINED'
 
-    const currentDate = new Date()
-    const expiredDate = new Date(booking.endDate)
+  //   const currentDate = new Date()
+  //   const expiredDate = new Date(booking.endDate)
 
-    const isNotExpired = currentDate < expiredDate
+  //   const isNotExpired = currentDate < expiredDate
 
-    return ownBookings && isNotDeclined && isNotExpired
-  })
+  //   return []
+  // })
+  const myBookings = [] as BookingWithReferences[]
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -51,6 +55,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
+      {myBookings.length === 0 && <NoBookings />}
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
           const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
