@@ -4,7 +4,7 @@ import { useBookings, useCarTypes, useUsers, useAddBooking, useCars } from '../.
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import Spinner from '../../assets/Spinner'
-import { CarDto } from '../../types/apiTypes'
+import { BookingState, CarDto } from '../../types/apiTypes'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import { Links } from '../../routes/router'
 import { useToast } from '@chakra-ui/react'
@@ -58,9 +58,11 @@ export default function AvailableCars() {
   }
 
   const bookedCarIds = allBookings
-    ?.filter(booking => booking.endDate > startDate)
+    ?.filter(booking => booking.endDate > startDate && booking.state !== BookingState.DECLINED)
     .map(booking => booking.carId)
+
   const availableCars = allCars.filter(car => !bookedCarIds?.includes(car.id))
+
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)
