@@ -45,7 +45,7 @@ export default function CarPickedUp({
       {!currentBookingState?.isCarUsed && <p className={moniMustardColor}>Car was picked up.</p>}
       <menu className="flex flex-col gap-4">
         {currentBookingState?.isCarUsed && (
-          <menu>
+          <>
             <li>
               <Button
                 behavior={ButtonBehavior.BUTTON}
@@ -66,7 +66,7 @@ export default function CarPickedUp({
                 Lock
               </Button>
             </li>
-          </menu>
+          </>
         )}
         {!currentBookingState?.isCarUsed && (
           <li>
