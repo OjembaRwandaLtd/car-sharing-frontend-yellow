@@ -40,8 +40,7 @@ export default function ManageBookings() {
     const expiredDate = new Date(booking.endDate)
 
     const isNotExpired = currentDate < expiredDate
-
-    return []
+    return ownBookings && isNotDeclined && isNotExpired
   })
 
   return (
