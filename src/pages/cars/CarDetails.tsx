@@ -32,7 +32,7 @@ export default function CarDetails() {
 
   return (
     <main className="px-5 py-8 text-moni-gray-100">
-      <div className="flex items-center">
+      <div className="mb-9 flex items-center lg:mb-16">
         <Link to=".." relative="path">
           <ChevronBackIcon />
         </Link>
@@ -40,7 +40,7 @@ export default function CarDetails() {
       </div>
       <figure className="md:mt-10 md:flex md:items-center md:justify-center md:gap-32">
         <img
-          className="my-4 h-52 w-80 object-cover md:w-96 lg:animate-moveCar lg:drop-shadow-blue"
+          className="my-4 h-52 w-80 object-cover md:w-96 lg:h-60 lg:animate-moveCar lg:drop-shadow-blue"
           src={carImage}
           alt="car"
         />
