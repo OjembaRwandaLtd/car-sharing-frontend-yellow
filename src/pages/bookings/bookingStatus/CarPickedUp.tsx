@@ -24,6 +24,7 @@ interface CarPickedUpProps {
   ) => void
   setCurrentBookingState: React.Dispatch<React.SetStateAction<UsedCarsData | undefined>>
 }
+
 export default function CarPickedUp({
   containerStyles,
   initialCarState,
