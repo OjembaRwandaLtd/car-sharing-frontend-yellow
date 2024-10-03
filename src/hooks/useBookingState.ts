@@ -1,5 +1,5 @@
 import { useToast } from '@chakra-ui/react'
-import { BookingState } from '../types/apiTypes'
+import { BookingState, UsedCarsData } from '../types/apiTypes'
 import { useState } from 'react'
 import {
   carNotPickedUp,
@@ -12,6 +12,7 @@ import {
   requestNotDeclined,
 } from '../chakra/toastMessages'
 import changeBookingState from '../util/changeBookingState'
+import { currentData } from '../pages/bookings/BookingStatusDetails'
 
 export default function useBookingState() {
   const toast = useToast()
@@ -61,6 +62,10 @@ export default function useBookingState() {
         const pickupStatus = await changeBookingState(id, BookingState.PICKED_UP)
         if (pickupStatus === 200) {
           toast(carPickedUp)
+          const newData: UsedCarsData = { bookingId: id, isCarUsed: false }
+          const updatedData = [...currentData, newData]
+          localStorage.setItem('usedCars', JSON.stringify(updatedData))
+          window.location.reload()
           refetch()
         } else {
           toast(carNotPickedUp)
@@ -74,6 +79,9 @@ export default function useBookingState() {
         const returnStatus = await changeBookingState(id, BookingState.RETURNED)
         if (returnStatus === 200) {
           toast(carReturned)
+          const updatedData = currentData.filter(data => data.bookingId !== id)
+          localStorage.setItem('usedCars', JSON.stringify(updatedData))
+          window.location.reload()
           refetch()
         } else {
           toast(carNotReturned)
