@@ -70,6 +70,7 @@ export default function MyBookings() {
                   bookingId={booking.id}
                   refetch={refetch}
                   carId={booking.car.id}
+                  carState={booking.car.state}
                 />
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}

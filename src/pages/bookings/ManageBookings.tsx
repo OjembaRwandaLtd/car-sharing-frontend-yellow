@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable max-lines-per-function */
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
@@ -9,6 +10,8 @@ import useBookingState from '../../hooks/useBookingState'
 import NoBookings from './NoBookings'
 import { useUserContext } from '../../contexts/UserContext'
 import { getDateAndTime } from '../../util/functions'
+import { BookingWithReferences } from '../../types/apiTypes'
+import { Links } from '../../routes/router'
 
 export default function ManageBookings() {
   const {
@@ -17,7 +20,8 @@ export default function ManageBookings() {
     loading: bookingLoading,
     refetch,
   } = useBookingData()
-  const { handleChangeBookingState, acceptLoading, declineLoading } = useBookingState()
+  const { handleChangeBookingState, acceptLoading, declineLoading, acceptedCarId, declinedCarId } =
+    useBookingState()
   const user = useUserContext()
 
   if (bookingLoading) return <Spinner />
@@ -28,17 +32,18 @@ export default function ManageBookings() {
 
   if (!bookingData) return
 
-  const myBookings = bookingData.filter(booking => {
-    const ownBookings = booking.car.owner.id === user.id
-    const isNotDeclined = booking.state !== 'DECLINED'
+  // const myBookings = bookingData.filter(booking => {
+  //   const ownBookings = booking.car.owner.id === user.id
+  //   const isNotDeclined = booking.state !== 'DECLINED'
 
-    const currentDate = new Date()
-    const expiredDate = new Date(booking.endDate)
+  //   const currentDate = new Date()
+  //   const expiredDate = new Date(booking.endDate)
 
-    const isNotExpired = currentDate < expiredDate
+  //   const isNotExpired = currentDate < expiredDate
 
-    return ownBookings && isNotDeclined && isNotExpired
-  })
+  //   return []
+  // })
+  const myBookings = [] as BookingWithReferences[]
 
   return (
     <main className="flex flex-col items-center justify-center">
@@ -50,6 +55,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
+      {myBookings.length === 0 && <NoBookings />}
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
           const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
@@ -71,6 +77,9 @@ export default function ManageBookings() {
 
           const isLast = index === bookingData.length - 1
 
+          const isAcceptLoading = acceptLoading && acceptedCarId === data.id
+          const isDeclineLoading = declineLoading && declinedCarId === data.id
+
           return (
             <div key={data.id}>
               <BookCarDetails {...bookingDetails}>
@@ -81,9 +90,9 @@ export default function ManageBookings() {
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.PRIMARY}
                         onClick={() => handleChangeBookingState(data.id, 'ACCEPTED', refetch)}
-                        disabled={acceptLoading}
+                        disabled={isAcceptLoading}
                       >
-                        {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
+                        {isAcceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
                       </Button>
                     </li>
                     <li>
@@ -91,9 +100,9 @@ export default function ManageBookings() {
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
                         onClick={() => handleChangeBookingState(data.id, 'DECLINED', refetch)}
-                        disabled={declineLoading}
+                        disabled={isDeclineLoading}
                       >
-                        {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
+                        {isDeclineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
                       </Button>
                     </li>
                   </menu>

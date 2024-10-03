@@ -12,10 +12,10 @@ import {
   carUnlockError,
 } from '../chakra/toastMessages'
 
-export default function useChangeCarState() {
+export default function useChangeCarState({ carState }: { carState: CarState }) {
   const toast = useToast()
   const [isCarUsed, setIsCarUsed] = useState(false)
-  const [carState, setCarState] = useState(CarState.LOCKED)
+  const [initialCarState, setInitialCarState] = useState(carState)
 
   async function handleLockCar(carId: number) {
     try {
@@ -29,7 +29,7 @@ export default function useChangeCarState() {
 
       if (response.status === 200) {
         setIsCarUsed(true)
-        setCarState(CarState.LOCKED)
+        setInitialCarState(CarState.LOCKED)
         toast(carLocked)
         return
       } else {
@@ -52,7 +52,7 @@ export default function useChangeCarState() {
 
       if (response.status === 200) {
         setIsCarUsed(true)
-        setCarState(CarState.UNLOCKED)
+        setInitialCarState(CarState.UNLOCKED)
         toast(carUnlocked)
         return
       } else {
@@ -63,5 +63,5 @@ export default function useChangeCarState() {
     }
   }
 
-  return { isCarUsed, setIsCarUsed, carState, handleLockCar, handleUnlockCar }
+  return { initialCarState, isCarUsed, setIsCarUsed, handleLockCar, handleUnlockCar }
 }

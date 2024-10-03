@@ -109,9 +109,15 @@ interface BookingStatusDetailsProps {
   state: BookingState
   startTime: string
   startDate: string
-  bookingId: number | string
+  bookingId: number
   refetch: () => void
   carId: number
+  carState: CarState
+}
+
+interface UsedCarsData {
+  bookingId: number
+  isCarUsed: boolean
 }
 
 export type {
@@ -129,5 +135,6 @@ export type {
   UserContextType,
   AddBookingDto,
   BookingStatusDetailsProps,
+  UsedCarsData,
 }
 export { BookingState, CarState }
