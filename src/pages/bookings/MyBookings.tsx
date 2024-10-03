@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Spinner from '../../assets/Spinner'
 import BookCarDetails from '../../components/UI/BookCarDetails'
 import { useUserContext } from '../../contexts/UserContext'
@@ -14,6 +15,15 @@ export default function MyBookings() {
     refetch,
   } = useBookingData()
   const user = useUserContext()
+
+  useEffect(() => {
+    const controller = new AbortController()
+    const signal = controller.signal
+    refetch({ signal })
+    return () => {
+      controller.abort()
+    }
+  }, [])
 
   if (bookingLoading) return <Spinner />
 
