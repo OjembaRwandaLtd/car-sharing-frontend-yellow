@@ -105,6 +105,21 @@ interface UserContextType {
   setUserCars: Dispatch<SetStateAction<CarDto[]>>
 }
 
+interface BookingStatusDetailsProps {
+  state: BookingState
+  startTime: string
+  startDate: string
+  bookingId: number
+  refetch: () => void
+  carId: number
+  carState: CarState
+}
+
+interface UsedCarsData {
+  bookingId: number
+  isCarUsed: boolean
+}
+
 export type {
   CarDto,
   NewCarDto,
@@ -119,5 +134,7 @@ export type {
   AddNewCarDto,
   UserContextType,
   AddBookingDto,
+  BookingStatusDetailsProps,
+  UsedCarsData,
 }
 export { BookingState, CarState }
