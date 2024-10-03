@@ -60,7 +60,9 @@ export default function AvailableCars() {
   const bookedCarIds = allBookings
     ?.filter(booking => booking.endDate > startDate)
     .map(booking => booking.carId)
+
   const availableCars = allCars.filter(car => !bookedCarIds?.includes(car.id))
+
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)
