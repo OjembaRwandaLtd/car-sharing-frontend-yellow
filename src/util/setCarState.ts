@@ -18,6 +18,6 @@ export const setCarState = async (id: number, newState: CarState): Promise<void>
   })
 
   if (!response.ok) {
-    throw new Error('Could not change car state.')
+    throw new Error()
   }
 }

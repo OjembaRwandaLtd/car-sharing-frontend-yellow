@@ -66,7 +66,7 @@ export default function AvailableCars() {
   function getCarDetails(car: CarDto) {
     const user = users?.find(user => user.id === car.ownerId)
     const carType = carTypes?.find(type => type.id === car.carTypeId)
-    if (!carType || !user) throw new Error('Car type or user not found')
+    if (!carType || !user) throw new Error()
     return { user, carType }
   }
 

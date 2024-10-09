@@ -18,6 +18,6 @@ export const setBookingState = async (id: number, newState: BookingState): Promi
   })
 
   if (!response.ok) {
-    throw new Error('Could not change booking state.')
+    throw new Error()
   }
 }

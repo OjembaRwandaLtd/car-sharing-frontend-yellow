@@ -26,7 +26,7 @@ export default function UserContextProvider({ children }: UserContextProviderPro
 export function useUserContext() {
   const user = useContext(UserContext)
   if (!user) {
-    throw new Error('useUserContext must be used within a UserContextProvider')
+    throw new Error()
   }
 
   return user
