@@ -23,11 +23,11 @@ export default function MyCars() {
     }
   }, [])
 
-  if (!loggedUser) throw new Error('You must login first')
+  if (!loggedUser) throw new Error()
 
   if (carsLoading || carTypesLoading) return <Spinner />
 
-  if (carsError || carTypesError || !cars || !carTypes) throw new Error('Could not fetch cars')
+  if (carsError || carTypesError || !cars || !carTypes) throw new Error()
 
   if (!cars.length || !carTypes.length) return <CarsNotFound />
 

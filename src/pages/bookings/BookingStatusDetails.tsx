@@ -50,7 +50,7 @@ export default function BookingStatusDetails({
     case BookingState.DECLINED:
       return (
         <div className={containerStyles}>
-          <p className="text-red-400">Booking request declined.</p>
+          <p className="font-medium text-red-300">Booking request declined.</p>
         </div>
       )
     case BookingState.PENDING:

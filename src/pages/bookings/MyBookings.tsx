@@ -27,7 +27,7 @@ export default function MyBookings() {
 
   if (bookingLoading) return <Spinner />
 
-  if (bookingError) throw new Error('Could not find booking details')
+  if (bookingError) throw new Error()
 
   if (!bookingData) return
 
