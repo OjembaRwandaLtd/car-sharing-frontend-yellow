@@ -53,7 +53,7 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      {myBookings.length === 0 && <NoBookings />}
+      {!myBookings.length && <NoBookings />}
       <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
           const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =

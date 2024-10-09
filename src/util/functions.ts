@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 import { currentData } from '../pages/bookings/BookingStatusDetails'
 import { UsedCarsData } from '../types/apiTypes'
 
-export function getDateAndTime(timestamp: Date) {
+function getDateAndTime(timestamp: Date) {
   const dateTime = dayjs(timestamp.toString())
   const formattedDate = dateTime.format('DD MMM YYYY')
   const formattedTime = dateTime.format('HH:mm')
@@ -10,7 +10,7 @@ export function getDateAndTime(timestamp: Date) {
   return { formattedDate, formattedTime }
 }
 
-export function handleUseCar(
+function handleUseCar(
   bookingId: number,
   setCurrentBookingState: (value: React.SetStateAction<UsedCarsData | undefined>) => void,
 ) {
@@ -26,3 +26,5 @@ export function handleUseCar(
   setCurrentBookingState(newData.find(data => data.bookingId === bookingId))
   localStorage.setItem('usedCars', JSON.stringify(newData))
 }
+
+export { getDateAndTime, handleUseCar }
