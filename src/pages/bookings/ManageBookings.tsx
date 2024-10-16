@@ -1,13 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable max-lines-per-function */
 import { Link } from 'react-router-dom'
 import { ChevronBackIcon } from '../../assets/ChevronBackIcon'
 import useBookingData from '../../hooks/useBookings'
 import BookCarDetails from '../../components/UI/BookCarDetails'
 import Spinner from '../../assets/Spinner'
-import useDateTime from '../../hooks/useDateTime'
 import Button, { ButtonBehavior, ButtonStyles } from '../../components/UI/Button'
 import useBookingState from '../../hooks/useBookingState'
 import NoBookings from './NoBookings'
 import { useUserContext } from '../../contexts/UserContext'
+import { getDateAndTime } from '../../util/functions'
 
 export default function ManageBookings() {
   const {
@@ -16,16 +18,15 @@ export default function ManageBookings() {
     loading: bookingLoading,
     refetch,
   } = useBookingData()
-  const { getDate, getTime } = useDateTime()
-  const { handleChangeBookingState, acceptLoading, declineLoading } = useBookingState()
+  const { handleChangeBookingState, acceptLoading, declineLoading, acceptedCarId, declinedCarId } =
+    useBookingState()
   const user = useUserContext()
 
   if (bookingLoading) return <Spinner />
 
-  if (bookingError) throw new Error('Could not find booking details')
+  if (bookingError) throw new Error()
 
   if (bookingData?.length === 0) return <NoBookings />
-
   if (!bookingData) return
 
   const myBookings = bookingData.filter(booking => {
@@ -36,7 +37,6 @@ export default function ManageBookings() {
     const expiredDate = new Date(booking.endDate)
 
     const isNotExpired = currentDate < expiredDate
-
     return ownBookings && isNotDeclined && isNotExpired
   })
 
@@ -50,20 +50,30 @@ export default function ManageBookings() {
           MANAGE BOOKINGS
         </h1>
       </div>
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 md:grid-cols-3">
+      {!myBookings.length && <NoBookings />}
+      <div className="grid w-full grid-cols-1 sm:grid-cols-2 sm:gap-2 sm:px-6 lg:grid-cols-3">
         {myBookings.map((data, index) => {
+          const { formattedDate: formattedStartDate, formattedTime: formattedStartTime } =
+            getDateAndTime(data.startDate)
+
+          const { formattedDate: formattedEndDate, formattedTime: formattedEndTime } =
+            getDateAndTime(data.endDate)
+
           const bookingDetails = {
             carTypeId: data.car.carTypeId,
             carName: data.car.name,
             user: data.renter.name,
             isOwner: false,
-            startDate: getDate(data.startDate.toString()),
-            endDate: getDate(data.endDate.toString()),
-            startTime: getTime(data.startDate.toString()),
-            endTime: getTime(data.endDate.toString()),
+            startDate: formattedStartDate,
+            startTime: formattedStartTime,
+            endDate: formattedEndDate,
+            endTime: formattedEndTime,
           }
 
           const isLast = index === bookingData.length - 1
+
+          const isAcceptLoading = acceptLoading && acceptedCarId === data.id
+          const isDeclineLoading = declineLoading && declinedCarId === data.id
 
           return (
             <div key={data.id}>
@@ -74,27 +84,30 @@ export default function ManageBookings() {
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.PRIMARY}
-                        onClick={() => handleChangeBookingState(data.id, 'ACCEPT', refetch)}
-                        disabled={acceptLoading}
+                        onClick={() => handleChangeBookingState(data.id, 'ACCEPTED', refetch)}
+                        disabled={isAcceptLoading}
                       >
-                        {acceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
+                        {isAcceptLoading ? <Spinner className="h-5 w-5" /> : 'Accept'}
                       </Button>
                     </li>
                     <li>
                       <Button
                         behavior={ButtonBehavior.BUTTON}
                         customStyles={ButtonStyles.SECONDARY}
-                        onClick={() => handleChangeBookingState(data.id, 'DECLINE', refetch)}
-                        disabled={declineLoading}
+                        onClick={() => handleChangeBookingState(data.id, 'DECLINED', refetch)}
+                        disabled={isDeclineLoading}
                       >
-                        {declineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
+                        {isDeclineLoading ? <Spinner className="h-5 w-5" /> : 'Decline'}
                       </Button>
                     </li>
                   </menu>
                 )}
 
-                {data.state !== 'PENDING' && (
+                {data.state === 'ACCEPTED' && (
                   <p className="my-8 text-sm text-moni-mustard-200">Booking Accepted</p>
+                )}
+                {data.state === 'RETURNED' && (
+                  <p className="my-8 text-sm text-moni-mustard-200">Car was returned</p>
                 )}
               </BookCarDetails>
               {!isLast && <hr className="mx-4 border-moni-gray-100 sm:hidden" />}

@@ -29,8 +29,11 @@ export default function DateInput({ placeholder, name, setValue, value }: DateIn
         placeholder={placeholder}
         behavior={InputBehavior.INPUT}
         name={name}
-        value={value?.format('MM/DD/YYYY hh:mm A')}
+        value={value ? value.format('DD/MM/YYYY hh:mm A') : ''}
+        onChange={() => null}
         onClick={() => setOpen(true)}
+        autoComplete="off"
+        required
       />
       {open && (
         <div className="md: absolute inset-x-4 top-20 max-h-screen overflow-hidden md:mx-auto md:h-5/6 md:w-1/3 md:overflow-auto">
