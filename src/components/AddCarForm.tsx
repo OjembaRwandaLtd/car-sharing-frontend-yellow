@@ -62,8 +62,8 @@ export default function AddCarForm({ execute }: AddCarFormProps) {
   }
 
   if (loading) return <Spinner />
-  if (error) throw new Error("Couldn't fetch car types")
-  if (!carTypes) throw new Error('Car types not found')
+  if (error) throw new Error()
+  if (!carTypes) throw new Error()
   if (carTypes.length === 0) return <p>Sorry could not find car type</p>
 
   return (

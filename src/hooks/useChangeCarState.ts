@@ -32,9 +32,8 @@ export default function useChangeCarState({ carState }: { carState: CarState }) 
         setInitialCarState(CarState.LOCKED)
         toast(carLocked)
         return
-      } else {
-        toast(carNotLocked)
       }
+      toast(carNotLocked)
     } catch (error) {
       toast(carLockError)
     }

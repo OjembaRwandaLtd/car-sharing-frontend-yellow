@@ -32,7 +32,7 @@ export default function BookCarDetails({
   }
 
   if (carTypeError) {
-    throw new Error('Could not get car type')
+    throw new Error()
   }
   if (!carType) {
     return <p>No car yet</p>
